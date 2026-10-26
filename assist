@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard de Assistências | Cast Móveis</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- PapaParse para ler o CSV do Google Sheets -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f5f9;
+    }
+    .sidebar-gradient {
+      background: linear-gradient(180deg, #0f2537 0%, #091724 100%);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+    }
+    .critical-pulse {
+      animation: pulse-red 2s infinite;
+    }
+  </style>
+</head>
+<body class="flex h-screen overflow-hidden text-slate-800">
+
+  <!-- MENU LATERAL (ESTILO DO PRINT) -->
+  <aside class="w-60 sidebar-gradient text-white flex flex-col justify-between shrink-0 shadow-xl z-20">
+    <div>
+      <!-- Logo / Cabeçalho Lateral -->
+      <div class="p-5 flex items-center gap-3 border-b border-slate-700/60">
+        <div class="w-10 h-10 rounded-lg bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400">
+          <i data-lucide="wrench" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="font-bold text-base tracking-wide text-white leading-tight">CAST MÓVEIS</h2>
+          <span class="text-[11px] text-sky-400 font-medium uppercase tracking-wider">Pós-Venda & Assist.</span>
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <nav class="mt-4 px-3 space-y-1">
+        <a href="#" onclick="switchView('overview')" id="nav-overview" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-sky-600/30 text-sky-300 border-l-4 border-sky-400 font-medium text-sm transition">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Visão Geral
+        </a>
+        <a href="#tabela-pendentes" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white font-medium text-sm transition">
+          <i data-lucide="clock" class="w-4 h-4"></i> Pendentes & Críticas
+        </a>
+      </nav>
+    </div>
+
+    <!-- Rodapé Lateral Decorativo -->
+    <div class="p-4 m-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
+      <div class="flex items-center gap-2 text-xs text-sky-400 font-semibold mb-1">
+        <i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin" id="sync-icon"></i>
+        <span id="sync-status">Sincronizado</span>
+      </div>
+      <p class="text-[11px] text-slate-400 leading-relaxed">
+        GESTÃO EM MOVIMENTO PARA GRANDES RESULTADOS
+      </p>
+      <div class="mt-2 pt-2 border-t border-slate-700/60 flex justify-between items-center text-[10px] text-slate-400">
+        <span>Última atualização:</span>
+        <span id="last-update" class="font-mono text-slate-200">--:--</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="flex-1 flex flex-col overflow-y-auto custom-scrollbar">
+    
+    <!-- TOPO: TÍTULO + FILTROS -->
+    <header class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-10 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Dashboard de Assistências</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Visão integrada de performance de pós-venda, SLA de atendimento e controle de pendências</p>
+        </div>
+
+        <!-- Filtros Superiores -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex flex-col">
+            <label class="text-[10px] font-semibold uppercase text-slate-400 mb-0.5">Período (Inclusão)</label>
+            <select id="filter-month" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+              <option value="ALL">Todos os Meses</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col">
+            <label class="text-[10px] font-semibold uppercase text-slate-400 mb-0.5">Loja / Unidade</label>
+            <select id="filter-store" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+              <option value="ALL">Todas</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col">
+            <label class="text-[10px] font-semibold uppercase text-slate-400 mb-0.5">Responsável</label>
+            <select id="filter-user" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+              <option value="ALL">Todos</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col">
+            <label class="text-[10px] font-semibold uppercase text-slate-400 mb-0.5">Cidade</label>
+            <select id="filter-city" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+              <option value="ALL">Todas</option>
+            </select>
+          </div>
+
+          <button onclick="resetFilters()" class="mt-3.5 text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-md font-medium transition flex items-center gap-1">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Limpar
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- CORPO DO DASHBOARD -->
+    <div class="p-6 space-y-6">
+
+      <!-- LINHA 1: 6 CARDS DE KPI (IDÊNTICO AO LAYOUT DO PRINT) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+        
+        <!-- KPI 1: Total Registradas -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <i data-lucide="clipboard-list" class="w-4 h-4 text-sky-600"></i> Total de Assistências
+            </div>
+            <div class="text-2xl font-extrabold text-slate-800 mt-2" id="kpi-total">0</div>
+            <div class="text-[11px] text-emerald-600 font-semibold mt-1" id="kpi-total-sub">100% da base filtrada</div>
+          </div>
+          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div class="bg-sky-600 h-full rounded-full" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Assistências Encerradas -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Assist. Encerradas
+            </div>
+            <div class="text-2xl font-extrabold text-slate-800 mt-2" id="kpi-closed">0</div>
+            <div class="text-[11px] text-emerald-600 font-semibold mt-1" id="kpi-closed-rate">▲ 0% taxa de conclusão</div>
+          </div>
+          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div id="bar-closed" class="bg-emerald-500 h-full rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 3: Assistências em Aberto (Pendentes + Em Andamento) -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <i data-lucide="folder-open" class="w-4 h-4 text-amber-500"></i> Assist. Abertas
+            </div>
+            <div class="text-2xl font-extrabold text-slate-800 mt-2" id="kpi-open">0</div>
+            <div class="text-[11px] text-amber-600 font-semibold mt-1" id="kpi-open-sub">Pendentes + Em Andamento</div>
+          </div>
+          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div id="bar-open" class="bg-amber-500 h-full rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Prazo Médio para Encerramento -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <i data-lucide="timer" class="w-4 h-4 text-indigo-500"></i> Prazo Médio (SLA)
+            </div>
+            <div class="text-2xl font-extrabold text-slate-800 mt-2" id="kpi-avg-days">0 dias</div>
+            <div class="text-[11px] text-slate-500 font-medium mt-1">Inclusão até conclusão</div>
+          </div>
+          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div class="bg-indigo-500 h-full rounded-full" style="width: 70%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 5: DESTAQUE CRÍTICO (> 20 DIAS SEM RESOLUÇÃO) -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border-2 border-red-400 critical-pulse flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-1.5 text-red-600 text-xs font-bold">
+                <i data-lucide="alert-triangle" class="w-4 h-4"></i> Críticas (> 20 Dias)
+              </span>
+              <span class="bg-red-100 text-red-700 text-[10px] font-extrabold px-1.5 py-0.5 rounded">AÇÃO URGENTE</span>
+            </div>
+            <div class="text-2xl font-extrabold text-red-600 mt-2" id="kpi-critical">0</div>
+            <div class="text-[11px] text-red-500 font-semibold mt-1" id="kpi-critical-sub">0% das abertas</div>
+          </div>
+          <div class="w-full bg-red-100 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div id="bar-critical" class="bg-red-600 h-full rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 6: SLA Dentro dos 20 Dias -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <i data-lucide="shield-check" class="w-4 h-4 text-teal-600"></i> Resolução ≤ 20 Dias
+            </div>
+            <div class="text-2xl font-extrabold text-slate-800 mt-2" id="kpi-sla">0%</div>
+            <div class="text-[11px] text-teal-600 font-semibold mt-1">Encerradas no prazo meta</div>
+          </div>
+          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div id="bar-sla" class="bg-teal-500 h-full rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LINHA 2 DE GRÁFICOS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        
+        <!-- Evolução Mensal: Abertas x Encerradas (5 Colunas) -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80 lg:col-span-5 flex flex-col">
+          <div class="mb-3">
+            <h3 class="text-sm font-bold text-slate-800">Evolução por Período: Abertas x Encerradas</h3>
+            <p class="text-[11px] text-slate-400">Comparativo mensal de volume de entrada vs. concluídas</p>
+          </div>
+          <div class="relative flex-1 min-h-[250px]">
+            <canvas id="chartEvolution"></canvas>
+          </div>
+        </div>
+
+        <!-- Aging das Pendentes: Destaque > 20 dias (4 Colunas) -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80 lg:col-span-4 flex flex-col">
+          <div class="mb-3">
+            <h3 class="text-sm font-bold text-slate-800">Tempo em Aberto (Aging de Pendentes)</h3>
+            <p class="text-[11px] text-slate-400">Destaque em vermelho para assistências acima de 20 dias</p>
+          </div>
+          <div class="relative flex-1 min-h-[250px]">
+            <canvas id="chartAging"></canvas>
+          </div>
+        </div>
+
+        <!-- Assistências por Loja/Unidade (3 Colunas) -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80 lg:col-span-3 flex flex-col">
+          <div class="mb-3">
+            <h3 class="text-sm font-bold text-slate-800">Assistências por Unidade</h3>
+            <p class="text-[11px] text-slate-400">Concluídas vs. Em Aberto por Loja</p>
+          </div>
+          <div class="relative flex-1 min-h-[250px]">
+            <canvas id="chartStore"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LINHA 3 DE GRÁFICOS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        
+        <!-- Distribuição por Status (Rosca) -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80 lg:col-span-4 flex flex-col">
+          <div class="mb-3">
+            <h3 class="text-sm font-bold text-slate-800">Distribuição por Situação</h3>
+            <p class="text-[11px] text-slate-400">Proporção geral das assistências</p>
+          </div>
+          <div class="relative flex-1 min-h-[220px] flex items-center justify-center">
+            <canvas id="chartStatus"></canvas>
+          </div>
+        </div>
+
+        <!-- Prazo Médio e Volume por Responsável -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80 lg:col-span-4 flex flex-col">
+          <div class="mb-3">
+            <h3 class="text-sm font-bold text-slate-800">Pendências por Responsável</h3>
+            <p class="text-[11px] text-slate-400">Colaboradores com chamados em aberto</p>
+          </div>
+          <div class="relative flex-1 min-h-[220px]">
+            <canvas id="chartUser"></canvas>
+          </div>
+        </div>
+
+        <!-- Top Cidades com Ocorrências -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80 lg:col-span-4 flex flex-col">
+          <div class="mb-3">
+            <h3 class="text-sm font-bold text-slate-800">Top Cidades com Assistências</h3>
+            <p class="text-[11px] text-slate-400">Concentração geográfica de atendimentos</p>
+          </div>
+          <div class="relative flex-1 min-h-[220px]">
+            <canvas id="chartCity"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LINHA 4: PAINEL VISUAL DE ASSISTÊNCIAS PENDENTES (DESTAQUE > 20 DIAS) -->
+      <div id="tabela-pendentes" class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/80">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-extrabold text-slate-800">Controle Visual de Assistências em Aberto</h3>
+              <span id="badge-count-open" class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">0 abertas</span>
+            </div>
+            <p class="text-xs text-slate-500">Ordenadas automaticamente da mais antiga (maior atraso) para a mais recente</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <input type="text" id="search-input" oninput="renderPendingTable()" placeholder="Buscar cliente, nº ou contrato..." class="text-xs border border-slate-200 rounded-lg px-3 py-2 w-60 focus:outline-none focus:border-sky-500" />
+            
+            <button onclick="setTableFilter('ALL')" id="btn-filter-all" class="text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 text-white transition">
+              Todas Abertas
+            </button>
+            <button onclick="setTableFilter('CRITICAL')" id="btn-filter-critical" class="text-xs font-semibold px-3 py-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition flex items-center gap-1">
+              <i data-lucide="flame" class="w-3.5 h-3.5"></i> Apenas > 20 Dias
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto max-h-[460px] custom-scrollbar border border-slate-200 rounded-lg">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-50 sticky top-0 z-10 border-b border-slate-200 text-[11px] uppercase text-slate-500 font-bold">
+              <tr>
+                <th class="py-3 px-4">Status / Crítico</th>
+                <th class="py-3 px-3">Nº Assist.</th>
+                <th class="py-3 px-3">Contrato</th>
+                <th class="py-3 px-4">Cliente</th>
+                <th class="py-3 px-3">Cidade</th>
+                <th class="py-3 px-3">Data Inclusão</th>
+                <th class="py-3 px-3 text-center">Dias em Aberto</th>
+                <th class="py-3 px-3">Últ. Agenda</th>
+                <th class="py-3 px-3">Responsável</th>
+                <th class="py-3 px-3">Unidade</th>
+              </tr>
+            </thead>
+            <tbody id="pending-table-body" class="divide-y divide-slate-100 text-xs">
+              <!-- Preenchido via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. CONFIGURAÇÃO DA PLANILHA GOOGLE SHEETS
+    // =========================================================================
+    const SHEET_ID = '1JKBbIzF2yuAj9VqLzfFbCDTz3yN3hvA_oF6Zt6eNU20';
+    const GID = '1364569621';
+    // Link direto de exportação CSV da planilha:
+    const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+
+    let allAssistencias = [];
+    let filteredAssistencias = [];
+    let tableFilterMode = 'ALL'; // 'ALL' ou 'CRITICAL'
+    let charts = {};
+
+    // =========================================================================
+    // 2. FUNÇÕES AUXILIARES DE PARSE (DATAS, CIDADE E LINHAS CONTINUADAS)
+    // =========================================================================
+    function parseDateBR(str) {
+      if (!str) return null;
+      const clean = str.trim();
+      if (clean === '' || clean === '/ /' || clean === '//') return null;
+      const parts = clean.split('/');
+      if (parts.length !== 3) return null;
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const year = parseInt(parts[2], 10);
+      if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+      return new Date(year, month, day);
+    }
+
+    function extractCity(endereco) {
+      if (!endereco) return 'Não Informada';
+      const match = endereco.match(/Cidade:\s*([^,]+)/i);
+      if (match && match[1]) {
+        return match[1].trim().toUpperCase();
+      }
+      return 'Outros';
+    }
+
+    function diffDays(date1, date2) {
+      const oneDay = 24 * 60 * 60 * 1000;
+      return Math.max(0, Math.round((date2 - date1) / oneDay));
+    }
+
+    // =========================================================================
+    // 3. CARREGAMENTO E TRATAMENTO DOS DADOS DO FOCCOLOJAS
+    // =========================================================================
+    function loadSheetData() {
+      Papa.parse(SHEET_CSV_URL, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          processRawRows(results.data);
+        },
+        error: function(err) {
+          console.warn('Erro ao puxar planilha ao vivo (verifique se está publicada na web). Carregando amostra real da planilha...', err);
+          loadFallbackSample();
+        }
+      });
+    }
+
+    function processRawRows(rows) {
+      const grouped = [];
+      let currentItem = null;
+      const today = new Date();
+
+      rows.forEach(row => {
+        const num = (row['Número'] || row['Numero'] || '').toString().trim();
+        const dataAgenda = (row['Data Agenda'] || '').toString().trim();
+        const sitAgenda = (row['Situação Agenda'] || row['Situacao Agenda'] || '').toString().trim();
+
+        // Se tem Número de assistência, é um registro principal
+        if (num !== '') {
+          const dtInclusao = parseDateBR(row['Inclusão'] || row['Inclusao']);
+          const dtConclusao = parseDateBR(row['Conclusão'] || row['Conclusao']);
+          const statusRaw = (row['Sit. Assistência'] || row['Sit. Assistencia'] || 'Pendente').trim();
+          const isClosed = statusRaw.toLowerCase().includes('encerrad') || dtConclusao !== null;
+
+          const diasDecorridos = dtInclusao
+            ? diffDays(dtInclusao, isClosed && dtConclusao ? dtConclusao : today)
+            : 0;
+
+          const mesAnoKey = dtInclusao
+            ? `${dtInclusao.getFullYear()}-${String(dtInclusao.getMonth() + 1).padStart(2, '0')}`
+            : 'Sem Data';
+
+          currentItem = {
+            numero: num,
+            inclusaoStr: (row['Inclusão'] || '').trim(),
+            dtInclusao: dtInclusao,
+            mesAno: mesAnoKey,
+            cliente: (row['Cliente'] || '').trim(),
+            endereco: (row['Endereço'] || '').trim(),
+            cidade: extractCity(row['Endereço'] || ''),
+            contrato: (row['Contrato'] || '-').trim(),
+            situacao: isClosed ? 'Encerrada' : statusRaw,
+            isClosed: isClosed,
+            conclusaoStr: (row['Conclusão'] || '').trim(),
+            dtConclusao: dtConclusao,
+            usuario: (row['Usuário'] || 'Não atribuído').trim(),
+            loja: (row['Loja/Unidade'] || 'Não informada').trim(),
+            dias: diasDecorridos,
+            agendas: []
+          };
+
+          if (dataAgenda) {
+            currentItem.agendas.push({ data: dataAgenda, situacao: sitAgenda });
+          }
+
+          grouped.push(currentItem);
+        } else if (currentItem && dataAgenda !== '') {
+          // Linha de continuação de agendamento da mesma assistência acima
+          currentItem.agendas.push({ data: dataAgenda, situacao: sitAgenda });
+        }
+      });
+
+      allAssistencias = grouped;
+      populateFilters();
+      applyFilters();
+
+      const now = new Date();
+      document.getElementById('last-update').textContent =
+        now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('sync-icon').classList.remove('animate-spin');
+    }
+
+    // =========================================================================
+    // 4. FILTROS DINÂMICOS
+    // =========================================================================
+    function populateFilters() {
+      const months = [...new Set(allAssistencias.map(a => a.mesAno).filter(m => m !== 'Sem Data'))].sort();
+      const stores = [...new Set(allAssistencias.map(a => a.loja))].sort();
+      const users = [...new Set(allAssistencias.map(a => a.usuario))].sort();
+      const cities = [...new Set(allAssistencias.map(a => a.cidade))].sort();
+
+      const monthSelect = document.getElementById('filter-month');
+      monthSelect.innerHTML = '<option value="ALL">Todos os Meses</option>';
+      months.forEach(m => {
+        const [y, mo] = m.split('-');
+        const label = `${mo}/${y}`;
+        monthSelect.innerHTML += `<option value="${m}">${label}</option>`;
+      });
+
+      const storeSelect = document.getElementById('filter-store');
+      storeSelect.innerHTML = '<option value="ALL">Todas</option>';
+      stores.forEach(s => {
+        storeSelect.innerHTML += `<option value="${s}">${s}</option>`;
+      });
+
+      const userSelect = document.getElementById('filter-user');
+      userSelect.innerHTML = '<option value="ALL">Todos</option>';
+      users.forEach(u => {
+        userSelect.innerHTML += `<option value="${u}">${u}</option>`;
+      });
+
+      const citySelect = document.getElementById('filter-city');
+      citySelect.innerHTML = '<option value="ALL">Todas</option>';
+      cities.forEach(c => {
+        citySelect.innerHTML += `<option value="${c}">${c}</option>`;
+      });
+    }
+
+    function applyFilters() {
+      const fMonth = document.getElementById('filter-month').value;
+      const fStore = document.getElementById('filter-store').value;
+      const fUser = document.getElementById('filter-user').value;
+      const fCity = document.getElementById('filter-city').value;
+
+      filteredAssistencias = allAssistencias.filter(a => {
+        if (fMonth !== 'ALL' && a.mesAno !== fMonth) return false;
+        if (fStore !== 'ALL' && a.loja !== fStore) return false;
+        if (fUser !== 'ALL' && a.usuario !== fUser) return false;
+        if (fCity !== 'ALL' && a.cidade !== fCity) return false;
+        return true;
+      });
+
+      updateKPIs();
+      updateCharts();
+      renderPendingTable();
+    }
+
+    function resetFilters() {
+      document.getElementById('filter-month').value = 'ALL';
+      document.getElementById('filter-store').value = 'ALL';
+      document.getElementById('filter-user').value = 'ALL';
+      document.getElementById('filter-city').value = 'ALL';
+      document.getElementById('search-input').value = '';
+      tableFilterMode = 'ALL';
+      applyFilters();
+    }
+
+    // =========================================================================
+    // 5. CÁLCULO DOS KPIS DO TOPO
+    // =========================================================================
+    function updateKPIs() {
+      const total = filteredAssistencias.length;
+      const closedList = filteredAssistencias.filter(a => a.isClosed);
+      const openList = filteredAssistencias.filter(a => !a.isClosed);
+      const criticalList = openList.filter(a => a.dias > 20);
+
+      const closedCount = closedList.length;
+      const openCount = openList.length;
+      const criticalCount = criticalList.length;
+
+      const closedRate = total > 0 ? ((closedCount / total) * 100).toFixed(1) : 0;
+      const openRate = total > 0 ? ((openCount / total) * 100).toFixed(1) : 0;
+      const criticalRate = openCount > 0 ? ((criticalCount / openCount) * 100).toFixed(1) : 0;
+
+      // Prazo Médio para Encerramento
+      const avgDays = closedCount > 0
+        ? (closedList.reduce((acc, item) => acc + item.dias, 0) / closedCount).toFixed(1)
+        : 0;
+
+      // SLA: Encerradas em até 20 dias
+      const closedInSla = closedList.filter(a => a.dias <= 20).length;
+      const slaRate = closedCount > 0 ? ((closedInSla / closedCount) * 100).toFixed(1) : 0;
+
+      document.getElementById('kpi-total').textContent = total.toLocaleString('pt-BR');
+      document.getElementById('kpi-closed').textContent = closedCount.toLocaleString('pt-BR');
+      document.getElementById('kpi-closed-rate').textContent = `▲ ${closedRate}% taxa de conclusão`;
+      document.getElementById('bar-closed').style.width = `${closedRate}%`;
+
+      document.getElementById('kpi-open').textContent = openCount.toLocaleString('pt-BR');
+      document.getElementById('kpi-open-sub').textContent = `${openRate}% do total no período`;
+      document.getElementById('bar-open').style.width = `${openRate}%`;
+
+      document.getElementById('kpi-avg-days').textContent = `${avgDays.toString().replace('.', ',')} dias`;
+
+      document.getElementById('kpi-critical').textContent = criticalCount.toLocaleString('pt-BR');
+      document.getElementById('kpi-critical-sub').textContent = `▲ ${criticalRate}% das pendentes atuais`;
+      document.getElementById('bar-critical').style.width = `${criticalRate}%`;
+
+      document.getElementById('kpi-sla').textContent = `${slaRate.toString().replace('.', ',')}%`;
+      document.getElementById('bar-sla').style.width = `${slaRate}%`;
+    }
+
+    // =========================================================================
+    // 6. GRÁFICOS (CHART.JS)
+    // =========================================================================
+    function updateCharts() {
+      const monthNames = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+      // 1. Evolução por Período (Abertas x Encerradas)
+      const periodMap = {};
+      filteredAssistencias.forEach(a => {
+        if (a.mesAno !== 'Sem Data') {
+          if (!periodMap[a.mesAno]) periodMap[a.mesAno] = { abertas: 0, encerradas: 0 };
+          periodMap[a.mesAno].abertas += 1;
+          if (a.isClosed) periodMap[a.mesAno].encerradas += 1;
+        }
+      });
+
+      const sortedKeys = Object.keys(periodMap).sort();
+      const labelsPeriod = sortedKeys.map(k => {
+        const [y, m] = k.split('-');
+        return `${monthNames[parseInt(m, 10) - 1]}/${y.slice(2)}`;
+      });
+      const dataAbertas = sortedKeys.map(k => periodMap[k].abertas);
+      const dataEncerradas = sortedKeys.map(k => periodMap[k].encerradas);
+
+      renderChart('chartEvolution', {
+        type: 'bar',
+        data: {
+          labels: labelsPeriod,
+          datasets: [
+            {
+              label: 'Assistências Abertas (Entrada)',
+              data: dataAbertas,
+              backgroundColor: '#3b82f6',
+              borderRadius: 4
+            },
+            {
+              label: 'Assistências Encerradas',
+              data: dataEncerradas,
+              backgroundColor: '#10b981',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'top', labels: { boxWidth: 10, font: { size: 11 } } } },
+          scales: {
+            y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      // 2. Aging das Pendentes (Destaque > 20 dias)
+      const openItems = filteredAssistencias.filter(a => !a.isClosed);
+      const b0_10 = openItems.filter(a => a.dias <= 10).length;
+      const b11_20 = openItems.filter(a => a.dias > 10 && a.dias <= 20).length;
+      const b21_30 = openItems.filter(a => a.dias > 20 && a.dias <= 30).length;
+      const b30_plus = openItems.filter(a => a.dias > 30).length;
+
+      renderChart('chartAging', {
+        type: 'bar',
+        data: {
+          labels: ['Até 10 dias (Normal)', '11 a 20 dias (Atenção)', '21 a 30 dias (>20d)', '+ de 30 dias (Crítico)'],
+          datasets: [{
+            label: 'Qtd. Pendentes',
+            data: [b0_10, b11_20, b21_30, b30_plus],
+            backgroundColor: ['#0ea5e9', '#f59e0b', '#f97316', '#ef4444'],
+            borderRadius: 5
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+            y: { grid: { display: false } }
+          }
+        }
+      });
+
+      // 3. Assistências por Unidade
+      const storeMap = {};
+      filteredAssistencias.forEach(a => {
+        const shortName = a.loja.replace('MOVEIS PLANEJADOS E DECORACOES LTDA', '').replace('MOVEIS PLANEJADOS', '').trim();
+        if (!storeMap[shortName]) storeMap[shortName] = { abertas: 0, encerradas: 0 };
+        if (a.isClosed) storeMap[shortName].encerradas++;
+        else storeMap[shortName].abertas++;
+      });
+      const storeLabels = Object.keys(storeMap);
+
+      renderChart('chartStore', {
+        type: 'bar',
+        data: {
+          labels: storeLabels,
+          datasets: [
+            { label: 'Encerradas', data: storeLabels.map(s => storeMap[s].encerradas), backgroundColor: '#0284c7', borderRadius: 4 },
+            { label: 'Em Aberto', data: storeLabels.map(s => storeMap[s].abertas), backgroundColor: '#f97316', borderRadius: 4 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'top', labels: { boxWidth: 10, font: { size: 11 } } } },
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, beginAtZero: true }
+          }
+        }
+      });
+
+      // 4. Rosca por Situação
+      const countEncerradas = filteredAssistencias.filter(a => a.isClosed).length;
+      const countNoPrazo = openItems.filter(a => a.dias <= 20).length;
+      const countAtrasadas20 = openItems.filter(a => a.dias > 20).length;
+
+      renderChart('chartStatus', {
+        type: 'doughnut',
+        data: {
+          labels: ['Encerradas', 'Abertas (≤ 20 dias)', 'Críticas (> 20 dias)'],
+          datasets: [{
+            data: [countEncerradas, countNoPrazo, countAtrasadas20],
+            backgroundColor: ['#10b981', '#3b82f6', '#ef4444'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '65%',
+          plugins: {
+            legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } }
+          }
+        }
+      });
+
+      // 5. Pendências por Responsável
+      const userMap = {};
+      openItems.forEach(a => {
+        const firstTwoNames = a.usuario.split(' ').slice(0, 2).join(' ');
+        userMap[firstTwoNames] = (userMap[firstTwoNames] || 0) + 1;
+      });
+      const sortedUsers = Object.entries(userMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
+
+      renderChart('chartUser', {
+        type: 'bar',
+        data: {
+          labels: sortedUsers.map(u => u[0]),
+          datasets: [{
+            label: 'Pendentes',
+            data: sortedUsers.map(u => u[1]),
+            backgroundColor: '#6366f1',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true }, y: { grid: { display: false } } }
+        }
+      });
+
+      // 6. Top Cidades
+      const cityMap = {};
+      filteredAssistencias.forEach(a => {
+        cityMap[a.cidade] = (cityMap[a.cidade] || 0) + 1;
+      });
+      const sortedCities = Object.entries(cityMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
+
+      renderChart('chartCity', {
+        type: 'bar',
+        data: {
+          labels: sortedCities.map(c => c[0]),
+          datasets: [{
+            label: 'Assistências',
+            data: sortedCities.map(c => c[1]),
+            backgroundColor: '#0ea5e9',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true }, x: { grid: { display: false } } }
+        }
+      });
+    }
+
+    function renderChart(canvasId, config) {
+      if (charts[canvasId]) {
+        charts[canvasId].destroy();
+      }
+      const ctx = document.getElementById(canvasId).getContext('2d');
+      charts[canvasId] = new Chart(ctx, config);
+    }
+
+    // =========================================================================
+    // 7. TABELA VISUAL DE PENDENTES (COM DESTAQUE > 20 DIAS)
+    // =========================================================================
+    function setTableFilter(mode) {
+      tableFilterMode = mode;
+      const btnAll = document.getElementById('btn-filter-all');
+      const btnCrit = document.getElementById('btn-filter-critical');
+
+      if (mode === 'CRITICAL') {
+        btnCrit.className = 'text-xs font-semibold px-3 py-2 rounded-lg bg-red-600 text-white transition flex items-center gap-1';
+        btnAll.className = 'text-xs font-semibold px-3 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+      } else {
+        btnAll.className = 'text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 text-white transition';
+        btnCrit.className = 'text-xs font-semibold px-3 py-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition flex items-center gap-1';
+      }
+      renderPendingTable();
+    }
+
+    function renderPendingTable() {
+      const search = document.getElementById('search-input').value.toLowerCase().trim();
+      let openList = filteredAssistencias.filter(a => !a.isClosed);
+
+      document.getElementById('badge-count-open').textContent = `${openList.length} em aberto`;
+
+      if (tableFilterMode === 'CRITICAL') {
+        openList = openList.filter(a => a.dias > 20);
+      }
+
+      if (search !== '') {
+        openList = openList.filter(a =>
+          a.cliente.toLowerCase().includes(search) ||
+          a.numero.toLowerCase().includes(search) ||
+          a.contrato.toLowerCase().includes(search) ||
+          a.cidade.toLowerCase().includes(search)
+        );
+      }
+
+      // Ordenar das mais antigas (maior número de dias) para as mais novas
+      openList.sort((a, b) => b.dias - a.dias);
+
+      const tbody = document.getElementById('pending-table-body');
+      if (openList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400">Nenhuma assistência pendente encontrada para este filtro.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = openList.map(item => {
+        const isCritical = item.dias > 20;
+        const rowClass = isCritical
+          ? 'bg-red-50/70 hover:bg-red-100/70 font-medium'
+          : 'hover:bg-slate-50';
+
+        const badgeStatus = isCritical
+          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-600 text-white">🔥 +20 DIAS</span>`
+          : item.dias >= 12
+            ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">⚠️ Atenção</span>`
+            : `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-100 text-sky-700">No Prazo</span>`;
+
+        const lastAgenda = item.agendas.length > 0
+          ? `${item.agendas[0].data} (${item.agendas[0].situacao})`
+          : '<span class="text-slate-400">Sem agenda</span>';
+
+        return `
+          <tr class="${rowClass} transition">
+            <td class="py-3 px-4">${badgeStatus}</td>
+            <td class="py-3 px-3 font-mono font-bold text-slate-700">#${item.numero}</td>
+            <td class="py-3 px-3 font-mono text-slate-600">${item.contrato}</td>
+            <td class="py-3 px-4 font-semibold text-slate-800">${item.cliente}</td>
+            <td class="py-3 px-3 text-slate-600">${item.cidade}</td>
+            <td class="py-3 px-3 text-slate-600">${item.inclusaoStr}</td>
+            <td class="py-3 px-3 text-center">
+              <span class="px-2.5 py-1 rounded-md font-extrabold ${isCritical ? 'bg-red-200 text-red-900' : 'bg-slate-100 text-slate-700'}">
+                ${item.dias} dias
+              </span>
+            </td>
+            <td class="py-3 px-3 text-slate-600">${lastAgenda}</td>
+            <td class="py-3 px-3 text-slate-600">${item.usuario.split(' ').slice(0, 2).join(' ')}</td>
+            <td class="py-3 px-3 text-slate-500 text-[11px]">${item.loja.replace('MOVEIS PLANEJADOS E DECORACOES LTDA', '').trim()}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 8. DADOS DE FALLBACK (EXTRAÍDOS DA SUA PLANILHA CASO O CORS BLOQUEIE LOCALMENTE)
+    // =========================================================================
+    function loadFallbackSample() {
+      const sampleRows = [
+        { 'Número': '175388', 'Inclusão': '19/10/2026', 'Cliente': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '', 'Sit. Assistência': 'Em Andamento', 'Conclusão': '/ /', 'Usuário': 'CAMILLY CAROLINE D SILVA', 'Loja/Unidade': 'CAST MOVEIS II', 'Data Agenda': '', 'Situação Agenda': '' },
+        { 'Número': '175085', 'Inclusão': '14/10/2026', 'Cliente': 'LUIS ANTONIO COLARINO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '75701', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '16/10/2026', 'Situação Agenda': 'Atrasado' },
+        { 'Número': '174989', 'Inclusão': '13/10/2026', 'Cliente': 'PAULA LIMA BARRETO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '79302', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '', 'Situação Agenda': '' },
+        { 'Número': '174980', 'Inclusão': '13/10/2026', 'Cliente': 'NICOLAS FLABES MACIEL', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '265201', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '19/10/2026', 'Situação Agenda': 'Realizado' },
+        { 'Número': '174551', 'Inclusão': '07/10/2026', 'Cliente': 'JULIANE PEREIRA SALES NAKAYAMA', 'Endereço': 'Cidade: Tatuí, UF: SP', 'Contrato': '9501', 'Sit. Assistência': 'Encerrada', 'Conclusão': '26/10/2026', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '23/10/2026', 'Situação Agenda': 'Realizado' },
+        { 'Número': '174469', 'Inclusão': '06/10/2026', 'Cliente': 'DIEGO FERNANDES FERRAZZA', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '8701', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '07/10/2026', 'Situação Agenda': 'Atrasado' },
+        { 'Número': '174391', 'Inclusão': '05/10/2026', 'Cliente': 'JULIUS MONSALVO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '230301', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'JOYCE MARA MARQUES BELO', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '20/10/2026', 'Situação Agenda': 'Atrasado' },
+        { 'Número': '174290', 'Inclusão': '05/10/2026', 'Cliente': 'JULIANA OLIVEIRA QUEIROZ', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '29801', 'Sit. Assistência': 'Encerrada', 'Conclusão': '08/10/2026', 'Usuário': 'JOYCE MARA MARQUES BELO', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '07/10/2026', 'Situação Agenda': 'Realizado' },
+        { 'Número': '174120', 'Inclusão': '01/10/2026', 'Cliente': 'MARSAN REFINADORA DE METAIS LTDA', 'Endereço': 'Cidade: SÃO PAULO, UF: SP', 'Contrato': '182301', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '', 'Situação Agenda': '' },
+        { 'Número': '173855', 'Inclusão': '29/09/2026', 'Cliente': 'VANESSA GHISSARDI', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '253302', 'Sit. Assistência': 'Encerrada', 'Conclusão': '30/09/2026', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '29/09/2026', 'Situação Agenda': 'Realizado' },
+        { 'Número': '173810', 'Inclusão': '29/09/2026', 'Cliente': 'RAFAEL MORAES SANTOS', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '76302', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'MURILO SALLUM', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '29/09/2026', 'Situação Agenda': 'Atrasado' },
+        { 'Número': '173799', 'Inclusão': '29/09/2026', 'Cliente': 'AMANDA SAKAGUTHI FIGUEIREDO', 'Endereço': 'Cidade: Votorantim, UF: SP', 'Contrato': '63802', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'LUCAS SALLUM NICOLETTI', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '', 'Situação Agenda': '' },
+        { 'Número': '173775', 'Inclusão': '28/09/2026', 'Cliente': 'MARCOS CHOGI IANO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '261301', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '02/10/2026', 'Situação Agenda': 'Realizado' }
+      ];
+      processRawRows(sampleRows);
+    }
+
+    // Inicializar ícones e dados
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadSheetData();
+      // Auto-refresh a cada 5 minutos para uso em TV
+      setInterval(loadSheetData, 5 * 60 * 1000);
+    });
+  </script>
+</body>
+</html>
