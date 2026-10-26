@@ -116,6 +116,14 @@
             </select>
           </div>
 
+          <!-- NOVO CAMPO: SITUAÇÃO DA ASSISTÊNCIA -->
+          <div class="flex flex-col">
+            <label class="text-[10px] font-semibold uppercase text-slate-400 mb-0.5">Situação</label>
+            <select id="filter-status" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
+              <option value="ALL">Todas</option>
+            </select>
+          </div>
+
           <div class="flex flex-col">
             <label class="text-[10px] font-semibold uppercase text-slate-400 mb-0.5">Cidade</label>
             <select id="filter-city" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-sky-500">
@@ -350,9 +358,7 @@
     const SHEET_ID = '1JKBbIzF2yuAj9VqLzfFbCDTz3yN3hvA_oF6Zt6eNU20';
     const GID = '1364569621';
     
-    // URL 1: Google Visualization API (Mais rápida e estável para navegadores)
     const PRIMARY_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
-    // URL 2: Export tradicional
     const FALLBACK_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
 
     let allAssistencias = [];
@@ -498,11 +504,13 @@
     }
 
     function populateFilters() {
-      // Ordenação decrescente (.reverse()) para o Período (Mês mais recente primeiro)
       const months = [...new Set(allAssistencias.map(a => a.mesAno).filter(m => m !== 'Sem Data'))].sort().reverse();
       const stores = [...new Set(allAssistencias.map(a => a.loja))].sort();
       const users = [...new Set(allAssistencias.map(a => a.usuario))].sort();
       const cities = [...new Set(allAssistencias.map(a => a.cidade))].sort();
+      
+      // NOVA LISTA: STATUS
+      const statuses = [...new Set(allAssistencias.map(a => a.situacao))].sort();
 
       const monthSelect = document.getElementById('filter-month');
       monthSelect.innerHTML = '<option value="ALL">Todos os Meses</option>';
@@ -522,6 +530,13 @@
       users.forEach(u => {
         userSelect.innerHTML += `<option value="${u}">${u}</option>`;
       });
+      
+      // NOVO CAMPO: SITUAÇÃO
+      const statusSelect = document.getElementById('filter-status');
+      statusSelect.innerHTML = '<option value="ALL">Todas</option>';
+      statuses.forEach(st => {
+        statusSelect.innerHTML += `<option value="${st}">${st}</option>`;
+      });
 
       const citySelect = document.getElementById('filter-city');
       citySelect.innerHTML = '<option value="ALL">Todas</option>';
@@ -534,6 +549,7 @@
       const fMonth = document.getElementById('filter-month').value;
       const fStore = document.getElementById('filter-store').value;
       const fUser = document.getElementById('filter-user').value;
+      const fStatus = document.getElementById('filter-status').value; // NOVO FILTRO
       const fCity = document.getElementById('filter-city').value;
       const fOnlyOpen = document.getElementById('filter-only-open').checked;
 
@@ -542,6 +558,7 @@
         if (fMonth !== 'ALL' && a.mesAno !== fMonth) return false;
         if (fStore !== 'ALL' && a.loja !== fStore) return false;
         if (fUser !== 'ALL' && a.usuario !== fUser) return false;
+        if (fStatus !== 'ALL' && a.situacao !== fStatus) return false; // REGRA NOVO FILTRO
         if (fCity !== 'ALL' && a.cidade !== fCity) return false;
         return true;
       });
@@ -555,6 +572,7 @@
       document.getElementById('filter-month').value = 'ALL';
       document.getElementById('filter-store').value = 'ALL';
       document.getElementById('filter-user').value = 'ALL';
+      document.getElementById('filter-status').value = 'ALL'; // RESET NOVO FILTRO
       document.getElementById('filter-city').value = 'ALL';
       document.getElementById('filter-only-open').checked = false;
       document.getElementById('search-input').value = '';
