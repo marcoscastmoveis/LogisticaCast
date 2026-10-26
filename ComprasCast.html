@@ -39,7 +39,7 @@
 </head>
 <body class="flex min-h-screen">
 
-  <!-- MENU LATERAL EXECUTIVO (PADRÃO DO PRINT) -->
+  <!-- MENU LATERAL EXECUTIVO SIMPLIFICADO -->
   <aside class="sidebar w-56 text-white flex flex-col justify-between p-4 shrink-0 hidden xl:flex">
     <div>
       <div class="flex items-center gap-3 px-2 py-3 border-b border-slate-700/60 mb-5">
@@ -52,24 +52,13 @@
         </div>
       </div>
 
-      <nav class="space-y-1.5 text-xs font-medium">
+      <nav class="space-y-2 text-xs font-medium">
         <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white shadow-sm">
           <span>📊</span> Visão Geral (TV)
         </a>
 
-        <div class="px-3 pt-4 pb-1 text-[10px] uppercase tracking-wider text-slate-400">Controles Rápidos</div>
-
-        <button onclick="toggleImobal()" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition">
-          <span>🚫 Excluir Imobal</span>
-          <span id="sideBadgeImobal" class="px-1.5 py-0.5 text-[10px] rounded bg-slate-600 font-bold">OFF</span>
-        </button>
-
         <button onclick="limparFiltros()" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/60 text-slate-300 transition">
           <span>🧹</span> Limpar Filtros
-        </button>
-
-        <button onclick="toggleFullScreen()" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/60 text-slate-300 transition">
-          <span>📺</span> Tela Cheia (Modo TV)
         </button>
       </nav>
     </div>
@@ -100,7 +89,7 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span> AO VIVO
           </span>
         </div>
-        <p class="text-xs text-slate-500">Visão integrada de pedidos de compra, valores negociados com IPI, fornecedores e status da aba ITENS</p>
+        <p class="text-xs text-slate-500">Visão integrada de pedidos de compra, valores negociados com IPI, fornecedores e itens mais comprados</p>
       </div>
 
       <!-- FILTROS SUPERIORES -->
@@ -123,13 +112,18 @@
         </select>
 
         <!-- Fornecedor -->
-        <select id="fFornecedor" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[210px] focus:outline-none focus:border-blue-600">
+        <select id="fFornecedor" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[190px] focus:outline-none focus:border-blue-600">
           <option value="TODOS">Fornecedor: Todos</option>
         </select>
 
         <!-- Ambiente -->
-        <select id="fAmbiente" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[170px] focus:outline-none focus:border-blue-600">
+        <select id="fAmbiente" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[160px] focus:outline-none focus:border-blue-600">
           <option value="TODOS">Ambiente: Todos</option>
+        </select>
+
+        <!-- NOVO FILTRO: Item (Coluna W) -->
+        <select id="fItemColW" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[180px] focus:outline-none focus:border-blue-600">
+          <option value="TODOS">Item: Todos</option>
         </select>
 
         <button onclick="carregarPlanilha()" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition">
@@ -232,7 +226,7 @@
         </div>
       </div>
 
-      <!-- Top Fornecedores (Barras Laranjas estilo Print) -->
+      <!-- Top Fornecedores (Com Imobal Unificado) -->
       <div class="card p-4 lg:col-span-4 flex flex-col">
         <div class="mb-2">
           <h2 class="text-sm font-bold text-slate-800">Top Fornecedores por Valor (c/ IPI)</h2>
@@ -243,7 +237,7 @@
         </div>
       </div>
 
-      <!-- Compras por Ambiente -->
+      <!-- Volume por Ambiente -->
       <div class="card p-4 lg:col-span-3 flex flex-col">
         <div class="mb-2">
           <h2 class="text-sm font-bold text-slate-800">Volume por Ambiente</h2>
@@ -255,27 +249,27 @@
       </div>
     </section>
 
-    <!-- LINHA INFERIOR: ROSCA SITUAÇÃO + TOP CLIENTES/PEDIDOS + TABELA -->
+    <!-- LINHA INFERIOR: ROSCA SITUAÇÃO (%) + VOLUME POR ITEM (COLUNA W) + TABELA -->
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
-      <!-- Rosca Situação -->
+      <!-- Rosca Situação em Porcentagem (%) -->
       <div class="card p-4 lg:col-span-3 flex flex-col">
         <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Distribuição por Situação</h2>
-          <p class="text-[11px] text-slate-500">Valor total por status do pedido</p>
+          <h2 class="text-sm font-bold text-slate-800">Distribuição por Situação (%)</h2>
+          <p class="text-[11px] text-slate-500">Participação percentual por status do pedido</p>
         </div>
         <div class="relative flex-1 min-h-[215px] flex items-center justify-center">
           <canvas id="chartSituacao"></canvas>
         </div>
       </div>
 
-      <!-- Top Clientes Finais por Volume de Compra -->
+      <!-- NOVO GRÁFICO: Volume por Item (Coluna W) no mesmo padrão de Volume por Ambiente -->
       <div class="card p-4 lg:col-span-4 flex flex-col">
         <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Top Clientes Finais por Valor (R$)</h2>
-          <p class="text-[11px] text-slate-500">Projetos/clientes com maior volume em compras</p>
+          <h2 class="text-sm font-bold text-slate-800">Volume por Item (Itens Mais Comprados)</h2>
+          <p class="text-[11px] text-slate-500">Distribuição financeira por Item (Coluna W)</p>
         </div>
         <div class="relative flex-1 min-h-[215px]">
-          <canvas id="chartClientes"></canvas>
+          <canvas id="chartItensColW"></canvas>
         </div>
       </div>
 
@@ -286,7 +280,7 @@
             <h2 class="text-sm font-bold text-slate-800">Últimos Pedidos de Compra</h2>
             <p class="text-[11px] text-slate-500">Consolidado por OC direto da aba ITENS</p>
           </div>
-          <input type="text" id="txtBusca" oninput="aplicarFiltros()" placeholder="Buscar OC, cliente, fornecedor..."
+          <input type="text" id="txtBusca" oninput="aplicarFiltros()" placeholder="Buscar OC, cliente, item..."
                  class="border border-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-600 w-48">
         </div>
         <div class="overflow-y-auto max-h-[215px] border border-slate-100 rounded-lg">
@@ -340,11 +334,24 @@
       return isNaN(n) ? 0 : n;
     }
 
+    // Unifica qualquer fornecedor que tenha "IMOBAL" no nome (ex: "x - IMOBAL..." -> "IMOBAL")
+    function normalizarNomeFornecedor(fornBruto) {
+      const texto = String(fornBruto || 'Sem Fornecedor').trim();
+      if (texto.toUpperCase().includes('IMOBAL')) {
+        return 'IMOBAL';
+      }
+      // Se começar com código ou "x - Nome", pega a parte principal limpa
+      const partes = texto.split('-').map(p => p.trim()).filter(Boolean);
+      if (partes.length > 1 && (partes[0].toLowerCase() === 'x' || /^\d+$/.test(partes[0]))) {
+        return partes.slice(1).join(' - ');
+      }
+      return partes[0] || texto;
+    }
+
     function formatarDataCell(cell) {
       if (!cell) return '';
       if (cell.f) return String(cell.f).trim();
       const v = String(cell.v || '');
-      // Trata formato Date(YYYY,M,D) do Google Visualization
       const m = v.match(/Date\((\d+),(\d+),(\d+)\)/);
       if (m) {
         const ano = m[1];
@@ -356,9 +363,9 @@
     }
 
     function extrairMesAno(dataStr) {
-      if (!dataStr || dataStr.length < 8) return 'S/ Data';
+      if (!dataStr || dataStr.length < 8) return { label: 'S/ Data', ordem: 0 };
       const partes = dataStr.split('/');
-      if (partes.length !== 3) return 'S/ Data';
+      if (partes.length !== 3) return { label: 'S/ Data', ordem: 0 };
       const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
       const mIdx = parseInt(partes[1], 10) - 1;
       const anoCurto = partes[2].slice(-4);
@@ -369,7 +376,7 @@
     }
 
     // =========================================================================
-    // LEITURA DIRETA SEM CORS VIA GOOGLE VISUALIZATION JSONP (GITHUB PAGES READY)
+    // LEITURA DIRETA SEM CORS VIA GOOGLE VISUALIZATION JSONP
     // =========================================================================
     window.google = window.google || {};
     window.google.visualization = window.google.visualization || {};
@@ -384,7 +391,6 @@
         const cols = response.table.cols.map(c => (c.label || '').trim());
         const rows = response.table.rows;
 
-        // Mapeamento inteligente de colunas (por nome ou índice padrão da sua aba ITENS)
         const acharCol = (nomes, padrao) => {
           for (const nome of nomes) {
             const i = cols.findIndex(c => c.toLowerCase() === nome.toLowerCase());
@@ -393,6 +399,7 @@
           return padrao;
         };
 
+        // Coluna W no Excel/Sheets corresponde ao índice 22 (A=0, B=1 ... W=22)
         const idx = {
           numero: acharCol(['Número', 'Numero'], 0),
           ambiente: acharCol(['Ambiente'], 1),
@@ -400,10 +407,23 @@
           emissao: acharCol(['Emissão', 'Emissao'], 4),
           clienteFinal: acharCol(['Cliente Final'], 5),
           fornecedor: acharCol(['Fornecedor'], 6),
-          item: acharCol(['Item'], 13),
           qtd: acharCol(['Quantidade'], 15),
-          totalItemIpi: acharCol(['Total com IPI'], 22)
+          totalItemIpi: acharCol(['Total com IPI', 'Valor Líquido + IPI'], 21),
+          itemColW: 22 // Coluna W fixa conforme solicitado (com fallback caso o nome seja "Item")
         };
+
+        // Se a coluna 22 for numérica (Total com IPI) e existir outra coluna chamada "Item", ajusta:
+        const getCellVal = (rowCells, pos) => (rowCells && rowCells[pos] && rowCells[pos].v !== null && rowCells[pos].v !== undefined) ? rowCells[pos].v : '';
+
+        // Verifica dinamicamente se a coluna W (índice 22) é texto ou se o usuário adicionou colunas
+        let posColW = 22;
+        if (cols[22] && cols[22].toLowerCase().includes('total com ipi')) {
+          // Procura coluna chamada "Item" ou usa a coluna W/N
+          const idxItemHeader = acharCol(['Item', 'Categoria', 'Tipo Item'], 13);
+          posColW = idxItemHeader;
+        }
+
+        const idxValor = acharCol(['Total com IPI'], 22);
 
         const novosDados = [];
 
@@ -420,6 +440,15 @@
           const dataEmissao = formatarDataCell(c[idx.emissao]);
           const infoMes = extrairMesAno(dataEmissao);
 
+          const fornBruto = String(getVal(idx.fornecedor) || 'Sem Fornecedor').trim();
+          const fornUnificado = normalizarNomeFornecedor(fornBruto);
+
+          // Lê prioritariamente a Coluna W (índice 22); se for número ou vazia, faz fallback para a coluna "Item"
+          let valorColW = String(getFmt(22) || '').trim();
+          if (!valorColW || /^R?\$\s*[\d.,]+$/.test(valorColW) || /^[\d.,]+$/.test(valorColW)) {
+            valorColW = String(getVal(posColW) || '-').trim();
+          }
+
           novosDados.push({
             n: numPedido,
             a: String(getVal(idx.ambiente) || '-').trim(),
@@ -428,10 +457,11 @@
             mesLabel: infoMes.label || 'S/ Data',
             mesOrdem: infoMes.ordem || 0,
             cf: String(getVal(idx.clienteFinal) || '-').trim(),
-            f: String(getVal(idx.fornecedor) || 'Sem Fornecedor').trim(),
-            it: String(getVal(idx.item) || '').trim(),
+            f: fornUnificado,
+            fBruto: fornBruto,
+            itemW: valorColW || 'Não Informado',
             q: limparNumero(getVal(idx.qtd)),
-            v: limparNumero(getVal(idx.totalItemIpi))
+            v: limparNumero(getVal(idxValor))
           });
         }
 
@@ -461,7 +491,7 @@
       script.onerror = () => {
         document.getElementById('statusText').textContent = 'Erro de Conexão';
         document.getElementById('statusDot').className = 'w-2 h-2 rounded-full bg-red-500';
-        document.getElementById('lblUltimaAtualizacao').textContent = 'Verifique se a planilha está pública para leitura';
+        document.getElementById('lblUltimaAtualizacao').textContent = 'Verifique permissões de leitura da planilha';
       };
       document.body.appendChild(script);
     }
@@ -478,18 +508,13 @@
     function atualizarBotaoImobalUI() {
       const btn = document.getElementById('btnFiltroImobal');
       const icon = document.getElementById('iconImobal');
-      const sideBadge = document.getElementById('sideBadgeImobal');
 
       if (EXCLUIR_IMOBAL) {
         btn.className = "cursor-pointer select-none inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-orange-600 bg-orange-500 text-white text-xs font-bold transition shadow-sm";
         icon.className = "w-4 h-4 rounded flex items-center justify-center bg-white text-orange-600 font-extrabold text-[11px]";
-        sideBadge.textContent = "ATIVO";
-        sideBadge.className = "px-1.5 py-0.5 text-[10px] rounded bg-orange-500 text-white font-bold";
       } else {
         btn.className = "cursor-pointer select-none inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-xs font-bold transition shadow-sm";
         icon.className = "w-4 h-4 rounded flex items-center justify-center border border-slate-300 bg-slate-100 text-transparent text-[10px]";
-        sideBadge.textContent = "OFF";
-        sideBadge.className = "px-1.5 py-0.5 text-[10px] rounded bg-slate-600 text-slate-200 font-bold";
       }
     }
 
@@ -500,6 +525,7 @@
       document.getElementById('fSituacao').value = 'TODOS';
       document.getElementById('fFornecedor').value = 'TODOS';
       document.getElementById('fAmbiente').value = 'TODOS';
+      document.getElementById('fItemColW').value = 'TODOS';
       document.getElementById('txtBusca').value = '';
       aplicarFiltros();
     }
@@ -509,22 +535,24 @@
       const sSituacao = document.getElementById('fSituacao');
       const sFornecedor = document.getElementById('fFornecedor');
       const sAmbiente = document.getElementById('fAmbiente');
+      const sItemColW = document.getElementById('fItemColW');
 
-      const vP = sPeriodo.value, vS = sSituacao.value, vF = sFornecedor.value, vA = sAmbiente.value;
+      const vP = sPeriodo.value, vS = sSituacao.value, vF = sFornecedor.value, vA = sAmbiente.value, vI = sItemColW.value;
 
       const mapPeriodos = new Map();
       const setSituacoes = new Set();
       const setFornecedores = new Set();
       const setAmbientes = new Set();
+      const setItensColW = new Set();
 
       DADOS_ITENS.forEach(d => {
         if (d.mesLabel && d.mesLabel !== 'S/ Data') mapPeriodos.set(d.mesLabel, d.mesOrdem);
         if (d.s) setSituacoes.add(d.s);
         if (d.f) setFornecedores.add(d.f);
         if (d.a) setAmbientes.add(d.a);
+        if (d.itemW && d.itemW !== '-') setItensColW.add(d.itemW);
       });
 
-      // Ordenar períodos cronologicamente
       const listaPeriodos = Array.from(mapPeriodos.entries()).sort((a,b) => b[1] - a[1]).map(x => x[0]);
 
       const preencher = (sel, arr, label, valorAtual) => {
@@ -542,6 +570,7 @@
       preencher(sSituacao, Array.from(setSituacoes).sort(), 'Situação: Todas', vS);
       preencher(sFornecedor, Array.from(setFornecedores).sort(), 'Fornecedor: Todos', vF);
       preencher(sAmbiente, Array.from(setAmbientes).sort(), 'Ambiente: Todos', vA);
+      preencher(sItemColW, Array.from(setItensColW).sort(), 'Item: Todos', vI);
     }
 
     function aplicarFiltros() {
@@ -549,16 +578,18 @@
       const s = document.getElementById('fSituacao').value;
       const f = document.getElementById('fFornecedor').value;
       const a = document.getElementById('fAmbiente').value;
+      const itemW = document.getElementById('fItemColW').value;
       const busca = document.getElementById('txtBusca').value.toLowerCase().trim();
 
       const filtrados = DADOS_ITENS.filter(d => {
-        if (EXCLUIR_IMOBAL && d.f.toUpperCase().includes('IMOBAL')) return false;
+        if (EXCLUIR_IMOBAL && (d.f === 'IMOBAL' || d.fBruto.toUpperCase().includes('IMOBAL'))) return false;
         if (p !== 'TODOS' && d.mesLabel !== p) return false;
         if (s !== 'TODOS' && d.s !== s) return false;
         if (f !== 'TODOS' && d.f !== f) return false;
         if (a !== 'TODOS' && d.a !== a) return false;
+        if (itemW !== 'TODOS' && d.itemW !== itemW) return false;
         if (busca) {
-          const alvo = `${d.n} ${d.cf} ${d.f} ${d.it} ${d.a}`.toLowerCase();
+          const alvo = `${d.n} ${d.cf} ${d.f} ${d.itemW} ${d.a}`.toLowerCase();
           if (!alvo.includes(busca)) return false;
         }
         return true;
@@ -671,10 +702,10 @@
         }
       });
 
-      // 2. Top Fornecedores
+      // 2. Top Fornecedores (Com Imobal Unificado)
       const mapForn = {};
       lista.forEach(d => {
-        const nome = d.f.split('-')[0].trim().substring(0, 22);
+        const nome = d.f.substring(0, 22);
         mapForn[nome] = (mapForn[nome] || 0) + d.v;
       });
       const topForn = Object.entries(mapForn).sort((a,b) => b[1] - a[1]).slice(0, 7);
@@ -732,17 +763,23 @@
         }
       });
 
-      // 4. Rosca Situação
+      // 4. Distribuição por Situação (EM PORCENTAGEM %)
       const mapSit = {};
-      lista.forEach(d => { mapSit[d.s] = (mapSit[d.s] || 0) + d.v; });
+      let somaTotalSit = 0;
+      lista.forEach(d => {
+        mapSit[d.s] = (mapSit[d.s] || 0) + d.v;
+        somaTotalSit += d.v;
+      });
       const topSit = Object.entries(mapSit).sort((a,b) => b[1] - a[1]);
+      const percentsSit = topSit.map(x => somaTotalSit > 0 ? Number(((x[1] / somaTotalSit) * 100).toFixed(1)) : 0);
+      const labelsSitComPerc = topSit.map((x, idx) => `${x[0]} (${percentsSit[idx].toFixed(1).replace('.', ',')}%)`);
 
       renderChart('chartSituacao', {
         type: 'doughnut',
         data: {
-          labels: topSit.map(x => x[0]),
+          labels: labelsSitComPerc,
           datasets: [{
-            data: topSit.map(x => x[1]),
+            data: percentsSit,
             backgroundColor: ['#1E40AF', '#10B981', '#F97316', '#6366F1', '#EF4444', '#94A3B8'],
             borderWidth: 2
           }]
@@ -752,39 +789,44 @@
           maintainAspectRatio: false,
           cutout: '64%',
           plugins: {
-            legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9.5 } } }
+            legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9.5 } } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ` ${ctx.label}`;
+                }
+              }
+            }
           }
         }
       });
 
-      // 5. Top Clientes Finais
-      const mapCli = {};
+      // 5. NOVO GRÁFICO: Volume por Item (Coluna W) no mesmo formato do Volume por Ambiente
+      const mapItemW = {};
       lista.forEach(d => {
-        const cli = d.cf.replace(/^\d+\s*-\s*/, '').trim().substring(0, 22);
-        if (!cli || cli === '-') return;
-        mapCli[cli] = (mapCli[cli] || 0) + d.v;
+        const nomeItem = (d.itemW || 'Outros').replace(/^\d+\s*-\s*/, '').trim().substring(0, 18);
+        mapItemW[nomeItem] = (mapItemW[nomeItem] || 0) + d.v;
       });
-      const topCli = Object.entries(mapCli).sort((a,b) => b[1] - a[1]).slice(0, 7);
+      const topItensW = Object.entries(mapItemW).sort((a,b) => b[1] - a[1]).slice(0, 7);
 
-      renderChart('chartClientes', {
+      renderChart('chartItensColW', {
         type: 'bar',
         data: {
-          labels: topCli.map(x => x[0]),
+          labels: topItensW.map(x => x[0]),
           datasets: [{
-            label: 'Total c/ IPI (R$)',
-            data: topCli.map(x => x[1]),
-            backgroundColor: '#2563EB',
+            label: 'Valor (R$)',
+            data: topItensW.map(x => x[1]),
+            backgroundColor: '#1E40AF',
             borderRadius: 5
           }]
         },
         options: {
-          indexAxis: 'y',
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            x: { ticks: { font: { size: 9 }, callback: v => fmtMoedaCurta(v) } },
-            y: { ticks: { font: { size: 9.5 } } }
+            y: { ticks: { font: { size: 9 }, callback: v => fmtMoedaCurta(v) } },
+            x: { ticks: { font: { size: 9 } } }
           }
         }
       });
@@ -803,7 +845,6 @@
         return;
       }
 
-      // Consolida os itens por Número de Pedido (OC) para exibir o total de cada pedido com clareza na TV
       const mapOC = new Map();
       lista.forEach(d => {
         if (!mapOC.has(d.n)) {
@@ -811,7 +852,7 @@
             n: d.n,
             e: d.e,
             cf: d.cf.replace(/^\d+\s*-\s*/, ''),
-            f: d.f.split('-')[0].trim(),
+            f: d.f,
             s: d.s,
             v: 0
           });
@@ -845,14 +886,6 @@
           </tr>
         `;
       }).join('');
-    }
-
-    function toggleFullScreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
     }
 
     // Inicialização + Ciclo Automático de 60s para a TV do Depósito
