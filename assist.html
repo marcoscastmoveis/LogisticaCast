@@ -123,6 +123,12 @@
             </select>
           </div>
 
+          <!-- CHECKBOX OCULTAR ENCERRADAS -->
+          <div class="flex items-center gap-2 mt-3.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-md hover:bg-slate-100 transition">
+            <input type="checkbox" id="filter-only-open" onchange="applyFilters()" class="w-3.5 h-3.5 text-sky-600 rounded border-slate-300 cursor-pointer">
+            <label for="filter-only-open" class="text-[11px] font-bold text-slate-600 cursor-pointer select-none">Ocultar Encerradas</label>
+          </div>
+
           <button onclick="resetFilters()" class="mt-3.5 text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-md font-medium transition flex items-center gap-1">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Limpar
           </button>
@@ -316,10 +322,11 @@
           <table class="w-full text-left border-collapse">
             <thead class="bg-slate-50 sticky top-0 z-10 border-b border-slate-200 text-[11px] uppercase text-slate-500 font-bold">
               <tr>
-                <th class="py-3 px-4">Status / Crítico</th>
+                <th class="py-3 px-4">Alerta</th>
                 <th class="py-3 px-3">Nº Assist.</th>
                 <th class="py-3 px-3">Contrato</th>
                 <th class="py-3 px-4">Cliente</th>
+                <th class="py-3 px-3">Situação</th>
                 <th class="py-3 px-3">Cidade</th>
                 <th class="py-3 px-3">Data Inclusão</th>
                 <th class="py-3 px-3 text-center">Dias em Aberto</th>
@@ -380,7 +387,7 @@
       return Math.max(0, Math.round((date2 - date1) / oneDay));
     }
 
-    // Carregamento de dados com tentativa de fallback automática
+    // Carregamento de dados
     function loadSheetData() {
       const icon = document.getElementById('sync-icon');
       if (icon) icon.classList.add('animate-spin');
@@ -397,7 +404,6 @@
           }
         },
         error: function(err) {
-          console.warn('Tentando rota alternativa de leitura...', err);
           tryFallbackCSV();
         }
       });
@@ -416,7 +422,6 @@
           }
         },
         error: function(err) {
-          console.error('Carregando base demonstrativa (verifique se a planilha está pública)...', err);
           loadFallbackSample();
         }
       });
@@ -428,7 +433,6 @@
       const today = new Date();
 
       rows.forEach(row => {
-        // Encontrar colunas mesmo se houver variação de acento ou espaço
         const keys = Object.keys(row);
         const getVal = (name) => {
           const k = keys.find(key => key.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
@@ -494,7 +498,8 @@
     }
 
     function populateFilters() {
-      const months = [...new Set(allAssistencias.map(a => a.mesAno).filter(m => m !== 'Sem Data'))].sort();
+      // Ordenação decrescente (.reverse()) para o Período (Mês mais recente primeiro)
+      const months = [...new Set(allAssistencias.map(a => a.mesAno).filter(m => m !== 'Sem Data'))].sort().reverse();
       const stores = [...new Set(allAssistencias.map(a => a.loja))].sort();
       const users = [...new Set(allAssistencias.map(a => a.usuario))].sort();
       const cities = [...new Set(allAssistencias.map(a => a.cidade))].sort();
@@ -530,8 +535,10 @@
       const fStore = document.getElementById('filter-store').value;
       const fUser = document.getElementById('filter-user').value;
       const fCity = document.getElementById('filter-city').value;
+      const fOnlyOpen = document.getElementById('filter-only-open').checked;
 
       filteredAssistencias = allAssistencias.filter(a => {
+        if (fOnlyOpen && a.isClosed) return false;
         if (fMonth !== 'ALL' && a.mesAno !== fMonth) return false;
         if (fStore !== 'ALL' && a.loja !== fStore) return false;
         if (fUser !== 'ALL' && a.usuario !== fUser) return false;
@@ -549,6 +556,7 @@
       document.getElementById('filter-store').value = 'ALL';
       document.getElementById('filter-user').value = 'ALL';
       document.getElementById('filter-city').value = 'ALL';
+      document.getElementById('filter-only-open').checked = false;
       document.getElementById('search-input').value = '';
       tableFilterMode = 'ALL';
       applyFilters();
@@ -822,7 +830,7 @@
 
       const tbody = document.getElementById('pending-table-body');
       if (openList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400">Nenhuma assistência pendente encontrada para este filtro.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" class="text-center py-8 text-slate-400">Nenhuma assistência pendente encontrada para este filtro.</td></tr>`;
         return;
       }
 
@@ -848,6 +856,7 @@
             <td class="py-3 px-3 font-mono font-bold text-slate-700">#${item.numero}</td>
             <td class="py-3 px-3 font-mono text-slate-600">${item.contrato}</td>
             <td class="py-3 px-4 font-semibold text-slate-800">${item.cliente}</td>
+            <td class="py-3 px-3 font-medium text-slate-700">${item.situacao}</td>
             <td class="py-3 px-3 text-slate-600">${item.cidade}</td>
             <td class="py-3 px-3 text-slate-600">${item.inclusaoStr}</td>
             <td class="py-3 px-3 text-center">
@@ -863,21 +872,11 @@
       }).join('');
     }
 
-    // Amostra real caso ocorra problema transitório de conexão
+    // Amostra real
     function loadFallbackSample() {
       const sampleRows = [
         { 'Número': '175388', 'Inclusão': '19/10/2026', 'Cliente': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '', 'Sit. Assistência': 'Em Andamento', 'Conclusão': '/ /', 'Usuário': 'CAMILLY CAROLINE D SILVA', 'Loja/Unidade': 'CAST MOVEIS II', 'Data Agenda': '', 'Situação Agenda': '' },
-        { 'Número': '175085', 'Inclusão': '14/10/2026', 'Cliente': 'LUIS ANTONIO COLARINO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '75701', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '16/10/2026', 'Situação Agenda': 'Atrasado' },
-        { 'Número': '174989', 'Inclusão': '13/10/2026', 'Cliente': 'PAULA LIMA BARRETO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '79302', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '', 'Situação Agenda': '' },
-        { 'Número': '174980', 'Inclusão': '13/10/2026', 'Cliente': 'NICOLAS FLABES MACIEL', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '265201', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '19/10/2026', 'Situação Agenda': 'Realizado' },
-        { 'Número': '174551', 'Inclusão': '07/10/2026', 'Cliente': 'JULIANE PEREIRA SALES NAKAYAMA', 'Endereço': 'Cidade: Tatuí, UF: SP', 'Contrato': '9501', 'Sit. Assistência': 'Encerrada', 'Conclusão': '26/10/2026', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '23/10/2026', 'Situação Agenda': 'Realizado' },
-        { 'Número': '174469', 'Inclusão': '06/10/2026', 'Cliente': 'DIEGO FERNANDES FERRAZZA', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '8701', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '07/10/2026', 'Situação Agenda': 'Atrasado' },
-        { 'Número': '174391', 'Inclusão': '05/10/2026', 'Cliente': 'JULIUS MONSALVO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '230301', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'JOYCE MARA MARQUES BELO', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '20/10/2026', 'Situação Agenda': 'Atrasado' },
-        { 'Número': '174290', 'Inclusão': '05/10/2026', 'Cliente': 'JULIANA OLIVEIRA QUEIROZ', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '29801', 'Sit. Assistência': 'Encerrada', 'Conclusão': '08/10/2026', 'Usuário': 'JOYCE MARA MARQUES BELO', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '07/10/2026', 'Situação Agenda': 'Realizado' },
-        { 'Número': '174120', 'Inclusão': '01/10/2026', 'Cliente': 'MARSAN REFINADORA DE METAIS LTDA', 'Endereço': 'Cidade: SÃO PAULO, UF: SP', 'Contrato': '182301', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '', 'Situação Agenda': '' },
-        { 'Número': '173855', 'Inclusão': '29/09/2026', 'Cliente': 'VANESSA GHISSARDI', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '253302', 'Sit. Assistência': 'Encerrada', 'Conclusão': '30/09/2026', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST MOVEIS PLANEJADOS E DECORACOES LTDA', 'Data Agenda': '29/09/2026', 'Situação Agenda': 'Realizado' },
-        { 'Número': '173810', 'Inclusão': '29/09/2026', 'Cliente': 'RAFAEL MORAES SANTOS', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '76302', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'MURILO SALLUM', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '29/09/2026', 'Situação Agenda': 'Atrasado' },
-        { 'Número': '173799', 'Inclusão': '29/09/2026', 'Cliente': 'AMANDA SAKAGUTHI FIGUEIREDO', 'Endereço': 'Cidade: Votorantim, UF: SP', 'Contrato': '63802', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'LUCAS SALLUM NICOLETTI', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '', 'Situação Agenda': '' }
+        { 'Número': '175085', 'Inclusão': '14/10/2026', 'Cliente': 'LUIS ANTONIO COLARINO', 'Endereço': 'Cidade: Sorocaba, UF: SP', 'Contrato': '75701', 'Sit. Assistência': 'Pendente', 'Conclusão': '/ /', 'Usuário': 'SAMUEL MASTROCINQUE DE ALMEIDA ROCHA', 'Loja/Unidade': 'CAST SELECT MOVEIS PLANEJADOS', 'Data Agenda': '16/10/2026', 'Situação Agenda': 'Atrasado' }
       ];
       processRawRows(sampleRows);
     }
