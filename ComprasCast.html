@@ -39,7 +39,7 @@
 </head>
 <body class="flex min-h-screen">
 
-  <!-- MENU LATERAL EXECUTIVO SIMPLIFICADO -->
+  <!-- MENU LATERAL EXECUTIVO -->
   <aside class="sidebar w-56 text-white flex flex-col justify-between p-4 shrink-0 hidden xl:flex">
     <div>
       <div class="flex items-center gap-3 px-2 py-3 border-b border-slate-700/60 mb-5">
@@ -89,7 +89,7 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span> AO VIVO
           </span>
         </div>
-        <p class="text-xs text-slate-500">Visão integrada de pedidos de compra, valores negociados com IPI, fornecedores e itens mais comprados</p>
+        <p class="text-xs text-slate-500">Monitoramento executivo de pedidos de compra, comparativo entre unidades e acompanhamento por item</p>
       </div>
 
       <!-- FILTROS SUPERIORES -->
@@ -100,6 +100,14 @@
           <span id="iconImobal" class="w-4 h-4 rounded flex items-center justify-center border text-[10px]">✓</span>
           <span>EXCLUIR IMOBAL</span>
         </button>
+
+        <!-- NOVO FILTRO: Unidade (Cast Móveis, Cast II, Select) -->
+        <select id="fUnidade" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-bold focus:outline-none focus:border-blue-600">
+          <option value="TODOS">Unidade: Todas</option>
+          <option value="Cast Móveis">Cast Móveis</option>
+          <option value="Cast II">Cast II</option>
+          <option value="Select">Select</option>
+        </select>
 
         <!-- Período (Mês/Ano de Emissão) -->
         <select id="fPeriodo" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium focus:outline-none focus:border-blue-600">
@@ -112,17 +120,17 @@
         </select>
 
         <!-- Fornecedor -->
-        <select id="fFornecedor" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[190px] focus:outline-none focus:border-blue-600">
+        <select id="fFornecedor" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[170px] focus:outline-none focus:border-blue-600">
           <option value="TODOS">Fornecedor: Todos</option>
         </select>
 
         <!-- Ambiente -->
-        <select id="fAmbiente" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[160px] focus:outline-none focus:border-blue-600">
+        <select id="fAmbiente" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[150px] focus:outline-none focus:border-blue-600">
           <option value="TODOS">Ambiente: Todos</option>
         </select>
 
-        <!-- NOVO FILTRO: Item (Coluna W) -->
-        <select id="fItemColW" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[180px] focus:outline-none focus:border-blue-600">
+        <!-- Filtro Item (Coluna W) -->
+        <select id="fItemColW" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[160px] focus:outline-none focus:border-blue-600">
           <option value="TODOS">Item: Todos</option>
         </select>
 
@@ -237,19 +245,19 @@
         </div>
       </div>
 
-      <!-- Volume por Ambiente -->
+      <!-- NOVO QUADRO: Valor por Unidade (Substitui Volume por Ambiente) -->
       <div class="card p-4 lg:col-span-3 flex flex-col">
         <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Volume por Ambiente</h2>
-          <p class="text-[11px] text-slate-500">Distribuição financeira entre ambientes</p>
+          <h2 class="text-sm font-bold text-slate-800">Valor dos Pedidos por Unidade</h2>
+          <p class="text-[11px] text-slate-500">Cast Móveis, Cast II e Select (R$ c/ IPI)</p>
         </div>
         <div class="relative flex-1 min-h-[215px]">
-          <canvas id="chartAmbientes"></canvas>
+          <canvas id="chartUnidades"></canvas>
         </div>
       </div>
     </section>
 
-    <!-- LINHA INFERIOR: ROSCA SITUAÇÃO (%) + VOLUME POR ITEM (COLUNA W) + TABELA -->
+    <!-- LINHA INFERIOR: ROSCA SITUAÇÃO (%) + VOLUME POR ITEM (COLUNA W) + TABELA DECRESCENTE -->
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
       <!-- Rosca Situação em Porcentagem (%) -->
       <div class="card p-4 lg:col-span-3 flex flex-col">
@@ -262,7 +270,7 @@
         </div>
       </div>
 
-      <!-- NOVO GRÁFICO: Volume por Item (Coluna W) no mesmo padrão de Volume por Ambiente -->
+      <!-- Volume por Item (Coluna W) -->
       <div class="card p-4 lg:col-span-4 flex flex-col">
         <div class="mb-2">
           <h2 class="text-sm font-bold text-slate-800">Volume por Item (Itens Mais Comprados)</h2>
@@ -273,26 +281,26 @@
         </div>
       </div>
 
-      <!-- Tabela Consolidada por Pedido -->
+      <!-- Tabela Consolidada por Pedido (ORDEM DECRESCENTE: MAIS RECENTE AO MAIS ANTIGO) -->
       <div class="card p-4 lg:col-span-5 flex flex-col">
         <div class="flex items-center justify-between mb-2 gap-2">
           <div>
-            <h2 class="text-sm font-bold text-slate-800">Últimos Pedidos de Compra</h2>
-            <p class="text-[11px] text-slate-500">Consolidado por OC direto da aba ITENS</p>
+            <h2 class="text-sm font-bold text-slate-800">Últimos Pedidos de Compra (Mais Recentes)</h2>
+            <p class="text-[11px] text-slate-500">Ordenado por emissão e número de forma decrescente</p>
           </div>
           <input type="text" id="txtBusca" oninput="aplicarFiltros()" placeholder="Buscar OC, cliente, item..."
-                 class="border border-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-600 w-48">
+                 class="border border-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-600 w-44">
         </div>
         <div class="overflow-y-auto max-h-[215px] border border-slate-100 rounded-lg">
           <table class="w-full text-left border-collapse text-xs">
             <thead class="bg-slate-50 text-slate-600 sticky top-0 border-b border-slate-200">
               <tr>
-                <th class="py-2 px-2.5 font-semibold">Nº OC</th>
-                <th class="py-2 px-2.5 font-semibold">Emissão</th>
-                <th class="py-2 px-2.5 font-semibold">Cliente Final</th>
-                <th class="py-2 px-2.5 font-semibold">Fornecedor</th>
-                <th class="py-2 px-2.5 font-semibold">Situação</th>
-                <th class="py-2 px-2.5 font-semibold text-right">Total c/ IPI</th>
+                <th class="py-2 px-2 font-semibold">Nº OC</th>
+                <th class="py-2 px-2 font-semibold">Emissão</th>
+                <th class="py-2 px-2 font-semibold">Unidade</th>
+                <th class="py-2 px-2 font-semibold">Fornecedor</th>
+                <th class="py-2 px-2 font-semibold">Situação</th>
+                <th class="py-2 px-2 font-semibold text-right">Total c/ IPI</th>
               </tr>
             </thead>
             <tbody id="tabelaCorpo" class="divide-y divide-slate-100 text-[11px]">
@@ -334,13 +342,20 @@
       return isNaN(n) ? 0 : n;
     }
 
-    // Unifica qualquer fornecedor que tenha "IMOBAL" no nome (ex: "x - IMOBAL..." -> "IMOBAL")
+    // Normaliza as unidades padrão da Cast Móveis
+    function normalizarUnidade(lojaStr, clienteStr) {
+      const texto = `${lojaStr || ''} ${clienteStr || ''}`.toUpperCase();
+      if (texto.includes('SELECT')) return 'Select';
+      if (texto.includes('CAST II') || texto.includes('CAST 2') || texto.includes('LOJA 2') || texto.includes('UNIDADE 2')) return 'Cast II';
+      return 'Cast Móveis';
+    }
+
+    // Unifica Imobal
     function normalizarNomeFornecedor(fornBruto) {
       const texto = String(fornBruto || 'Sem Fornecedor').trim();
       if (texto.toUpperCase().includes('IMOBAL')) {
         return 'IMOBAL';
       }
-      // Se começar com código ou "x - Nome", pega a parte principal limpa
       const partes = texto.split('-').map(p => p.trim()).filter(Boolean);
       if (partes.length > 1 && (partes[0].toLowerCase() === 'x' || /^\d+$/.test(partes[0]))) {
         return partes.slice(1).join(' - ');
@@ -360,6 +375,14 @@
         return `${dia}/${mes}/${ano}`;
       }
       return v;
+    }
+
+    // Converte DD/MM/YYYY para timestamp comparável
+    function dataParaTimestamp(dataStr) {
+      if (!dataStr || dataStr.length < 8) return 0;
+      const partes = dataStr.split('/');
+      if (partes.length !== 3) return 0;
+      return new Date(parseInt(partes[2], 10), parseInt(partes[1], 10) - 1, parseInt(partes[0], 10)).getTime() || 0;
     }
 
     function extrairMesAno(dataStr) {
@@ -399,32 +422,26 @@
           return padrao;
         };
 
-        // Coluna W no Excel/Sheets corresponde ao índice 22 (A=0, B=1 ... W=22)
         const idx = {
           numero: acharCol(['Número', 'Numero'], 0),
           ambiente: acharCol(['Ambiente'], 1),
           situacao: acharCol(['Situação', 'Situacao'], 2),
           emissao: acharCol(['Emissão', 'Emissao'], 4),
-          clienteFinal: acharCol(['Cliente Final'], 5),
-          fornecedor: acharCol(['Fornecedor'], 6),
-          qtd: acharCol(['Quantidade'], 15),
-          totalItemIpi: acharCol(['Total com IPI', 'Valor Líquido + IPI'], 21),
-          itemColW: 22 // Coluna W fixa conforme solicitado (com fallback caso o nome seja "Item")
+          cliente: acharCol(['Cliente'], 5),
+          clienteFinal: acharCol(['Cliente Final'], 6),
+          fornecedor: acharCol(['Fornecedor'], 10),
+          loja: acharCol(['Loja/Unidade', 'Unidade', 'Loja'], 17),
+          qtd: acharCol(['Quantidade'], 24),
+          totalItemIpi: acharCol(['Total com IPI'], 27),
+          itemColW: 22 // Coluna W fixa
         };
 
-        // Se a coluna 22 for numérica (Total com IPI) e existir outra coluna chamada "Item", ajusta:
-        const getCellVal = (rowCells, pos) => (rowCells && rowCells[pos] && rowCells[pos].v !== null && rowCells[pos].v !== undefined) ? rowCells[pos].v : '';
-
-        // Verifica dinamicamente se a coluna W (índice 22) é texto ou se o usuário adicionou colunas
         let posColW = 22;
         if (cols[22] && cols[22].toLowerCase().includes('total com ipi')) {
-          // Procura coluna chamada "Item" ou usa a coluna W/N
-          const idxItemHeader = acharCol(['Item', 'Categoria', 'Tipo Item'], 13);
-          posColW = idxItemHeader;
+          posColW = acharCol(['Item'], 21);
         }
 
-        const idxValor = acharCol(['Total com IPI'], 22);
-
+        const idxValor = acharCol(['Total com IPI'], 27);
         const novosDados = [];
 
         for (let i = 0; i < rows.length; i++) {
@@ -443,7 +460,10 @@
           const fornBruto = String(getVal(idx.fornecedor) || 'Sem Fornecedor').trim();
           const fornUnificado = normalizarNomeFornecedor(fornBruto);
 
-          // Lê prioritariamente a Coluna W (índice 22); se for número ou vazia, faz fallback para a coluna "Item"
+          const lojaBruta = String(getVal(idx.loja) || '');
+          const clienteBruto = String(getVal(idx.cliente) || '');
+          const unidade = normalizarUnidade(lojaBruta, clienteBruto);
+
           let valorColW = String(getFmt(22) || '').trim();
           if (!valorColW || /^R?\$\s*[\d.,]+$/.test(valorColW) || /^[\d.,]+$/.test(valorColW)) {
             valorColW = String(getVal(posColW) || '-').trim();
@@ -454,8 +474,10 @@
             a: String(getVal(idx.ambiente) || '-').trim(),
             s: String(getVal(idx.situacao) || 'Não Informado').trim(),
             e: dataEmissao,
+            timestamp: dataParaTimestamp(dataEmissao),
             mesLabel: infoMes.label || 'S/ Data',
             mesOrdem: infoMes.ordem || 0,
+            u: unidade,
             cf: String(getVal(idx.clienteFinal) || '-').trim(),
             f: fornUnificado,
             fBruto: fornBruto,
@@ -497,7 +519,7 @@
     }
 
     // =========================================================================
-    // FILTROS E BOTÃO "EXCLUIR IMOBAL"
+    // FILTROS E CONTROLES
     // =========================================================================
     function toggleImobal() {
       EXCLUIR_IMOBAL = !EXCLUIR_IMOBAL;
@@ -521,6 +543,7 @@
     function limparFiltros() {
       EXCLUIR_IMOBAL = false;
       atualizarBotaoImobalUI();
+      document.getElementById('fUnidade').value = 'TODOS';
       document.getElementById('fPeriodo').value = 'TODOS';
       document.getElementById('fSituacao').value = 'TODOS';
       document.getElementById('fFornecedor').value = 'TODOS';
@@ -574,6 +597,7 @@
     }
 
     function aplicarFiltros() {
+      const u = document.getElementById('fUnidade').value;
       const p = document.getElementById('fPeriodo').value;
       const s = document.getElementById('fSituacao').value;
       const f = document.getElementById('fFornecedor').value;
@@ -583,13 +607,14 @@
 
       const filtrados = DADOS_ITENS.filter(d => {
         if (EXCLUIR_IMOBAL && (d.f === 'IMOBAL' || d.fBruto.toUpperCase().includes('IMOBAL'))) return false;
+        if (u !== 'TODOS' && d.u !== u) return false;
         if (p !== 'TODOS' && d.mesLabel !== p) return false;
         if (s !== 'TODOS' && d.s !== s) return false;
         if (f !== 'TODOS' && d.f !== f) return false;
         if (a !== 'TODOS' && d.a !== a) return false;
         if (itemW !== 'TODOS' && d.itemW !== itemW) return false;
         if (busca) {
-          const alvo = `${d.n} ${d.cf} ${d.f} ${d.itemW} ${d.a}`.toLowerCase();
+          const alvo = `${d.n} ${d.cf} ${d.f} ${d.itemW} ${d.a} ${d.u}`.toLowerCase();
           if (!alvo.includes(busca)) return false;
         }
         return true;
@@ -702,7 +727,7 @@
         }
       });
 
-      // 2. Top Fornecedores (Com Imobal Unificado)
+      // 2. Top Fornecedores (Imobal Unificado)
       const mapForn = {};
       lista.forEach(d => {
         const nome = d.f.substring(0, 22);
@@ -733,23 +758,25 @@
         }
       });
 
-      // 3. Volume por Ambiente
-      const mapAmb = {};
+      // 3. NOVO: Valor por Unidade (Cast Móveis, Cast II, Select)
+      const mapUnid = { 'Cast Móveis': 0, 'Cast II': 0, 'Select': 0 };
       lista.forEach(d => {
-        const amb = d.a.replace(/^\d+\s*-\s*/, '').trim().substring(0, 16);
-        mapAmb[amb] = (mapAmb[amb] || 0) + d.v;
+        if (mapUnid[d.u] !== undefined) {
+          mapUnid[d.u] += d.v;
+        } else {
+          mapUnid['Cast Móveis'] += d.v;
+        }
       });
-      const topAmb = Object.entries(mapAmb).sort((a,b) => b[1] - a[1]).slice(0, 6);
 
-      renderChart('chartAmbientes', {
+      renderChart('chartUnidades', {
         type: 'bar',
         data: {
-          labels: topAmb.map(x => x[0]),
+          labels: ['Cast Móveis', 'Cast II', 'Select'],
           datasets: [{
-            label: 'Valor (R$)',
-            data: topAmb.map(x => x[1]),
-            backgroundColor: '#1E40AF',
-            borderRadius: 5
+            label: 'Total c/ IPI (R$)',
+            data: [mapUnid['Cast Móveis'], mapUnid['Cast II'], mapUnid['Select']],
+            backgroundColor: ['#1E40AF', '#3B82F6', '#0284C7'],
+            borderRadius: 6
           }]
         },
         options: {
@@ -758,12 +785,12 @@
           plugins: { legend: { display: false } },
           scales: {
             y: { ticks: { font: { size: 9 }, callback: v => fmtMoedaCurta(v) } },
-            x: { ticks: { font: { size: 9 } } }
+            x: { ticks: { font: { size: 10, weight: 'bold' } } }
           }
         }
       });
 
-      // 4. Distribuição por Situação (EM PORCENTAGEM %)
+      // 4. Distribuição por Situação (EM %)
       const mapSit = {};
       let somaTotalSit = 0;
       lista.forEach(d => {
@@ -792,16 +819,14 @@
             legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9.5 } } },
             tooltip: {
               callbacks: {
-                label: function(ctx) {
-                  return ` ${ctx.label}`;
-                }
+                label: function(ctx) { return ` ${ctx.label}`; }
               }
             }
           }
         }
       });
 
-      // 5. NOVO GRÁFICO: Volume por Item (Coluna W) no mesmo formato do Volume por Ambiente
+      // 5. Volume por Item (Coluna W)
       const mapItemW = {};
       lista.forEach(d => {
         const nomeItem = (d.itemW || 'Outros').replace(/^\d+\s*-\s*/, '').trim().substring(0, 18);
@@ -838,6 +863,9 @@
       charts[id] = new Chart(ctx, config);
     }
 
+    // =========================================================================
+    // TABELA: ORDENADA DECRESCENTE (DO MAIS RECENTE AO MAIS ANTIGO)
+    // =========================================================================
     function atualizarTabelaConsolidada(lista) {
       const tbody = document.getElementById('tabelaCorpo');
       if (lista.length === 0) {
@@ -851,6 +879,8 @@
           mapOC.set(d.n, {
             n: d.n,
             e: d.e,
+            timestamp: d.timestamp,
+            u: d.u,
             cf: d.cf.replace(/^\d+\s*-\s*/, ''),
             f: d.f,
             s: d.s,
@@ -860,8 +890,14 @@
         mapOC.get(d.n).v += d.v;
       });
 
+      // ORDENAÇÃO: Data decrescente (timestamp maior primeiro) e desempate por número de OC decrescente
       const pedidosConsolidados = Array.from(mapOC.values())
-        .sort((a,b) => (parseInt(b.n, 10) || 0) - (parseInt(a.n, 10) || 0))
+        .sort((a, b) => {
+          if (b.timestamp !== a.timestamp) {
+            return b.timestamp - a.timestamp;
+          }
+          return (parseInt(b.n, 10) || 0) - (parseInt(a.n, 10) || 0);
+        })
         .slice(0, 50);
 
       tbody.innerHTML = pedidosConsolidados.map(p => {
@@ -873,22 +909,28 @@
           badge = 'bg-amber-100 text-amber-800';
         }
 
+        let badgeUnidade = 'bg-blue-50 text-blue-700 border border-blue-200';
+        if (p.u === 'Select') badgeUnidade = 'bg-purple-50 text-purple-700 border border-purple-200';
+        else if (p.u === 'Cast II') badgeUnidade = 'bg-sky-50 text-sky-700 border border-sky-200';
+
         return `
           <tr class="hover:bg-slate-50 transition">
-            <td class="py-1.5 px-2.5 font-extrabold text-blue-700">#${p.n}</td>
-            <td class="py-1.5 px-2.5 text-slate-500">${p.e}</td>
-            <td class="py-1.5 px-2.5 font-medium text-slate-800 truncate max-w-[140px]" title="${p.cf}">${p.cf}</td>
-            <td class="py-1.5 px-2.5 text-slate-600 truncate max-w-[140px]" title="${p.f}">${p.f}</td>
-            <td class="py-1.5 px-2.5">
+            <td class="py-1.5 px-2 font-extrabold text-blue-700">#${p.n}</td>
+            <td class="py-1.5 px-2 text-slate-500 whitespace-nowrap">${p.e}</td>
+            <td class="py-1.5 px-2">
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${badgeUnidade}">${p.u}</span>
+            </td>
+            <td class="py-1.5 px-2 text-slate-600 truncate max-w-[130px]" title="${p.f}">${p.f}</td>
+            <td class="py-1.5 px-2">
               <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${badge}">${p.s}</span>
             </td>
-            <td class="py-1.5 px-2.5 text-right font-bold text-slate-800">${fmtMoeda(p.v)}</td>
+            <td class="py-1.5 px-2 text-right font-bold text-slate-800 whitespace-nowrap">${fmtMoeda(p.v)}</td>
           </tr>
         `;
       }).join('');
     }
 
-    // Inicialização + Ciclo Automático de 60s para a TV do Depósito
+    // Inicialização + Ciclo Automático de 60s para a TV
     window.addEventListener('DOMContentLoaded', () => {
       atualizarBotaoImobalUI();
       carregarPlanilha();
