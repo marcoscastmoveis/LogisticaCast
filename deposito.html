@@ -291,12 +291,12 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Contratos Ativos</div>
-            <div id="kpi-contratos" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">37</div>
+            <div id="kpi-contratos" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">23</div>
           </div>
         </div>
-        <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
-          <span class="text-emerald-600 font-bold" id="kpi-contratos-sub">10 finalizados</span>
-          <span class="text-slate-400 truncate">• 7 em montagem</span>
+        <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[11px]">
+          <span class="text-blue-700 font-bold truncate" id="kpi-contratos-sub">15 no dep. • 7 em mont.</span>
+          <span class="text-slate-400 truncate" id="kpi-contratos-excl">(excl. 14 finaliz.)</span>
         </div>
       </div>
     </section>
@@ -458,8 +458,11 @@
         </div>
       </div>
 
-      <!-- Stage Quick Pills -->
-      <div id="stage-pills-container" class="flex flex-wrap gap-1.5 mb-3"></div>
+      <!-- Stage Quick Pills + Highlight Legend -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 mb-3">
+        <div id="stage-pills-container" class="flex flex-wrap gap-1.5"></div>
+        <div id="table-alerts-summary" class="flex flex-wrap items-center gap-2 text-[11px]"></div>
+      </div>
 
       <!-- Full Responsive Table -->
       <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg">
@@ -473,11 +476,11 @@
               <th class="py-2.5 px-2 text-center font-semibold" title="Data da Compra - Data Ass. Medição">Med → Comp</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data do Pagamento - Data da Compra">Comp → Pag</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data Chegada no Depósito - Data do Pagamento">Pag → Dep</th>
-              <th id="th-dep-cli" class="py-2.5 px-2 text-center font-semibold transition-colors" title="Tempo no Depósito: Entre a Chegada no Depósito e a Entrega no Cliente (ou data atual enquanto no depósito)">Dep → Cli</th>
+              <th id="th-dep-cli" class="py-2.5 px-2.5 text-center font-bold bg-sky-800 text-white transition-colors" title="Quantos dias o material está no depósito (Chegada no Depósito → Entrega no Cliente ou Hoje). Destaque acima de 5 dias.">Dias no Depósito</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data Início Montagem - Data Entrega no Cliente">Cli → Início</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data Fim Montagem - Data Início Montagem">Início → Fim</th>
               <th class="py-2.5 px-2.5 text-center font-bold bg-blue-900/60" title="Data Fim Montagem - Data Ass. Medição">Tempo Total</th>
-              <th class="py-2.5 px-2.5 text-center font-semibold bg-slate-900/50" title="Prazo limite para montagem (Coluna R da planilha)">Prazo Montagem</th>
+              <th class="py-2.5 px-2.5 text-center font-bold bg-amber-900/80 text-amber-100" title="Prazo limite para montagem (Coluna R da planilha). Destaque quando faltam menos de 10 dias ou vencido.">Prazo p/ Montagem</th>
               <th class="py-2.5 px-2.5 font-semibold">Montador</th>
             </tr>
           </thead>
@@ -610,6 +613,8 @@
       const totalVolumes = rows.reduce((acc, r) => acc + (r.volumes || 0), 0);
       const countFinalizados = rows.filter(r => r.etapa === "FINALIZADO").length;
       const countMontagem = rows.filter(r => r.etapa === "EM MONTAGEM").length;
+      const countNoDeposito = rows.filter(r => r.etapa === "NO DEPÓSITO").length;
+      const countAtivosSemFinalizados = rows.filter(r => r.etapa !== "FINALIZADO").length;
 
       document.getElementById("kpi-prazo-val").textContent = fmtDays(prazoPct, 1) + "%";
       document.getElementById("kpi-prazo-sub").textContent = "▲ " + noPrazoCount + " de " + totalCount;
@@ -631,8 +636,12 @@
       const withVolCount = rows.filter(r => (r.volumes || 0) > 0).length;
       document.getElementById("kpi-volumes-sub").textContent = "volumes (" + withVolCount + "/" + totalCount + " contr.)";
 
-      document.getElementById("kpi-contratos").textContent = String(totalCount);
-      document.getElementById("kpi-contratos-sub").textContent = countFinalizados + " finaliz. • " + countMontagem + " mont.";
+      document.getElementById("kpi-contratos").textContent = String(countAtivosSemFinalizados);
+      document.getElementById("kpi-contratos-sub").textContent = countNoDeposito + " no dep. • " + countMontagem + " em mont.";
+      const exclEl = document.getElementById("kpi-contratos-excl");
+      if (exclEl) {
+        exclEl.textContent = countFinalizados > 0 ? "(excl. " + countFinalizados + " finaliz.)" : "em andamento";
+      }
 
       return { m1, m2, m3, m4, m5, m6, mTotal };
     }
@@ -768,20 +777,39 @@
       });
     }
 
+    function calcWorkdaysBr(dMedStr, workdaysCount) {
+      const dt = parseBrDate(dMedStr);
+      if (!dt) return "";
+      const cur = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+      let rem = Math.abs(workdaysCount || 45);
+      while (rem > 0) {
+        cur.setDate(cur.getDate() + 1);
+        const wd = cur.getDay();
+        if (wd !== 0 && wd !== 6) rem--;
+      }
+      const dd = String(cur.getDate()).padStart(2, "0");
+      const mm = String(cur.getMonth() + 1).padStart(2, "0");
+      const yy = cur.getFullYear();
+      return `${dd}/${mm}/${yy}`;
+    }
+
     function renderContractsTable(rows) {
       const tbody = document.getElementById("contracts-table-tbody");
       const thDepCli = document.getElementById("th-dep-cli");
       if (thDepCli) {
         if (state.etapa === "NO DEPÓSITO") {
-          thDepCli.textContent = "Tempo no Depósito (Dep → Cli)";
-          thDepCli.className = "py-2.5 px-2.5 text-center font-bold bg-sky-700 text-white transition-colors";
+          thDepCli.textContent = "Dias no Depósito (Cheg → Hoje)";
+          thDepCli.className = "py-2.5 px-2.5 text-center font-extrabold bg-sky-600 text-white transition-colors";
         } else {
-          thDepCli.textContent = "Dep → Cli";
-          thDepCli.className = "py-2.5 px-2 text-center font-semibold transition-colors";
+          thDepCli.textContent = "Dias no Depósito (Dep → Cli)";
+          thDepCli.className = "py-2.5 px-2.5 text-center font-bold bg-sky-800 text-white transition-colors";
         }
       }
 
+      const alertsSummaryEl = document.getElementById("table-alerts-summary");
+
       if (!rows.length) {
+        if (alertsSummaryEl) alertsSummaryEl.innerHTML = "";
         tbody.innerHTML = '<tr><td colspan="13" class="py-6 text-center text-slate-400 font-medium">Nenhum contrato encontrado para os filtros selecionados.</td></tr>';
         return;
       }
@@ -789,27 +817,52 @@
       const now = new Date();
       const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-      tbody.innerHTML = rows.map(r => {
+      let countDepGt5 = 0;
+      let countPrazoLt10 = 0;
+
+      const rowsHtml = rows.map(r => {
+        const isFinalizado = r.etapa === "FINALIZADO";
         const badgeCls = STAGE_BADGE_CLASSES[r.etapa] || "bg-slate-100 text-slate-700 border-slate-200";
         const cellVal = v => (v !== null && v !== undefined ? `<span class="font-semibold text-slate-800">${v} d</span>` : `<span class="text-slate-300">—</span>`);
 
-        // Coluna Dep -> Cli (Tempo no Depósito: chegada no depósito até entrega no cliente ou até hoje se ainda no depósito)
+        // Verifica dias no depósito (s4): superior a 5 dias (> 5)
+        const diasDep = (r.s4 !== null && r.s4 !== undefined) ? Number(r.s4) : null;
+        const isDepAlert = !isFinalizado && diasDep !== null && diasDep > 5;
+        if (isDepAlert) countDepGt5++;
+
+        // Coluna Dias no Depósito (Chegada no depósito até entrega no cliente, ou até hoje se ainda no depósito)
         let depCliHtml = `<span class="text-slate-300">—</span>`;
-        if (r.s4 !== null && r.s4 !== undefined) {
-          if (r.etapa === "NO DEPÓSITO" || r.s4_open) {
-            const depBadge = r.s4 >= 15
-              ? "bg-rose-100 text-rose-800 border-rose-200"
-              : (r.s4 >= 8 ? "bg-amber-100 text-amber-800 border-amber-200" : "bg-sky-100 text-sky-800 border-sky-200");
-            const chegShort = r.d_dep ? r.d_dep.slice(0, 5) : "";
-            const entInfo = (r.d_ent && r.d_ent !== "Cancelado") ? ` → Ent: ${r.d_ent.slice(0, 5)}` : " (no depósito)";
+        if (diasDep !== null) {
+          const chegShort = r.d_dep ? r.d_dep.slice(0, 5) : "";
+          const hasEnt = r.d_ent && r.d_ent !== "Cancelado";
+          const subLabel = hasEnt
+            ? `Cheg: ${chegShort} → Ent: ${r.d_ent.slice(0, 5)}`
+            : (chegShort ? `Desde ${chegShort} (no depósito)` : "No depósito");
+
+          if (isDepAlert) {
+            const alertCls = (r.etapa === "NO DEPÓSITO" || r.s4_open)
+              ? "bg-rose-600 text-white border-rose-700 shadow-sm ring-2 ring-rose-200"
+              : "bg-amber-500 text-slate-950 border-amber-600 shadow-sm";
             depCliHtml = `
-              <div class="flex flex-col items-center leading-tight" title="Chegada no Depósito: ${r.d_dep || '—'} | Entrega: ${r.d_ent || 'Aguardando entrega'}">
-                <span class="px-2 py-0.5 rounded font-extrabold border ${depBadge}">${r.s4} d</span>
-                ${chegShort ? `<span class="text-[10px] text-slate-500 mt-0.5">Cheg: ${chegShort}${entInfo}</span>` : ""}
+              <div class="flex flex-col items-center leading-tight" title="ALERTA: Material com mais de 5 dias no depósito (${diasDep} dias)">
+                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold border ${alertCls}">⚠️ ${diasDep} dias</span>
+                <span class="text-[10px] ${r.etapa === 'NO DEPÓSITO' ? 'text-rose-700 font-bold' : 'text-amber-800 font-semibold'} mt-0.5">${subLabel}</span>
+              </div>
+            `;
+          } else if (r.etapa === "NO DEPÓSITO" || r.s4_open) {
+            depCliHtml = `
+              <div class="flex flex-col items-center leading-tight" title="No depósito há ${diasDep} dia(s) (dentro do limite de 5 dias)">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-sky-100 text-sky-900 border-sky-300">${diasDep} dias</span>
+                <span class="text-[10px] text-slate-500 mt-0.5">${subLabel}</span>
               </div>
             `;
           } else {
-            depCliHtml = `<span class="font-semibold text-slate-800">${r.s4} d</span>`;
+            depCliHtml = `
+              <div class="flex flex-col items-center leading-tight">
+                <span class="font-semibold text-slate-800">${diasDep} dias</span>
+                ${chegShort && hasEnt ? `<span class="text-[10px] text-slate-400">${chegShort}→${r.d_ent.slice(0, 5)}</span>` : ""}
+              </div>
+            `;
           }
         }
 
@@ -819,45 +872,81 @@
               ? `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold" title="Tempo parcial acumulado até a etapa atual">${r.elapsed} d*</span>`
               : `<span class="text-slate-300">—</span>`);
 
-        // Coluna Prazo para Montagem
+        // Coluna Prazo para Montagem: destaca quando faltam menos de 10 dias (diffPrazo < 10) ou vencido
+        const prazoStr = r.prazo || (r.d_med ? calcWorkdaysBr(r.d_med, 45) : "");
         let prazoHtml = `<span class="text-slate-300">—</span>`;
-        if (r.prazo) {
-          const dtPrazo = parseBrDate(r.prazo);
+        let isPrazoAlert = false;
+        let diffPrazoVal = null;
+
+        if (prazoStr) {
+          const dtPrazo = parseBrDate(prazoStr);
           if (dtPrazo) {
-            const diffPrazo = Math.round((dtPrazo - todayMidnight) / (1000 * 60 * 60 * 24));
-            if (r.etapa === "FINALIZADO") {
+            diffPrazoVal = Math.round((dtPrazo - todayMidnight) / (1000 * 60 * 60 * 24));
+            if (isFinalizado) {
               const cls = r.no_prazo ? "bg-emerald-50 text-emerald-800 border-emerald-200" : "bg-rose-50 text-rose-800 border-rose-200";
-              prazoHtml = `<span class="px-2 py-0.5 rounded text-[11px] font-bold border ${cls}">${r.prazo}</span>`;
-            } else if (diffPrazo < 0) {
               prazoHtml = `
                 <div class="flex flex-col items-center leading-tight">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-rose-100 text-rose-800 border-rose-200">${r.prazo}</span>
-                  <span class="text-[10px] text-rose-600 font-bold mt-0.5">Atrasado (${Math.abs(diffPrazo)} d)</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${cls}">${prazoStr}</span>
+                  <span class="text-[10px] text-slate-400 mt-0.5">Finalizado</span>
                 </div>
               `;
-            } else if (diffPrazo <= 7) {
+            } else if (diffPrazoVal < 0) {
+              isPrazoAlert = true;
+              countPrazoLt10++;
               prazoHtml = `
-                <div class="flex flex-col items-center leading-tight">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-amber-100 text-amber-800 border-amber-200">${r.prazo}</span>
-                  <span class="text-[10px] text-amber-700 font-semibold mt-0.5">${diffPrazo === 0 ? "Vence hoje" : `Faltam ${diffPrazo} d`}</span>
+                <div class="flex flex-col items-center leading-tight" title="ALERTA CRÍTICO: Prazo de montagem vencido há ${Math.abs(diffPrazoVal)} dia(s)">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-extrabold border bg-rose-600 text-white border-rose-700 shadow-sm ring-2 ring-rose-200">🚨 ${prazoStr}</span>
+                  <span class="text-[10px] text-rose-700 font-extrabold mt-0.5">Vencido há ${Math.abs(diffPrazoVal)} d</span>
+                </div>
+              `;
+            } else if (diffPrazoVal < 10) {
+              isPrazoAlert = true;
+              countPrazoLt10++;
+              prazoHtml = `
+                <div class="flex flex-col items-center leading-tight" title="ALERTA: Menos de 10 dias para o prazo de montagem (faltam ${diffPrazoVal} dias)">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-extrabold border bg-amber-500 text-slate-950 border-amber-600 shadow-sm ring-2 ring-amber-200">⏰ ${prazoStr}</span>
+                  <span class="text-[10px] text-amber-800 font-extrabold mt-0.5">${diffPrazoVal === 0 ? "Vence HOJE!" : `Faltam ${diffPrazoVal} d (<10d)`}</span>
                 </div>
               `;
             } else {
               prazoHtml = `
                 <div class="flex flex-col items-center leading-tight">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-200">${r.prazo}</span>
-                  <span class="text-[10px] text-slate-500 mt-0.5">Faltam ${diffPrazo} d</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-200">${prazoStr}</span>
+                  <span class="text-[10px] text-slate-500 mt-0.5">Faltam ${diffPrazoVal} d</span>
                 </div>
               `;
             }
           } else {
-            prazoHtml = `<span class="font-semibold text-slate-700">${r.prazo}</span>`;
+            prazoHtml = `<span class="font-semibold text-slate-700">${prazoStr}</span>`;
           }
         }
 
+        // Destaque visual da linha inteira quando contrato tem > 5 dias no depósito ou < 10 dias para o prazo de montagem
+        let rowHighlightCls = "hover:bg-blue-50/40 transition";
+        if (isPrazoAlert && diffPrazoVal !== null && diffPrazoVal < 0) {
+          rowHighlightCls = "bg-rose-50/75 hover:bg-rose-100/70 border-l-4 border-l-rose-600 transition";
+        } else if ((isDepAlert && (r.etapa === "NO DEPÓSITO" || r.s4_open)) || isPrazoAlert) {
+          rowHighlightCls = "bg-amber-50/70 hover:bg-amber-100/60 border-l-4 border-l-amber-500 transition";
+        } else if (isDepAlert) {
+          rowHighlightCls = "bg-amber-50/35 hover:bg-amber-50/70 border-l-4 border-l-amber-400 transition";
+        }
+
+        const alertTags = [];
+        if (isDepAlert) {
+          alertTags.push(`<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-rose-100 text-rose-800 border border-rose-300" title="Superior a 5 dias no depósito">&gt;5d Dep</span>`);
+        }
+        if (isPrazoAlert) {
+          alertTags.push(`<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300" title="A menos de 10 dias do prazo para montagem">&lt;10d Prazo</span>`);
+        }
+
         return `
-          <tr class="hover:bg-blue-50/40 transition">
-            <td class="py-2 px-2.5 font-bold text-slate-900 whitespace-nowrap">${r.contrato}</td>
+          <tr class="${rowHighlightCls}">
+            <td class="py-2 px-2.5 font-bold text-slate-900 whitespace-nowrap">
+              <div class="flex items-center gap-1.5">
+                <span>${r.contrato}</span>
+                ${alertTags.join("")}
+              </div>
+            </td>
             <td class="py-2 px-2.5 text-slate-700 font-medium max-w-[200px] truncate" title="${r.cliente}">${r.cliente}</td>
             <td class="py-2 px-2 font-semibold text-slate-600">${r.loja}</td>
             <td class="py-2 px-2.5 whitespace-nowrap">
@@ -866,17 +955,32 @@
             <td class="py-2 px-2 text-center">${cellVal(r.s1)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s2)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s3)}</td>
-            <td class="py-2 px-2 text-center ${state.etapa === 'NO DEPÓSITO' ? 'bg-sky-50/50' : ''}">${depCliHtml}</td>
+            <td class="py-2 px-2.5 text-center ${isDepAlert ? 'bg-rose-50/60' : 'bg-sky-50/40'}">${depCliHtml}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s5)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s6)}</td>
             <td class="py-2 px-2.5 text-center bg-blue-50/20">${totVal}</td>
-            <td class="py-2 px-2.5 text-center whitespace-nowrap">${prazoHtml}</td>
+            <td class="py-2 px-2.5 text-center whitespace-nowrap ${isPrazoAlert ? 'bg-amber-50/60' : ''}">${prazoHtml}</td>
             <td class="py-2 px-2.5 font-semibold text-slate-700 max-w-[190px] truncate" title="${r.montador || 'Não atribuído'}">
               ${r.montador ? r.montador : '<span class="text-slate-400 font-normal italic">Aguardando atribuição</span>'}
             </td>
           </tr>
         `;
       }).join("");
+
+      tbody.innerHTML = rowsHtml;
+
+      if (alertsSummaryEl) {
+        alertsSummaryEl.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold border ${countDepGt5 > 0 ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-slate-100 text-slate-600 border-slate-200'}">
+            <span>⚠️ Dias no Depósito &gt; 5d:</span>
+            <span class="px-1.5 py-0.2 rounded bg-white/80 text-rose-900 font-extrabold">${countDepGt5}</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold border ${countPrazoLt10 > 0 ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-slate-100 text-slate-600 border-slate-200'}">
+            <span>⏰ Prazo Montagem &lt; 10d (ou vencido):</span>
+            <span class="px-1.5 py-0.2 rounded bg-white/80 text-amber-950 font-extrabold">${countPrazoLt10}</span>
+          </span>
+        `;
+      }
     }
 
     function renderCharts(rows, metrics) {
@@ -1431,12 +1535,12 @@
       const rawDec = get(9).toUpperCase();
       const decorado = rawDec === "SIM" ? "SIM" : (rawDec === "NÃO" || rawDec === "NAO" ? "NÃO" : (isGvizFallback && snap ? snap.decorado : "NÃO"));
 
-      const d_med = get(10);
-      const d_comp = get(11);
-      const d_pag = get(12);
+      const d_med = get(10) || (isGvizFallback && snap ? snap.d_med : "");
+      const d_comp = get(11) || (isGvizFallback && snap ? snap.d_comp : "");
+      const d_pag = get(12) || (isGvizFallback && snap ? snap.d_pag : "");
       const d_dep = get(13) || (isGvizFallback && snap ? snap.d_dep : "");
       const vol_qtd = parseNumVal(get(14));
-      const volumes = vol_qtd > 0 ? vol_qtd : vol_ped;
+      const volumes = vol_qtd > 0 ? vol_qtd : (vol_ped > 0 ? vol_ped : (isGvizFallback && snap ? snap.volumes : 0));
 
       let lib_fin = get(15);
       if (!lib_fin && isGvizFallback && snap && snap.fin_status === "Solicitado") {
@@ -1447,7 +1551,7 @@
         fin_status = lib_fin.toUpperCase().includes("SOLIC") ? "Solicitado" : "Liberado";
       }
 
-      const prazo = get(17);
+      const prazo = get(17) || (isGvizFallback && snap ? snap.prazo : "") || (d_med ? calcWorkdaysBr(d_med, 45) : "");
       const d_ent = get(18) || (isGvizFallback && snap ? snap.d_ent : "");
       const d_ini = get(19);
       const d_fim = get(20);
