@@ -101,11 +101,11 @@
           <span>EXCLUIR IMOBAL</span>
         </button>
 
-        <!-- NOVO FILTRO: Unidade (Cast Móveis, Cast II, Select) -->
+        <!-- FILTRO: Unidade (Cast Móveis, Cast Móveis II, Select) -->
         <select id="fUnidade" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-bold focus:outline-none focus:border-blue-600">
           <option value="TODOS">Unidade: Todas</option>
           <option value="Cast Móveis">Cast Móveis</option>
-          <option value="Cast II">Cast II</option>
+          <option value="Cast Móveis II">Cast Móveis II</option>
           <option value="Select">Select</option>
         </select>
 
@@ -245,11 +245,11 @@
         </div>
       </div>
 
-      <!-- NOVO QUADRO: Valor por Unidade (Substitui Volume por Ambiente) -->
+      <!-- QUADRO: Valor por Unidade (Cast Móveis, Cast Móveis II e Select) -->
       <div class="card p-4 lg:col-span-3 flex flex-col">
         <div class="mb-2">
           <h2 class="text-sm font-bold text-slate-800">Valor dos Pedidos por Unidade</h2>
-          <p class="text-[11px] text-slate-500">Cast Móveis, Cast II e Select (R$ c/ IPI)</p>
+          <p class="text-[11px] text-slate-500">Cast Móveis, Cast Móveis II e Select (R$ c/ IPI)</p>
         </div>
         <div class="relative flex-1 min-h-[215px]">
           <canvas id="chartUnidades"></canvas>
@@ -342,11 +342,13 @@
       return isNaN(n) ? 0 : n;
     }
 
-    // Normaliza as unidades padrão da Cast Móveis
+    // Normaliza as unidades padrão da Cast Móveis (Cast Móveis, Cast Móveis II, Select)
     function normalizarUnidade(lojaStr, clienteStr) {
       const texto = `${lojaStr || ''} ${clienteStr || ''}`.toUpperCase();
       if (texto.includes('SELECT')) return 'Select';
-      if (texto.includes('CAST II') || texto.includes('CAST 2') || texto.includes('LOJA 2') || texto.includes('UNIDADE 2')) return 'Cast II';
+      if (texto.includes('CAST II') || texto.includes('CAST 2') || texto.includes('LOJA 2') || texto.includes('UNIDADE 2') || texto.includes('MÓVEIS II') || texto.includes('MOVEIS II')) {
+        return 'Cast Móveis II';
+      }
       return 'Cast Móveis';
     }
 
@@ -377,7 +379,7 @@
       return v;
     }
 
-    // Converte DD/MM/YYYY para timestamp comparável
+    // Converte DD/MM/YYYY para timestamp numérico
     function dataParaTimestamp(dataStr) {
       if (!dataStr || dataStr.length < 8) return 0;
       const partes = dataStr.split('/');
@@ -433,7 +435,7 @@
           loja: acharCol(['Loja/Unidade', 'Unidade', 'Loja'], 17),
           qtd: acharCol(['Quantidade'], 24),
           totalItemIpi: acharCol(['Total com IPI'], 27),
-          itemColW: 22 // Coluna W fixa
+          itemColW: 22
         };
 
         let posColW = 22;
@@ -758,8 +760,8 @@
         }
       });
 
-      // 3. NOVO: Valor por Unidade (Cast Móveis, Cast II, Select)
-      const mapUnid = { 'Cast Móveis': 0, 'Cast II': 0, 'Select': 0 };
+      // 3. Valor dos Pedidos por Unidade (Cast Móveis, Cast Móveis II e Select)
+      const mapUnid = { 'Cast Móveis': 0, 'Cast Móveis II': 0, 'Select': 0 };
       lista.forEach(d => {
         if (mapUnid[d.u] !== undefined) {
           mapUnid[d.u] += d.v;
@@ -771,10 +773,10 @@
       renderChart('chartUnidades', {
         type: 'bar',
         data: {
-          labels: ['Cast Móveis', 'Cast II', 'Select'],
+          labels: ['Cast Móveis', 'Cast Móveis II', 'Select'],
           datasets: [{
             label: 'Total c/ IPI (R$)',
-            data: [mapUnid['Cast Móveis'], mapUnid['Cast II'], mapUnid['Select']],
+            data: [mapUnid['Cast Móveis'], mapUnid['Cast Móveis II'], mapUnid['Select']],
             backgroundColor: ['#1E40AF', '#3B82F6', '#0284C7'],
             borderRadius: 6
           }]
@@ -890,7 +892,6 @@
         mapOC.get(d.n).v += d.v;
       });
 
-      // ORDENAÇÃO: Data decrescente (timestamp maior primeiro) e desempate por número de OC decrescente
       const pedidosConsolidados = Array.from(mapOC.values())
         .sort((a, b) => {
           if (b.timestamp !== a.timestamp) {
@@ -911,7 +912,7 @@
 
         let badgeUnidade = 'bg-blue-50 text-blue-700 border border-blue-200';
         if (p.u === 'Select') badgeUnidade = 'bg-purple-50 text-purple-700 border border-purple-200';
-        else if (p.u === 'Cast II') badgeUnidade = 'bg-sky-50 text-sky-700 border border-sky-200';
+        else if (p.u === 'Cast Móveis II') badgeUnidade = 'bg-sky-50 text-sky-700 border border-sky-200';
 
         return `
           <tr class="hover:bg-slate-50 transition">
