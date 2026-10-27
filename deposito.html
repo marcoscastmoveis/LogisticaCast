@@ -540,6 +540,435 @@
 
     let charts = {};
 
+    const SHEET_ID = "1oE983PuIyK-t1CRjm81sl-o3ReBSWPOrKmT346uBsaA";
+    const SHEET_NAME = "Página1";
+
+    function normCliente(c) {
+      if (!c || c === "—") return "";
+      return String(c).trim().toUpperCase();
+    }
+
+    function parseBrDate(str) {
+      if (!str || typeof str !== "string") return null;
+      const clean = str.trim();
+      const m = clean.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+      if (!m) return null;
+      const d = parseInt(m[1], 10);
+      const mo = parseInt(m[2], 10) - 1;
+      let y = parseInt(m[3], 10);
+      if (y < 100) y += 2000;
+      const dt = new Date(y, mo, d);
+      return isNaN(dt.getTime()) ? null : dt;
+    }
+
+    function diffDays(dStart, dEnd) {
+      const dt1 = parseBrDate(dStart);
+      const dt2 = parseBrDate(dEnd);
+      if (!dt1 || !dt2) return null;
+      return Math.round((dt2 - dt1) / (1000 * 60 * 60 * 24));
+    }
+
+    function parseNumVal(str) {
+      if (str === undefined || str === null || str === "") return 0;
+      if (typeof str === "number") return Math.round(str);
+      const cleaned = String(str).replace(/[^\d,.-]/g, "").trim();
+      if (!cleaned) return 0;
+      const norm = cleaned.replace(/\./g, "").replace(",", ".");
+      const n = parseFloat(norm);
+      return isNaN(n) ? 0 : Math.round(n);
+    }
+
+    const BASELINE_DATA = RAW_DATA.map(r => Object.assign({}, r));
+    const SNAPSHOT_BY_ROW = {};
+    const SNAPSHOT_BY_PEDIDO = {};
+    const SNAPSHOT_BY_KEY = {};
+    const SNAPSHOT_BY_CLIENTE_UNIQ = {};
+
+    function rebuildSnapshots(list) {
+      const cliCounts = {};
+      list.forEach(r => {
+        const nc = normCliente(r.cliente);
+        if (nc) cliCounts[nc] = (cliCounts[nc] || 0) + 1;
+      });
+      list.forEach(r => {
+        if (r.row) SNAPSHOT_BY_ROW[r.row] = Object.assign({}, r);
+        if (r.pedido) SNAPSHOT_BY_PEDIDO[String(r.pedido).trim()] = Object.assign({}, r);
+        const nc = normCliente(r.cliente);
+        const k = (r.pedido ? "P:" + String(r.pedido).trim() : "") + "|C:" + nc;
+        if (k !== "|C:") SNAPSHOT_BY_KEY[k] = Object.assign({}, r);
+        if (nc && cliCounts[nc] === 1) {
+          SNAPSHOT_BY_CLIENTE_UNIQ[nc] = Object.assign({}, r);
+        }
+      });
+    }
+    rebuildSnapshots(BASELINE_DATA);
+
+    function findSnapshotMatch(rawPedido, rawContrato, rawCliente, rowNum, isGvizFallback) {
+      const ped = rawPedido ? String(rawPedido).trim() : "";
+      const con = rawContrato ? String(rawContrato).trim() : "";
+      const nc = normCliente(rawCliente);
+
+      if (ped && SNAPSHOT_BY_PEDIDO[ped]) {
+        return SNAPSHOT_BY_PEDIDO[ped];
+      }
+      if (con) {
+        const byCon = BASELINE_DATA.find(b => b.contrato === con && ((ped && b.pedido === ped) || (nc && normCliente(b.cliente) === nc)));
+        if (byCon) return byCon;
+        const byConOnly = BASELINE_DATA.find(b => b.contrato === con);
+        if (byConOnly) return byConOnly;
+      }
+      const keyLookup = (ped ? "P:" + ped : "") + "|C:" + nc;
+      if (keyLookup !== "|C:" && SNAPSHOT_BY_KEY[keyLookup]) {
+        return SNAPSHOT_BY_KEY[keyLookup];
+      }
+      if (nc && SNAPSHOT_BY_CLIENTE_UNIQ[nc]) {
+        return SNAPSHOT_BY_CLIENTE_UNIQ[nc];
+      }
+      if (!isGvizFallback && rowNum && SNAPSHOT_BY_ROW[rowNum]) {
+        return SNAPSHOT_BY_ROW[rowNum];
+      }
+      return null;
+    }
+
+    function parseCsvRows(csvText) {
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
+      for (let i = 0; i < csvText.length; i++) {
+        const ch = csvText[i];
+        const next = csvText[i + 1];
+        if (inQuotes) {
+          if (ch === '"' && next === '"') {
+            cur += '"';
+            i++;
+          } else if (ch === '"') {
+            inQuotes = false;
+          } else {
+            cur += ch;
+          }
+        } else {
+          if (ch === '"') {
+            inQuotes = true;
+          } else if (ch === ",") {
+            row.push(cur);
+            cur = "";
+          } else if (ch === "\r" && next === "\n") {
+            row.push(cur);
+            rows.push(row);
+            row = [];
+            cur = "";
+            i++;
+          } else if (ch === "\n" || ch === "\r") {
+            row.push(cur);
+            rows.push(row);
+            row = [];
+            cur = "";
+          } else {
+            cur += ch;
+          }
+        }
+      }
+      if (cur.length > 0 || row.length > 0) {
+        row.push(cur);
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function buildRecordFromRowArray(arr, rowNum, isGvizFallback) {
+      const get = i => (arr[i] !== undefined && arr[i] !== null ? String(arr[i]).trim() : "");
+      if (!arr || !arr.some(cell => cell !== undefined && cell !== null && String(cell).trim() !== "")) {
+        return null;
+      }
+      const rawPedido = get(0);
+      const rawContrato = get(1);
+      const rawCliente = get(8);
+      if (rawPedido.toUpperCase() === "PEDIDO" || rawContrato.toUpperCase() === "CONTRATO" || rawCliente.toUpperCase() === "CLIENTE") {
+        return null;
+      }
+
+      const snap = findSnapshotMatch(rawPedido, rawContrato, rawCliente, rowNum, isGvizFallback);
+
+      const pedido = rawPedido || (isGvizFallback && snap ? snap.pedido : "");
+      let contrato = rawContrato;
+      const cliente = rawCliente || (isGvizFallback && snap ? snap.cliente : "");
+
+      // In gviz, mixed-type text strings in numeric Column B (like "156303 (156305)" or "AT...") return empty
+      if (!contrato && isGvizFallback && snap) {
+        contrato = snap.contrato;
+      }
+      if (!contrato) return null;
+
+      const is_at = /^AT\b|^AT\d|^AT\s/i.test(contrato);
+      const nf = get(2) || (isGvizFallback && snap ? snap.nf : "");
+      const loja = get(3) || (isGvizFallback && snap ? snap.loja : "") || "N/I";
+      const vol_ped = parseNumVal(get(6));
+      const transportador = get(7) || (isGvizFallback && snap ? snap.transportador : "") || "—";
+      const rawDec = get(9).toUpperCase();
+      const decorado = rawDec === "SIM" ? "SIM" : (rawDec === "NÃO" || rawDec === "NAO" ? "NÃO" : (isGvizFallback && snap ? snap.decorado : "NÃO"));
+
+      const d_med = get(10) || (isGvizFallback && snap ? snap.d_med : "");
+      const d_comp = get(11) || (isGvizFallback && snap ? snap.d_comp : "");
+      const d_pag = get(12) || (isGvizFallback && snap ? snap.d_pag : "");
+      const d_dep = get(13) || (isGvizFallback && snap ? snap.d_dep : "");
+      const vol_qtd = parseNumVal(get(14));
+      const volumes = vol_qtd > 0 ? vol_qtd : (vol_ped > 0 ? vol_ped : (isGvizFallback && snap ? snap.volumes : 0));
+
+      let lib_fin = get(15);
+      if (!lib_fin && isGvizFallback && snap && snap.fin_status === "Solicitado") {
+        lib_fin = "SOLIC.";
+      }
+      let fin_status = "Pendente";
+      if (lib_fin) {
+        fin_status = lib_fin.toUpperCase().includes("SOLIC") ? "Solicitado" : "Liberado";
+      }
+
+      const prazo = get(17) || (isGvizFallback && snap ? snap.prazo : "") || (d_med ? calcWorkdaysBr(d_med, 45) : "");
+      const d_ent = get(18) || (isGvizFallback && snap ? snap.d_ent : "");
+      const d_ini = get(19) || (isGvizFallback && snap ? snap.d_ini : "");
+      const d_fim = get(20) || (isGvizFallback && snap ? snap.d_fim : "");
+      const montador = get(21) || (isGvizFallback && snap ? snap.montador : "");
+      const etapa = get(22) || (isGvizFallback && snap ? snap.etapa : "");
+
+      const now = new Date();
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      const dtFim = parseBrDate(d_fim);
+      const dtIni = parseBrDate(d_ini);
+      const dtEnt = parseBrDate(d_ent);
+      const dtDep = parseBrDate(d_dep);
+      const dtPag = parseBrDate(d_pag);
+      const dtComp = parseBrDate(d_comp);
+      const dtMed = parseBrDate(d_med);
+
+      const s1 = diffDays(d_med, d_comp);
+      const s2 = diffDays(d_comp, d_pag);
+      const s3 = diffDays(d_pag, d_dep);
+      const s4_closed = diffDays(d_dep, d_ent);
+      let s4 = s4_closed;
+      let s4_open = false;
+      if (s4_closed === null && dtDep && (etapa === "NO DEPÓSITO" || !dtEnt)) {
+        s4 = Math.max(0, Math.round((todayMidnight - dtDep) / (1000 * 60 * 60 * 24)));
+        s4_open = true;
+      }
+      const s5 = diffDays(d_ent, d_ini);
+      const s6 = diffDays(d_ini, d_fim);
+      const total = diffDays(d_med, d_fim);
+
+      const latestDt = dtFim || dtIni || dtEnt || ((etapa === "NO DEPÓSITO" && dtDep) ? todayMidnight : dtDep) || dtPag || dtComp;
+      const elapsed = (dtMed && latestDt) ? Math.round((latestDt - dtMed) / (1000 * 60 * 60 * 24)) : null;
+
+      let no_prazo = true;
+      const dtPrazo = parseBrDate(prazo);
+      const dtRef = dtFim || todayMidnight;
+      if (dtPrazo && dtRef > dtPrazo) no_prazo = false;
+
+      const monthsPt = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+      const refCohort = dtMed || dtComp || dtDep;
+      const mes = refCohort ? `${monthsPt[refCohort.getMonth()]}/${refCohort.getFullYear()}` : "Outubro/2026";
+
+      return {
+        row: rowNum,
+        pedido,
+        contrato,
+        nf,
+        loja,
+        cliente: cliente || "—",
+        transportador,
+        decorado,
+        d_med, d_comp, d_pag, d_dep, d_ent, d_ini, d_fim, prazo,
+        volumes,
+        fin_status,
+        montador,
+        etapa,
+        mes,
+        is_at,
+        no_prazo,
+        s1, s2, s3, s4, s4_open, s5, s6, total, elapsed
+      };
+    }
+
+    function applySyncedRecords(parsed, statusEl, isGvizSource = false) {
+      if (parsed && parsed.length > 5) {
+        let finalRecords = parsed;
+
+        // Se a resposta veio do endpoint gviz e a planilha estiver com filtro ativo ocultando etapas (ex.: FINALIZADO),
+        // preserva os contratos das etapas ocultadas pelo filtro da planilha para nunca sumirem do dashboard
+        if (isGvizSource) {
+          const parsedActive = parsed.filter(r => !r.is_at);
+          const missingStages = new Set();
+          STAGES_ORDER.forEach(st => {
+            const baseCount = BASELINE_DATA.filter(r => !r.is_at && r.etapa === st).length;
+            const curCount = parsedActive.filter(r => r.etapa === st).length;
+            if (baseCount > 0 && curCount === 0) {
+              missingStages.add(st);
+            }
+          });
+
+          if (missingStages.size > 0) {
+            const seenKeys = new Set(parsed.map(r => `${r.contrato}|${r.pedido}|${normCliente(r.cliente)}`));
+            const SeenPedidos = new Set(parsed.map(r => r.pedido).filter(Boolean));
+            const preserved = BASELINE_DATA.filter(b => {
+              if (!missingStages.has(b.etapa)) return false;
+              const k = `${b.contrato}|${b.pedido}|${normCliente(b.cliente)}`;
+              if (seenKeys.has(k)) return false;
+              if (b.pedido && SeenPedidos.has(b.pedido)) return false;
+              return true;
+            });
+            finalRecords = [...parsed, ...preserved].sort((a, b) => (a.row || 999) - (b.row || 999));
+          }
+        } else {
+          // Se veio do CSV completo (sem filtro de visualização), atualiza a base de referência completa
+          BASELINE_DATA.length = 0;
+          finalRecords.forEach(r => BASELINE_DATA.push(Object.assign({}, r)));
+        }
+
+        RAW_DATA.length = 0;
+        finalRecords.forEach(item => {
+          RAW_DATA.push(item);
+        });
+        rebuildSnapshots(RAW_DATA);
+        populateMontadorDropdown();
+        updateAll();
+        if (statusEl) {
+          const now = new Date();
+          statusEl.textContent = "Ao Vivo • " + now.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit", second: "2-digit"});
+        }
+        return true;
+      }
+      return false;
+    }
+
+    function parseCsvAndApply(csvText, isGvizCsv, statusEl) {
+      const rawRows = parseCsvRows(csvText);
+      if (!rawRows || rawRows.length < 2) throw new Error("Empty CSV");
+      const parsed = [];
+      for (let i = 1; i < rawRows.length; i++) {
+        const rec = buildRecordFromRowArray(rawRows[i], i + 1, isGvizCsv);
+        if (rec) parsed.push(rec);
+      }
+      if (!applySyncedRecords(parsed, statusEl, isGvizCsv)) {
+        throw new Error("Insufficient rows");
+      }
+    }
+
+    function fetchWithTimeout(url, timeoutMs = 6000) {
+      const ctrl = new AbortController();
+      const id = setTimeout(() => ctrl.abort(), timeoutMs);
+      return fetch(url, { cache: "no-store", signal: ctrl.signal }).finally(() => clearTimeout(id));
+    }
+
+    async function syncFromGoogleSheets() {
+      const statusEl = document.getElementById("sync-status-text");
+      if (statusEl) statusEl.textContent = "Sincronizando...";
+      const ts = Date.now();
+      const exportUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0&_ts=${ts}`;
+      const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_ts=${ts}`;
+
+      // Tier 1: Direct Google Sheets CSV Export (preserves 100% of mixed-type strings/numbers and ignores sheet UI filters)
+      try {
+        const r1 = await fetchWithTimeout(exportUrl, 5000);
+        if (r1.ok) {
+          const txt = await r1.text();
+          if (txt && txt.includes("CONTRATO")) {
+            parseCsvAndApply(txt, false, statusEl);
+            return;
+          }
+        }
+      } catch (_) {}
+
+      // Tier 2: CORS Relays wrapping raw Google Sheets CSV Export (bypasses 307 redirect CORS on TV/Safari)
+      const proxyUrls = [
+        `https://corsproxy.io/?${encodeURIComponent(exportUrl)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(exportUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(exportUrl)}`
+      ];
+      for (const pUrl of proxyUrls) {
+        try {
+          const rp = await fetchWithTimeout(pUrl, 5500);
+          if (rp.ok) {
+            const txt = await rp.text();
+            if (txt && txt.includes("CONTRATO")) {
+              parseCsvAndApply(txt, false, statusEl);
+              return;
+            }
+          }
+        } catch (_) {}
+      }
+
+      // Tier 3: gviz CSV with smart mixed-type fallback & filter-safe merge
+      try {
+        const r3 = await fetchWithTimeout(gvizCsvUrl, 5000);
+        if (r3.ok) {
+          const txt = await r3.text();
+          if (txt && txt.length > 50) {
+            parseCsvAndApply(txt, true, statusEl);
+            return;
+          }
+        }
+      } catch (_) {}
+
+      // Tier 4: Native Google Visualization JSONP (google.visualization.Query.setResponse) - zero CORS restrictions
+      window.google = window.google || {};
+      window.google.visualization = window.google.visualization || {};
+      window.google.visualization.Query = window.google.visualization.Query || {};
+      window.google.visualization.Query.setResponse = function(payload) {
+        try {
+          if (!payload || !payload.table || !payload.table.rows) {
+            if (statusEl) statusEl.textContent = "Ao Vivo (Base Atual)";
+            return;
+          }
+          const rows = payload.table.rows;
+          const parsed = [];
+          let dataRowIdx = 2;
+          rows.forEach((r) => {
+            const c = r.c || [];
+            const arr = [];
+            for (let k = 0; k < 26; k++) {
+              const cell = c[k];
+              if (!cell) {
+                arr.push("");
+              } else if (cell.f !== undefined && cell.f !== null && String(cell.f).trim() !== "") {
+                arr.push(String(cell.f).trim());
+              } else if (cell.v !== undefined && cell.v !== null) {
+                const sv = String(cell.v).trim();
+                const dm = sv.match(/^Date\((\d+),(\d+),(\d+)\)/);
+                if (dm) {
+                  const yy = dm[1];
+                  const mm = String(parseInt(dm[2], 10) + 1).padStart(2, "0");
+                  const dd = String(parseInt(dm[3], 10)).padStart(2, "0");
+                  arr.push(`${dd}/${mm}/${yy}`);
+                } else {
+                  arr.push(sv);
+                }
+              } else {
+                arr.push("");
+              }
+            }
+            if (arr[0] && String(arr[0]).toUpperCase() === "PEDIDO") return;
+            const rec = buildRecordFromRowArray(arr, dataRowIdx++, true);
+            if (rec) parsed.push(rec);
+          });
+          if (!applySyncedRecords(parsed, statusEl, true) && statusEl) {
+            statusEl.textContent = "Ao Vivo (Base Atual)";
+          }
+        } catch (err) {
+          if (statusEl) statusEl.textContent = "Ao Vivo (Base Atual)";
+        }
+      };
+
+      const oldScript = document.getElementById("gviz-jsonp-script");
+      if (oldScript) oldScript.remove();
+      const s = document.createElement("script");
+      s.id = "gviz-jsonp-script";
+      s.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_ts=${ts}`;
+      s.onerror = () => {
+        if (statusEl) statusEl.textContent = "Sync Auto (30s)";
+      };
+      document.body.appendChild(s);
+    }
+
     function avg(arr) {
       const valid = arr.filter(v => typeof v === "number" && !isNaN(v));
       if (!valid.length) return 0;
@@ -1159,9 +1588,22 @@
         }
       });
 
-      // 4. Donut Chart: Stage Distribution
-      document.getElementById("donut-center-count").textContent = String(rows.length);
-      const stageCounts = STAGES_ORDER.map(st => rows.filter(r => r.etapa === st).length);
+      // 4. Donut Chart: Stage Distribution (mostra distribuição entre etapas respeitando Loja/Montador/Mês, destacando a etapa selecionada)
+      const baseForStages = RAW_DATA.filter(r => {
+        if (r.is_at) return false;
+        if (state.loja !== "TODOS" && r.loja !== state.loja) return false;
+        if (state.montador !== "TODOS") {
+          if (state.montador === "SEM_MONTADOR") {
+            if (r.montador) return false;
+          } else if (r.montador !== state.montador) {
+            return false;
+          }
+        }
+        if (state.mes !== "TODOS" && r.mes !== state.mes) return false;
+        return true;
+      });
+      document.getElementById("donut-center-count").textContent = String(state.etapa === "TODOS" ? baseForStages.length : rows.length);
+      const stageCounts = STAGES_ORDER.map(st => baseForStages.filter(r => r.etapa === st).length);
 
       if (charts.donutEtapas) charts.donutEtapas.destroy();
       charts.donutEtapas = new Chart(document.getElementById("chartDonutEtapas"), {
@@ -1305,12 +1747,12 @@
     function updateAll() {
       const rows = getFilteredData();
       const metrics = renderKPIs(rows);
-      renderStageAveragesTable(metrics);
-      renderCriticalContracts(rows);
-      renderStageLegendAndPills();
-      renderContractsTable(rows);
-      renderCharts(rows, metrics);
-      applySectionView();
+      try { renderStageAveragesTable(metrics); } catch (e) { console.error(e); }
+      try { renderCriticalContracts(rows); } catch (e) { console.error(e); }
+      try { renderStageLegendAndPills(); } catch (e) { console.error(e); }
+      try { renderContractsTable(rows); } catch (e) { console.error(e); }
+      try { renderCharts(rows, metrics); } catch (e) { console.error(e); }
+      try { applySectionView(); } catch (e) { console.error(e); }
     }
 
     function toggleTvRotation() {
@@ -1416,353 +1858,6 @@
         });
       });
 
-
-    const SHEET_ID = "1oE983PuIyK-t1CRjm81sl-o3ReBSWPOrKmT346uBsaA";
-    const SHEET_NAME = "Página1";
-    const SNAPSHOT_BY_ROW = {};
-    const SNAPSHOT_BY_KEY = {};
-    RAW_DATA.forEach(r => {
-      SNAPSHOT_BY_ROW[r.row] = Object.assign({}, r);
-      const k = (r.pedido ? "P:" + r.pedido : "") + "|C:" + (r.cliente || "");
-      if (k !== "|C:") SNAPSHOT_BY_KEY[k] = Object.assign({}, r);
-    });
-
-    function parseBrDate(str) {
-      if (!str || typeof str !== "string") return null;
-      const clean = str.trim();
-      const m = clean.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-      if (!m) return null;
-      const d = parseInt(m[1], 10);
-      const mo = parseInt(m[2], 10) - 1;
-      let y = parseInt(m[3], 10);
-      if (y < 100) y += 2000;
-      const dt = new Date(y, mo, d);
-      return isNaN(dt.getTime()) ? null : dt;
-    }
-
-    function diffDays(dStart, dEnd) {
-      const dt1 = parseBrDate(dStart);
-      const dt2 = parseBrDate(dEnd);
-      if (!dt1 || !dt2) return null;
-      return Math.round((dt2 - dt1) / (1000 * 60 * 60 * 24));
-    }
-
-    function parseNumVal(str) {
-      if (str === undefined || str === null || str === "") return 0;
-      if (typeof str === "number") return Math.round(str);
-      const cleaned = String(str).replace(/[^\d,.-]/g, "").trim();
-      if (!cleaned) return 0;
-      const norm = cleaned.replace(/\./g, "").replace(",", ".");
-      const n = parseFloat(norm);
-      return isNaN(n) ? 0 : Math.round(n);
-    }
-
-    function parseCsvRows(csvText) {
-      const rows = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
-      for (let i = 0; i < csvText.length; i++) {
-        const ch = csvText[i];
-        const next = csvText[i + 1];
-        if (inQuotes) {
-          if (ch === '"' && next === '"') {
-            cur += '"';
-            i++;
-          } else if (ch === '"') {
-            inQuotes = false;
-          } else {
-            cur += ch;
-          }
-        } else {
-          if (ch === '"') {
-            inQuotes = true;
-          } else if (ch === ",") {
-            row.push(cur);
-            cur = "";
-          } else if (ch === "\r" && next === "\n") {
-            row.push(cur);
-            rows.push(row);
-            row = [];
-            cur = "";
-            i++;
-          } else if (ch === "\n" || ch === "\r") {
-            row.push(cur);
-            rows.push(row);
-            row = [];
-            cur = "";
-          } else {
-            cur += ch;
-          }
-        }
-      }
-      if (cur.length > 0 || row.length > 0) {
-        row.push(cur);
-        rows.push(row);
-      }
-      return rows;
-    }
-
-    function buildRecordFromRowArray(arr, rowNum, isGvizFallback) {
-      const get = i => (arr[i] !== undefined && arr[i] !== null ? String(arr[i]).trim() : "");
-      if (!arr || !arr.some(cell => cell !== undefined && cell !== null && String(cell).trim() !== "")) {
-        return null;
-      }
-      const rawPedido = get(0);
-      const rawCliente = get(8);
-      if (rawPedido.toUpperCase() === "PEDIDO" || get(1).toUpperCase() === "CONTRATO" || rawCliente.toUpperCase() === "CLIENTE") {
-        return null;
-      }
-
-      const keyLookup = (rawPedido ? "P:" + rawPedido : "") + "|C:" + rawCliente;
-      const snap = SNAPSHOT_BY_KEY[keyLookup] || SNAPSHOT_BY_ROW[rowNum] || null;
-
-      const pedido = rawPedido || (isGvizFallback && snap ? snap.pedido : "");
-      let contrato = get(1);
-      const cliente = rawCliente || (isGvizFallback && snap ? snap.cliente : "");
-
-      // In gviz, mixed-type text strings in numeric Column B (like "156303 (156305)" or "AT...") return empty
-      if (!contrato && isGvizFallback && snap && (snap.cliente === cliente || snap.pedido === pedido)) {
-        contrato = snap.contrato;
-      }
-      if (!contrato) return null;
-
-      const is_at = /^AT\b|^AT\d|^AT\s/i.test(contrato);
-      const nf = get(2);
-      const loja = get(3) || "N/I";
-      const vol_ped = parseNumVal(get(6));
-      const transportador = get(7) || "—";
-      const rawDec = get(9).toUpperCase();
-      const decorado = rawDec === "SIM" ? "SIM" : (rawDec === "NÃO" || rawDec === "NAO" ? "NÃO" : (isGvizFallback && snap ? snap.decorado : "NÃO"));
-
-      const d_med = get(10) || (isGvizFallback && snap ? snap.d_med : "");
-      const d_comp = get(11) || (isGvizFallback && snap ? snap.d_comp : "");
-      const d_pag = get(12) || (isGvizFallback && snap ? snap.d_pag : "");
-      const d_dep = get(13) || (isGvizFallback && snap ? snap.d_dep : "");
-      const vol_qtd = parseNumVal(get(14));
-      const volumes = vol_qtd > 0 ? vol_qtd : (vol_ped > 0 ? vol_ped : (isGvizFallback && snap ? snap.volumes : 0));
-
-      let lib_fin = get(15);
-      if (!lib_fin && isGvizFallback && snap && snap.fin_status === "Solicitado") {
-        lib_fin = "SOLIC.";
-      }
-      let fin_status = "Pendente";
-      if (lib_fin) {
-        fin_status = lib_fin.toUpperCase().includes("SOLIC") ? "Solicitado" : "Liberado";
-      }
-
-      const prazo = get(17) || (isGvizFallback && snap ? snap.prazo : "") || (d_med ? calcWorkdaysBr(d_med, 45) : "");
-      const d_ent = get(18) || (isGvizFallback && snap ? snap.d_ent : "");
-      const d_ini = get(19);
-      const d_fim = get(20);
-      const montador = get(21);
-      const etapa = get(22);
-
-      const now = new Date();
-      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-      const dtFim = parseBrDate(d_fim);
-      const dtIni = parseBrDate(d_ini);
-      const dtEnt = parseBrDate(d_ent);
-      const dtDep = parseBrDate(d_dep);
-      const dtPag = parseBrDate(d_pag);
-      const dtComp = parseBrDate(d_comp);
-      const dtMed = parseBrDate(d_med);
-
-      const s1 = diffDays(d_med, d_comp);
-      const s2 = diffDays(d_comp, d_pag);
-      const s3 = diffDays(d_pag, d_dep);
-      const s4_closed = diffDays(d_dep, d_ent);
-      let s4 = s4_closed;
-      let s4_open = false;
-      if (s4_closed === null && dtDep && (etapa === "NO DEPÓSITO" || !dtEnt)) {
-        s4 = Math.max(0, Math.round((todayMidnight - dtDep) / (1000 * 60 * 60 * 24)));
-        s4_open = true;
-      }
-      const s5 = diffDays(d_ent, d_ini);
-      const s6 = diffDays(d_ini, d_fim);
-      const total = diffDays(d_med, d_fim);
-
-      const latestDt = dtFim || dtIni || dtEnt || ((etapa === "NO DEPÓSITO" && dtDep) ? todayMidnight : dtDep) || dtPag || dtComp;
-      const elapsed = (dtMed && latestDt) ? Math.round((latestDt - dtMed) / (1000 * 60 * 60 * 24)) : null;
-
-      let no_prazo = true;
-      const dtPrazo = parseBrDate(prazo);
-      const dtRef = dtFim || todayMidnight;
-      if (dtPrazo && dtRef > dtPrazo) no_prazo = false;
-
-      const monthsPt = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-      const refCohort = dtMed || dtComp || dtDep;
-      const mes = refCohort ? `${monthsPt[refCohort.getMonth()]}/${refCohort.getFullYear()}` : "Outubro/2026";
-
-      return {
-        row: rowNum,
-        pedido,
-        contrato,
-        nf,
-        loja,
-        cliente: cliente || "—",
-        transportador,
-        decorado,
-        d_med, d_comp, d_pag, d_dep, d_ent, d_ini, d_fim, prazo,
-        volumes,
-        fin_status,
-        montador,
-        etapa,
-        mes,
-        is_at,
-        no_prazo,
-        s1, s2, s3, s4, s4_open, s5, s6, total, elapsed
-      };
-    }
-
-    function applySyncedRecords(parsed, statusEl) {
-      if (parsed && parsed.length > 5) {
-        RAW_DATA.length = 0;
-        parsed.forEach(item => {
-          RAW_DATA.push(item);
-          SNAPSHOT_BY_ROW[item.row] = Object.assign({}, item);
-          const k = (item.pedido ? "P:" + item.pedido : "") + "|C:" + (item.cliente || "");
-          if (k !== "|C:") SNAPSHOT_BY_KEY[k] = Object.assign({}, item);
-        });
-        populateMontadorDropdown();
-        updateAll();
-        if (statusEl) {
-          const now = new Date();
-          statusEl.textContent = "Ao Vivo • " + now.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit", second: "2-digit"});
-        }
-        return true;
-      }
-      return false;
-    }
-
-    function parseCsvAndApply(csvText, isGvizCsv, statusEl) {
-      const rawRows = parseCsvRows(csvText);
-      if (!rawRows || rawRows.length < 2) throw new Error("Empty CSV");
-      const parsed = [];
-      for (let i = 1; i < rawRows.length; i++) {
-        const rec = buildRecordFromRowArray(rawRows[i], i + 1, isGvizCsv);
-        if (rec) parsed.push(rec);
-      }
-      if (!applySyncedRecords(parsed, statusEl)) {
-        throw new Error("Insufficient rows");
-      }
-    }
-
-    function fetchWithTimeout(url, timeoutMs = 6000) {
-      const ctrl = new AbortController();
-      const id = setTimeout(() => ctrl.abort(), timeoutMs);
-      return fetch(url, { cache: "no-store", signal: ctrl.signal }).finally(() => clearTimeout(id));
-    }
-
-    async function syncFromGoogleSheets() {
-      const statusEl = document.getElementById("sync-status-text");
-      if (statusEl) statusEl.textContent = "Sincronizando...";
-      const ts = Date.now();
-      const exportUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0&_ts=${ts}`;
-      const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_ts=${ts}`;
-
-      // Tier 1: Direct Google Sheets CSV Export (preserves 100% of mixed-type strings/numbers)
-      try {
-        const r1 = await fetchWithTimeout(exportUrl, 5000);
-        if (r1.ok) {
-          const txt = await r1.text();
-          if (txt && txt.includes("CONTRATO")) {
-            parseCsvAndApply(txt, false, statusEl);
-            return;
-          }
-        }
-      } catch (_) {}
-
-      // Tier 2: CORS Relays wrapping raw Google Sheets CSV Export (bypasses 307 redirect CORS on TV/Safari)
-      const proxyUrls = [
-        `https://corsproxy.io/?${encodeURIComponent(exportUrl)}`,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(exportUrl)}`
-      ];
-      for (const pUrl of proxyUrls) {
-        try {
-          const rp = await fetchWithTimeout(pUrl, 5500);
-          if (rp.ok) {
-            const txt = await rp.text();
-            if (txt && txt.includes("CONTRATO")) {
-              parseCsvAndApply(txt, false, statusEl);
-              return;
-            }
-          }
-        } catch (_) {}
-      }
-
-      // Tier 3: gviz CSV with smart mixed-type fallback
-      try {
-        const r3 = await fetchWithTimeout(gvizCsvUrl, 5000);
-        if (r3.ok) {
-          const txt = await r3.text();
-          if (txt && txt.length > 50) {
-            parseCsvAndApply(txt, true, statusEl);
-            return;
-          }
-        }
-      } catch (_) {}
-
-      // Tier 4: Native Google Visualization JSONP (google.visualization.Query.setResponse) - zero CORS restrictions
-      window.google = window.google || {};
-      window.google.visualization = window.google.visualization || {};
-      window.google.visualization.Query = window.google.visualization.Query || {};
-      window.google.visualization.Query.setResponse = function(payload) {
-        try {
-          if (!payload || !payload.table || !payload.table.rows) {
-            if (statusEl) statusEl.textContent = "Ao Vivo (Base Atual)";
-            return;
-          }
-          const rows = payload.table.rows;
-          const parsed = [];
-          let dataRowIdx = 2;
-          rows.forEach((r) => {
-            const c = r.c || [];
-            const arr = [];
-            for (let k = 0; k < 26; k++) {
-              const cell = c[k];
-              if (!cell) {
-                arr.push("");
-              } else if (cell.f !== undefined && cell.f !== null && String(cell.f).trim() !== "") {
-                arr.push(String(cell.f).trim());
-              } else if (cell.v !== undefined && cell.v !== null) {
-                const sv = String(cell.v).trim();
-                const dm = sv.match(/^Date\((\d+),(\d+),(\d+)\)/);
-                if (dm) {
-                  const yy = dm[1];
-                  const mm = String(parseInt(dm[2], 10) + 1).padStart(2, "0");
-                  const dd = String(parseInt(dm[3], 10)).padStart(2, "0");
-                  arr.push(`${dd}/${mm}/${yy}`);
-                } else {
-                  arr.push(sv);
-                }
-              } else {
-                arr.push("");
-              }
-            }
-            if (arr[0] && String(arr[0]).toUpperCase() === "PEDIDO") return;
-            const rec = buildRecordFromRowArray(arr, dataRowIdx++, true);
-            if (rec) parsed.push(rec);
-          });
-          if (!applySyncedRecords(parsed, statusEl) && statusEl) {
-            statusEl.textContent = "Ao Vivo (Base Atual)";
-          }
-        } catch (err) {
-          if (statusEl) statusEl.textContent = "Ao Vivo (Base Atual)";
-        }
-      };
-
-      const oldScript = document.getElementById("gviz-jsonp-script");
-      if (oldScript) oldScript.remove();
-      const s = document.createElement("script");
-      s.id = "gviz-jsonp-script";
-      s.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_ts=${ts}`;
-      s.onerror = () => {
-        if (statusEl) statusEl.textContent = "Sync Auto (30s)";
-      };
-      document.body.appendChild(s);
-    }
 
       document.getElementById("btn-tv-cycle").addEventListener("click", toggleTvRotation);
       document.getElementById("btn-sync-sheets").addEventListener("click", syncFromGoogleSheets);
