@@ -1,335 +1,602 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cast Móveis Planejados — Dashboard de Compras & Suprimentos</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-body: #f1f5f9;
+      --bg-sidebar: #0b132b;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --orange: #f97316;
+      --green: #16a34a;
+      --amber: #d97706;
+      --purple: #7c3aed;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #F0F4F8;
-      color: #1E293B;
-      margin: 0;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
       overflow-x: hidden;
     }
-    .card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
-      border: 1px solid #E2E8F0;
-    }
+
+    /* SIDEBAR */
     .sidebar {
-      background: linear-gradient(180deg, #0B1B3D 0%, #071126 100%);
+      width: 215px;
+      background: var(--bg-sidebar);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 14px;
+      flex-shrink: 0;
     }
-    .pulse-dot {
-      animation: pulse 2s infinite;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
     }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #F1F5F9; }
-    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+    .brand-text h2 { font-size: 13px; font-weight: 800; letter-spacing: 0.4px; }
+    .brand-text p { font-size: 11px; color: #94a3b8; }
+
+    .nav-menu { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .nav-btn {
+      background: var(--blue-light);
+      color: #fff;
+      border: none;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-btn.secondary {
+      background: transparent;
+      color: #cbd5e1;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .nav-btn.secondary:hover { background: rgba(255,255,255,0.08); }
+
+    .sidebar-footer {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-right: 5px;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: calc(100vw - 215px);
+    }
+
+    /* HEADER & FILTERS */
+    .top-bar {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .title-group h1 {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge-live {
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .title-group p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-imobal {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-imobal.inactive {
+      background: #e2e8f0;
+      color: #475569;
+    }
+    select.filter-select {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 11.5px;
+      background: #f8fafc;
+      color: var(--text-main);
+      font-weight: 500;
+      outline: none;
+    }
+    .btn-refresh {
+      background: var(--blue-light);
+      color: #fff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 11.5px;
+      cursor: pointer;
+    }
+
+    /* KPI CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .kpi-tag {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 6px 0 4px 0;
+      color: var(--text-main);
+    }
+    .kpi-sub { font-size: 10.5px; font-weight: 600; }
+    .kpi-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    /* CHARTS GRID */
+    .charts-row-1 {
+      display: grid;
+      grid-template-columns: 1.35fr 1.25fr 0.95fr;
+      gap: 12px;
+    }
+    .charts-row-2 {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr 1.55fr;
+      gap: 12px;
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+    .card-title { font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .card-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+    .chart-box {
+      position: relative;
+      flex: 1;
+      min-height: 210px;
+      width: 100%;
+    }
+
+    /* TABLE */
+    .search-input {
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      width: 170px;
+    }
+    .table-wrap {
+      overflow-y: auto;
+      max-height: 225px;
+      border-top: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-align: left;
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 7px 8px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 160px;
+    }
+    .pill-unit {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 10px;
+      display: inline-block;
+    }
+    .unit-cast1 { background: #dbeafe; color: #1e40af; }
+    .unit-cast2 { background: #e0e7ff; color: #3730a3; }
+    .unit-select { background: #f3e8ff; color: #6b21a8; }
+
+    .pill-status {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 10px;
+      display: inline-block;
+    }
+    .st-atendido { background: #dcfce7; color: #15803d; }
+    .st-liberado { background: #dbeafe; color: #1d4ed8; }
+    .st-digitacao { background: #fef3c7; color: #b45309; }
+    .st-outros { background: #f1f5f9; color: #475569; }
+
+    .tab-switch {
+      display: flex;
+      gap: 4px;
+    }
+    .tab-btn {
+      padding: 4px 8px;
+      font-size: 10.5px;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
   </style>
 </head>
-<body class="flex min-h-screen">
+<body>
 
-  <!-- MENU LATERAL EXECUTIVO -->
-  <aside class="sidebar w-56 text-white flex flex-col justify-between p-4 shrink-0 hidden xl:flex">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
     <div>
-      <div class="flex items-center gap-3 px-2 py-3 border-b border-slate-700/60 mb-5">
-        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center font-extrabold text-lg shadow">
-          CM
-        </div>
-        <div>
-          <div class="font-bold text-sm tracking-wide">CAST MÓVEIS</div>
-          <div class="text-[11px] text-blue-300">Compras & Suprimentos</div>
+      <div class="brand">
+        <div class="brand-logo">CM</div>
+        <div class="brand-text">
+          <h2>CAST MÓVEIS</h2>
+          <p>Compras & Suprimentos</p>
         </div>
       </div>
-
-      <nav class="space-y-2 text-xs font-medium">
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white shadow-sm">
-          <span>📊</span> Visão Geral (TV)
-        </a>
-
-        <button onclick="limparFiltros()" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/60 text-slate-300 transition">
-          <span>🧹</span> Limpar Filtros
-        </button>
-      </nav>
+      <div class="nav-menu">
+        <button class="nav-btn" onclick="toggleFullScreen()">📺 Visão Geral (TV)</button>
+        <button class="nav-btn secondary" onclick="resetFilters()">🧹 Limpar Filtros</button>
+      </div>
     </div>
-
-    <!-- STATUS CONEXÃO -->
-    <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800 text-[11px] text-slate-400 space-y-1">
-      <div class="flex items-center gap-2 text-emerald-400 font-semibold">
-        <span id="statusDot" class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
-        <span id="statusText">Conectado ao Sheets</span>
-      </div>
-      <div>Aba: <strong class="text-white">ITENS</strong></div>
-      <div>Auto-Refresh: <strong class="text-white">60s</strong></div>
-      <div id="lblUltimaAtualizacao" class="text-[10px] text-slate-400 pt-1">Sincronizando...</div>
+    <div class="sidebar-footer">
+      <div><span class="status-dot"></span><strong>Conectado ao Sheets</strong></div>
+      <div>Aba: <strong>ITENS</strong> (Col R = Unidade)</div>
+      <div id="countdownText">Auto-Refresh: 60s</div>
     </div>
   </aside>
 
-  <!-- ÁREA PRINCIPAL DO DASHBOARD -->
-  <main class="flex-1 p-3.5 lg:p-5 space-y-3.5 max-w-full overflow-hidden">
-
-    <!-- CABEÇALHO E BARRA DE FILTROS -->
-    <header class="card p-3.5 flex flex-wrap items-center justify-between gap-3">
-      <div>
-        <div class="flex items-center gap-2.5">
-          <h1 class="text-lg lg:text-xl font-extrabold text-slate-800 tracking-tight">
+  <!-- MAIN -->
+  <main class="main">
+    <!-- TOP BAR -->
+    <section class="top-bar">
+      <div class="title-row">
+        <div class="title-group">
+          <h1>
             Cast Móveis Planejados — Dashboard de Compras & Suprimentos
+            <span class="badge-live">● AO VIVO</span>
           </h1>
-          <span id="badgeTopStatus" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span> AO VIVO
-          </span>
+          <p>Monitoramento executivo de pedidos de compra, comparativo entre unidades (Coluna R) e acompanhamento por item</p>
         </div>
-        <p class="text-xs text-slate-500">Monitoramento executivo de pedidos de compra, comparativo entre unidades e acompanhamento por item</p>
-      </div>
-
-      <!-- FILTROS SUPERIORES -->
-      <div class="flex flex-wrap items-center gap-2">
-        <!-- Botão Filtro Excluir Imobal -->
-        <button type="button" id="btnFiltroImobal" onclick="toggleImobal()"
-                class="cursor-pointer select-none inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold transition shadow-sm">
-          <span id="iconImobal" class="w-4 h-4 rounded flex items-center justify-center border text-[10px]">✓</span>
-          <span>EXCLUIR IMOBAL</span>
-        </button>
-
-        <!-- FILTRO: Unidade (Cast Móveis, Cast Móveis II, Select) -->
-        <select id="fUnidade" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-bold focus:outline-none focus:border-blue-600">
-          <option value="TODOS">Unidade: Todas</option>
-          <option value="Cast Móveis">Cast Móveis</option>
-          <option value="Cast Móveis II">Cast Móveis II</option>
-          <option value="Select">Select</option>
-        </select>
-
-        <!-- Período (Mês/Ano de Emissão) -->
-        <select id="fPeriodo" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium focus:outline-none focus:border-blue-600">
-          <option value="TODOS">Mês/Ano: Todos</option>
-        </select>
-
-        <!-- Situação -->
-        <select id="fSituacao" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium focus:outline-none focus:border-blue-600">
-          <option value="TODOS">Situação: Todas</option>
-        </select>
-
-        <!-- Fornecedor -->
-        <select id="fFornecedor" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[170px] focus:outline-none focus:border-blue-600">
-          <option value="TODOS">Fornecedor: Todos</option>
-        </select>
-
-        <!-- Ambiente -->
-        <select id="fAmbiente" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[150px] focus:outline-none focus:border-blue-600">
-          <option value="TODOS">Ambiente: Todos</option>
-        </select>
-
-        <!-- Filtro Item (Coluna W) -->
-        <select id="fItemColW" onchange="aplicarFiltros()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 font-medium max-w-[160px] focus:outline-none focus:border-blue-600">
-          <option value="TODOS">Item: Todos</option>
-        </select>
-
-        <button onclick="carregarPlanilha()" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition">
-          🔄 Atualizar
-        </button>
-      </div>
-    </header>
-
-    <!-- 6 SCORECARDS (KPIs) -->
-    <section class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5">
-      <!-- Card 1 -->
-      <div class="card p-3.5 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-          <span>📦 Total de Pedidos</span>
-          <span class="text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded text-[10px] font-bold">OCs</span>
-        </div>
-        <div id="kpiPedidos" class="text-2xl font-extrabold text-slate-800 my-1">...</div>
-        <div class="text-[11px] text-emerald-600 font-semibold">Pedidos únicos emitidos</div>
-        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div class="bg-blue-600 h-full w-4/5 rounded-full"></div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="card p-3.5 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-          <span>💰 Valor Total (c/ IPI)</span>
-          <span class="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] font-bold">R$</span>
-        </div>
-        <div id="kpiValorTotal" class="text-xl lg:text-2xl font-extrabold text-slate-800 my-1">...</div>
-        <div id="kpiValorSub" class="text-[11px] text-emerald-600 font-semibold truncate">R$ 0,00</div>
-        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div class="bg-emerald-500 h-full w-full rounded-full"></div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card p-3.5 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-          <span>📑 Itens / Linhas</span>
-          <span class="text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded text-[10px] font-bold">SKUs</span>
-        </div>
-        <div id="kpiTotalLinhas" class="text-2xl font-extrabold text-slate-800 my-1">...</div>
-        <div id="kpiQtdPecas" class="text-[11px] text-slate-500 font-medium">0 volumes/peças</div>
-        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div class="bg-indigo-500 h-full w-3/4 rounded-full"></div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="card p-3.5 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-          <span>✅ Liberado / Aprovado</span>
-          <span class="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] font-bold">OK</span>
-        </div>
-        <div id="kpiLiberados" class="text-2xl font-extrabold text-slate-800 my-1">...</div>
-        <div id="kpiPercLiberados" class="text-[11px] text-emerald-600 font-semibold">0% do total de OCs</div>
-        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div id="barLiberados" class="bg-emerald-500 h-full rounded-full transition-all" style="width: 0%"></div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="card p-3.5 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-          <span>⚠️ Em Digitação / Pend.</span>
-          <span class="text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded text-[10px] font-bold">Alerta</span>
-        </div>
-        <div id="kpiPendentes" class="text-2xl font-extrabold text-slate-800 my-1">...</div>
-        <div id="kpiPercPendentes" class="text-[11px] text-amber-600 font-semibold">0% do total de OCs</div>
-        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div id="barPendentes" class="bg-amber-500 h-full rounded-full transition-all" style="width: 0%"></div>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="card p-3.5 flex flex-col justify-between">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-          <span>🏭 Fornecedores</span>
-          <span class="text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded text-[10px] font-bold">Ativos</span>
-        </div>
-        <div id="kpiFornecedores" class="text-2xl font-extrabold text-slate-800 my-1">...</div>
-        <div id="kpiTicketMedio" class="text-[11px] text-slate-500 font-medium truncate">Ticket Médio: R$ 0</div>
-        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div class="bg-sky-500 h-full w-2/3 rounded-full"></div>
+        <div class="filters-row">
+          <button id="btnImobal" class="btn-imobal" onclick="toggleImobal()">✔ EXCLUIR IMOBAL</button>
+          <select id="fUnidade" class="filter-select" onchange="applyFilters()">
+            <option value="TODAS">Unidade: Todas</option>
+            <option value="Cast Móveis">Cast Móveis</option>
+            <option value="Cast II">Cast II</option>
+            <option value="Select">Select</option>
+          </select>
+          <select id="fMes" class="filter-select" onchange="applyFilters()">
+            <option value="TODOS">Período: Todos</option>
+          </select>
+          <select id="fSituacao" class="filter-select" onchange="applyFilters()">
+            <option value="TODAS">Situação: Todas</option>
+          </select>
+          <select id="fFornecedor" class="filter-select" onchange="applyFilters()">
+            <option value="TODOS">Fornecedor: Todos</option>
+          </select>
+          <select id="fAmbiente" class="filter-select" onchange="applyFilters()">
+            <option value="TODOS">Ambiente: Todos</option>
+          </select>
+          <select id="fItem" class="filter-select" onchange="applyFilters()">
+            <option value="TODOS">Item: Todos</option>
+          </select>
+          <button class="btn-refresh" onclick="loadSheetData()">🔄 Atualizar</button>
         </div>
       </div>
     </section>
 
-    <!-- LINHA INTERMEDIÁRIA DE GRÁFICOS -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
-      <!-- Evolução Mensal -->
-      <div class="card p-4 lg:col-span-5 flex flex-col">
-        <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Evolução Mensal de Compras (Valor & Pedidos)</h2>
-          <p class="text-[11px] text-slate-500">Histórico por mês de emissão na aba ITENS</p>
-        </div>
-        <div class="relative flex-1 min-h-[215px]">
-          <canvas id="chartEvolucao"></canvas>
-        </div>
+    <!-- KPI GRID -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header"><span>📦 Total de Pedidos</span><span class="kpi-tag" style="background:#dbeafe;color:#1d4ed8">OCs</span></div>
+        <div class="kpi-value" id="kpiPedidos">0</div>
+        <div class="kpi-sub" style="color:#1d4ed8">Pedidos únicos emitidos</div>
+        <div class="kpi-bar" style="background:#2563eb"></div>
       </div>
-
-      <!-- Top Fornecedores (Com Imobal Unificado) -->
-      <div class="card p-4 lg:col-span-4 flex flex-col">
-        <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Top Fornecedores por Valor (c/ IPI)</h2>
-          <p class="text-[11px] text-slate-500">Ranking de maior representatividade financeira</p>
-        </div>
-        <div class="relative flex-1 min-h-[215px]">
-          <canvas id="chartFornecedores"></canvas>
-        </div>
+      <div class="kpi-card">
+        <div class="kpi-header"><span>💰 Valor Total (c/ IPI)</span><span class="kpi-tag" style="background:#dcfce7;color:#15803d">R$</span></div>
+        <div class="kpi-value" id="kpiValor">R$ 0</div>
+        <div class="kpi-sub" id="kpiValorExato" style="color:#16a34a">R$ 0,00</div>
+        <div class="kpi-bar" style="background:#16a34a"></div>
       </div>
-
-      <!-- QUADRO: Valor por Unidade (Cast Móveis, Cast Móveis II e Select) -->
-      <div class="card p-4 lg:col-span-3 flex flex-col">
-        <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Valor dos Pedidos por Unidade</h2>
-          <p class="text-[11px] text-slate-500">Cast Móveis, Cast Móveis II e Select (R$ c/ IPI)</p>
-        </div>
-        <div class="relative flex-1 min-h-[215px]">
-          <canvas id="chartUnidades"></canvas>
-        </div>
+      <div class="kpi-card">
+        <div class="kpi-header"><span>🧾 Itens / Linhas</span><span class="kpi-tag" style="background:#f3e8ff;color:#6b21a8">SKUs</span></div>
+        <div class="kpi-value" id="kpiLinhas">0</div>
+        <div class="kpi-sub" id="kpiQtdUn" style="color:#7c3aed">0 un. somadas</div>
+        <div class="kpi-bar" style="background:#7c3aed"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header"><span>✅ Atendidos / Liberados</span><span class="kpi-tag" style="background:#dcfce7;color:#15803d">OK</span></div>
+        <div class="kpi-value" id="kpiLiberados">0</div>
+        <div class="kpi-sub" id="kpiLiberadosPct" style="color:#16a34a">0% do total de OCs</div>
+        <div class="kpi-bar" style="background:#16a34a"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header"><span>⚠️ Em Digitação / Pend.</span><span class="kpi-tag" style="background:#fef3c7;color:#b45309">Alerta</span></div>
+        <div class="kpi-value" id="kpiPendentes">0</div>
+        <div class="kpi-sub" id="kpiPendentesPct" style="color:#d97706">0% do total de OCs</div>
+        <div class="kpi-bar" style="background:#f59e0b"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header"><span>🏭 Fornecedores</span><span class="kpi-tag" style="background:#e0f2fe;color:#0369a1">Ativos</span></div>
+        <div class="kpi-value" id="kpiFornecedores">0</div>
+        <div class="kpi-sub" id="kpiTicketMedio" style="color:#0284c7">Ticket Médio: R$ 0</div>
+        <div class="kpi-bar" style="background:#0284c7"></div>
       </div>
     </section>
 
-    <!-- LINHA INFERIOR: ROSCA SITUAÇÃO (%) + VOLUME POR ITEM (COLUNA W) + TABELA DECRESCENTE -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
-      <!-- Rosca Situação em Porcentagem (%) -->
-      <div class="card p-4 lg:col-span-3 flex flex-col">
-        <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Distribuição por Situação (%)</h2>
-          <p class="text-[11px] text-slate-500">Participação percentual por status do pedido</p>
-        </div>
-        <div class="relative flex-1 min-h-[215px] flex items-center justify-center">
-          <canvas id="chartSituacao"></canvas>
-        </div>
-      </div>
-
-      <!-- Volume por Item (Coluna W) -->
-      <div class="card p-4 lg:col-span-4 flex flex-col">
-        <div class="mb-2">
-          <h2 class="text-sm font-bold text-slate-800">Volume por Item (Itens Mais Comprados)</h2>
-          <p class="text-[11px] text-slate-500">Distribuição financeira por Item (Coluna W)</p>
-        </div>
-        <div class="relative flex-1 min-h-[215px]">
-          <canvas id="chartItensColW"></canvas>
-        </div>
-      </div>
-
-      <!-- Tabela Consolidada por Pedido (ORDEM DECRESCENTE: MAIS RECENTE AO MAIS ANTIGO) -->
-      <div class="card p-4 lg:col-span-5 flex flex-col">
-        <div class="flex items-center justify-between mb-2 gap-2">
+    <!-- ROW 1 CHARTS -->
+    <section class="charts-row-1">
+      <div class="card">
+        <div class="card-header">
           <div>
-            <h2 class="text-sm font-bold text-slate-800">Últimos Pedidos de Compra (Mais Recentes)</h2>
-            <p class="text-[11px] text-slate-500">Ordenado por emissão e número de forma decrescente</p>
+            <div class="card-title">Evolução Mensal de Compras (Valor & Pedidos)</div>
+            <div class="card-sub">Histórico por mês de emissão na aba ITENS</div>
           </div>
-          <input type="text" id="txtBusca" oninput="aplicarFiltros()" placeholder="Buscar OC, cliente, item..."
-                 class="border border-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-600 w-44">
         </div>
-        <div class="overflow-y-auto max-h-[215px] border border-slate-100 rounded-lg">
-          <table class="w-full text-left border-collapse text-xs">
-            <thead class="bg-slate-50 text-slate-600 sticky top-0 border-b border-slate-200">
+        <div class="chart-box"><canvas id="chartMensal"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Top Fornecedores por Valor (c/ IPI)</div>
+            <div class="card-sub">Ranking de maior representatividade financeira</div>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="chartFornecedores"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Valor dos Pedidos por Unidade (Coluna R)</div>
+            <div class="card-sub">Cast Móveis, Cast II e Select (R$ c/ IPI)</div>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="chartUnidades"></canvas></div>
+      </div>
+    </section>
+
+    <!-- ROW 2 CHARTS & TABLE -->
+    <section class="charts-row-2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Distribuição por Situação (%)</div>
+            <div class="card-sub">Participação percentual por status do pedido</div>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="chartSituacao"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Volume por Item (Itens Mais Comprados)</div>
+            <div class="card-sub">Distribuição financeira por Item (Coluna W)</div>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="chartItens"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title" id="tableTitle">Últimos Pedidos Atendidos (Ordem Decrescente)</div>
+            <div class="card-sub" id="tableSub">Ordenado pela data mais recente e nº do pedido</div>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <div class="tab-switch">
+              <button id="tabAtendidos" class="tab-btn active" onclick="setModoTabela('ATENDIDOS')">Atendidos</button>
+              <button id="tabTodos" class="tab-btn" onclick="setModoTabela('TODOS')">Todos</button>
+            </div>
+            <input type="text" id="buscaTabela" class="search-input" placeholder="Buscar OC, fornecedor..." oninput="renderTable()" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
               <tr>
-                <th class="py-2 px-2 font-semibold">Nº OC</th>
-                <th class="py-2 px-2 font-semibold">Emissão</th>
-                <th class="py-2 px-2 font-semibold">Unidade</th>
-                <th class="py-2 px-2 font-semibold">Fornecedor</th>
-                <th class="py-2 px-2 font-semibold">Situação</th>
-                <th class="py-2 px-2 font-semibold text-right">Total c/ IPI</th>
+                <th>Nº OC</th>
+                <th>Data</th>
+                <th>Unidade (Col R)</th>
+                <th>Fornecedor</th>
+                <th>Situação</th>
+                <th style="text-align:right">Total c/ IPI</th>
               </tr>
             </thead>
-            <tbody id="tabelaCorpo" class="divide-y divide-slate-100 text-[11px]">
-              <tr><td colspan="6" class="py-8 text-center text-slate-400">Carregando dados da planilha...</td></tr>
-            </tbody>
+            <tbody id="tabelaPedidosBody"></tbody>
           </table>
         </div>
       </div>
     </section>
-
   </main>
 
   <script>
+    // =========================================================================
+    // CONFIGURAÇÃO DA PLANILHA GOOGLE SHEETS (ABA ITENS)
+    // =========================================================================
     const SHEET_ID = '1yjH6majRbqdF2H9FgoNYcLiOqzvpvMo4zL8hWbPGFbU';
     const SHEET_NAME = 'ITENS';
 
-    let DADOS_ITENS = [];
-    let EXCLUIR_IMOBAL = false;
+    let rawRows = [];
+    let filteredRows = [];
+    let excluirImobal = true;
+    let modoTabela = 'ATENDIDOS'; // 'ATENDIDOS' ou 'TODOS'
     let charts = {};
+    let timerSeconds = 60;
 
-    const fmtMoeda = (v) => (v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    const fmtMoedaCurta = (v) => {
-      if (!v) return 'R$ 0';
-      if (v >= 1000000) return 'R$ ' + (v / 1000000).toFixed(2).replace('.', ',') + ' mi';
-      if (v >= 1000) return 'R$ ' + (v / 1000).toFixed(1).replace('.', ',') + ' mil';
-      return fmtMoeda(v);
-    };
+    // =========================================================================
+    // CLASSIFICAÇÃO EXATA DA UNIDADE PELA COLUNA R (ÍNDICE 17)
+    // =========================================================================
+    function classificarUnidadeColunaR(valorColunaR) {
+      const txt = String(valorColunaR || '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase()
+        .trim();
 
-    function limparNumero(val) {
+      if (!txt) return 'Cast Móveis';
+
+      // 1º Prioridade: Identificar Cast II (evita cair no 'CAST' genérico)
+      if (
+        txt.includes('CAST II') ||
+        txt.includes('CAST MOVEIS II') ||
+        txt.includes('CAST 2') ||
+        txt.includes('CAST MOVEIS 2') ||
+        txt.includes('FILIAL 2') ||
+        txt.includes('FILIAL II') ||
+        txt.includes('UNIDADE 2') ||
+        txt.includes('UNIDADE II') ||
+        /\bII\b/.test(txt)
+      ) {
+        return 'Cast II';
+      }
+
+      // 2º Prioridade: Identificar Select
+      if (txt.includes('SELECT')) {
+        return 'Select';
+      }
+
+      // 3º Padrão: Cast Móveis (Matriz)
+      return 'Cast Móveis';
+    }
+
+    // Conversão segura de números em formato BR ou US
+    function parseValorBR(val) {
       if (typeof val === 'number') return val;
       if (!val) return 0;
       let s = String(val).replace(/[R$\s]/g, '').trim();
@@ -342,409 +609,347 @@
       return isNaN(n) ? 0 : n;
     }
 
-    // Normaliza as unidades padrão da Cast Móveis (Cast Móveis, Cast Móveis II, Select)
-    function normalizarUnidade(lojaStr, clienteStr) {
-      const texto = `${lojaStr || ''} ${clienteStr || ''}`.toUpperCase();
-      if (texto.includes('SELECT')) return 'Select';
-      if (texto.includes('CAST II') || texto.includes('CAST 2') || texto.includes('LOJA 2') || texto.includes('UNIDADE 2') || texto.includes('MÓVEIS II') || texto.includes('MOVEIS II')) {
-        return 'Cast Móveis II';
+    // Extrai Data para ordenação e Mês/Ano (Ex: Out/2026)
+    function parseDataFocco(val) {
+      if (!val) return { dateObj: new Date(0), label: 'Sem Data', mesAno: 'Sem Data' };
+      const str = String(val).trim();
+
+      // Formato Date(YYYY,M,D) do Google Visualization
+      const gMatch = str.match(/Date\((\d+),(\d+),(\d+)/);
+      if (gMatch) {
+        const y = parseInt(gMatch[1], 10);
+        const m = parseInt(gMatch[2], 10);
+        const d = parseInt(gMatch[3], 10);
+        const dt = new Date(y, m, d);
+        return formatDateParts(dt);
       }
-      return 'Cast Móveis';
+
+      // Formato DD/MM/YYYY
+      const brMatch = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+      if (brMatch) {
+        const d = parseInt(brMatch[1], 10);
+        const m = parseInt(brMatch[2], 10) - 1;
+        const y = parseInt(brMatch[3], 10);
+        const dt = new Date(y, m, d);
+        return formatDateParts(dt);
+      }
+
+      const dt = new Date(str);
+      if (!isNaN(dt.getTime())) return formatDateParts(dt);
+      return { dateObj: new Date(0), label: str, mesAno: 'Outros' };
     }
 
-    // Unifica Imobal
-    function normalizarNomeFornecedor(fornBruto) {
-      const texto = String(fornBruto || 'Sem Fornecedor').trim();
-      if (texto.toUpperCase().includes('IMOBAL')) {
-        return 'IMOBAL';
-      }
-      const partes = texto.split('-').map(p => p.trim()).filter(Boolean);
-      if (partes.length > 1 && (partes[0].toLowerCase() === 'x' || /^\d+$/.test(partes[0]))) {
-        return partes.slice(1).join(' - ');
-      }
-      return partes[0] || texto;
-    }
-
-    function formatarDataCell(cell) {
-      if (!cell) return '';
-      if (cell.f) return String(cell.f).trim();
-      const v = String(cell.v || '');
-      const m = v.match(/Date\((\d+),(\d+),(\d+)\)/);
-      if (m) {
-        const ano = m[1];
-        const mes = String(parseInt(m[2], 10) + 1).padStart(2, '0');
-        const dia = String(m[3]).padStart(2, '0');
-        return `${dia}/${mes}/${ano}`;
-      }
-      return v;
-    }
-
-    // Converte DD/MM/YYYY para timestamp numérico
-    function dataParaTimestamp(dataStr) {
-      if (!dataStr || dataStr.length < 8) return 0;
-      const partes = dataStr.split('/');
-      if (partes.length !== 3) return 0;
-      return new Date(parseInt(partes[2], 10), parseInt(partes[1], 10) - 1, parseInt(partes[0], 10)).getTime() || 0;
-    }
-
-    function extrairMesAno(dataStr) {
-      if (!dataStr || dataStr.length < 8) return { label: 'S/ Data', ordem: 0 };
-      const partes = dataStr.split('/');
-      if (partes.length !== 3) return { label: 'S/ Data', ordem: 0 };
+    function formatDateParts(dt) {
       const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-      const mIdx = parseInt(partes[1], 10) - 1;
-      const anoCurto = partes[2].slice(-4);
+      const d = String(dt.getDate()).padStart(2, '0');
+      const m = String(dt.getMonth() + 1).padStart(2, '0');
+      const y = dt.getFullYear();
       return {
-        label: (meses[mIdx] || partes[1]) + '/' + anoCurto,
-        ordem: parseInt(anoCurto, 10) * 100 + (mIdx + 1)
+        dateObj: dt,
+        label: `${d}/${m}/${y}`,
+        mesAno: `${meses[dt.getMonth()]}/${y}`,
+        sortKey: y * 100 + dt.getMonth()
       };
     }
 
+    function cellVal(row, idx) {
+      if (!row || !row.c || !row.c[idx]) return '';
+      return row.c[idx].f !== undefined && row.c[idx].f !== null
+        ? row.c[idx].f
+        : (row.c[idx].v !== null && row.c[idx].v !== undefined ? row.c[idx].v : '');
+    }
+
+    function cellRaw(row, idx) {
+      if (!row || !row.c || !row.c[idx]) return '';
+      return row.c[idx].v !== null && row.c[idx].v !== undefined ? row.c[idx].v : '';
+    }
+
     // =========================================================================
-    // LEITURA DIRETA SEM CORS VIA GOOGLE VISUALIZATION JSONP
+    // CARREGAMENTO VIA GOOGLE VISUALIZATION JSONP (SEM BLOQUEIO DE CORS)
     // =========================================================================
-    window.google = window.google || {};
-    window.google.visualization = window.google.visualization || {};
-    window.google.visualization.Query = window.google.visualization.Query || {};
-
-    window.google.visualization.Query.setResponse = function(response) {
-      try {
-        if (!response || !response.table || !response.table.rows) {
-          throw new Error('Formato de resposta inválido');
-        }
-
-        const cols = response.table.cols.map(c => (c.label || '').trim());
-        const rows = response.table.rows;
-
-        const acharCol = (nomes, padrao) => {
-          for (const nome of nomes) {
-            const i = cols.findIndex(c => c.toLowerCase() === nome.toLowerCase());
-            if (i !== -1) return i;
-          }
-          return padrao;
-        };
-
-        const idx = {
-          numero: acharCol(['Número', 'Numero'], 0),
-          ambiente: acharCol(['Ambiente'], 1),
-          situacao: acharCol(['Situação', 'Situacao'], 2),
-          emissao: acharCol(['Emissão', 'Emissao'], 4),
-          cliente: acharCol(['Cliente'], 5),
-          clienteFinal: acharCol(['Cliente Final'], 6),
-          fornecedor: acharCol(['Fornecedor'], 10),
-          loja: acharCol(['Loja/Unidade', 'Unidade', 'Loja'], 17),
-          qtd: acharCol(['Quantidade'], 24),
-          totalItemIpi: acharCol(['Total com IPI'], 27),
-          itemColW: 22
-        };
-
-        let posColW = 22;
-        if (cols[22] && cols[22].toLowerCase().includes('total com ipi')) {
-          posColW = acharCol(['Item'], 21);
-        }
-
-        const idxValor = acharCol(['Total com IPI'], 27);
-        const novosDados = [];
-
-        for (let i = 0; i < rows.length; i++) {
-          const c = rows[i].c;
-          if (!c) continue;
-
-          const getVal = (pos) => (c[pos] && c[pos].v !== null && c[pos].v !== undefined) ? c[pos].v : '';
-          const getFmt = (pos) => (c[pos] && c[pos].f) ? c[pos].f : getVal(pos);
-
-          const numPedido = String(getFmt(idx.numero)).trim();
-          if (!numPedido || numPedido.toLowerCase() === 'número') continue;
-
-          const dataEmissao = formatarDataCell(c[idx.emissao]);
-          const infoMes = extrairMesAno(dataEmissao);
-
-          const fornBruto = String(getVal(idx.fornecedor) || 'Sem Fornecedor').trim();
-          const fornUnificado = normalizarNomeFornecedor(fornBruto);
-
-          const lojaBruta = String(getVal(idx.loja) || '');
-          const clienteBruto = String(getVal(idx.cliente) || '');
-          const unidade = normalizarUnidade(lojaBruta, clienteBruto);
-
-          let valorColW = String(getFmt(22) || '').trim();
-          if (!valorColW || /^R?\$\s*[\d.,]+$/.test(valorColW) || /^[\d.,]+$/.test(valorColW)) {
-            valorColW = String(getVal(posColW) || '-').trim();
-          }
-
-          novosDados.push({
-            n: numPedido,
-            a: String(getVal(idx.ambiente) || '-').trim(),
-            s: String(getVal(idx.situacao) || 'Não Informado').trim(),
-            e: dataEmissao,
-            timestamp: dataParaTimestamp(dataEmissao),
-            mesLabel: infoMes.label || 'S/ Data',
-            mesOrdem: infoMes.ordem || 0,
-            u: unidade,
-            cf: String(getVal(idx.clienteFinal) || '-').trim(),
-            f: fornUnificado,
-            fBruto: fornBruto,
-            itemW: valorColW || 'Não Informado',
-            q: limparNumero(getVal(idx.qtd)),
-            v: limparNumero(getVal(idxValor))
-          });
-        }
-
-        DADOS_ITENS = novosDados;
-
-        const agora = new Date().toLocaleTimeString('pt-BR');
-        document.getElementById('lblUltimaAtualizacao').textContent = `Atualizado às ${agora} (${DADOS_ITENS.length.toLocaleString('pt-BR')} itens)`;
-        document.getElementById('statusText').textContent = 'Conectado ao Sheets';
-        document.getElementById('statusDot').className = 'w-2 h-2 rounded-full bg-emerald-400 pulse-dot';
-
-        popularSelects();
-        aplicarFiltros();
-      } catch (err) {
-        console.error('Erro ao processar planilha:', err);
-        document.getElementById('lblUltimaAtualizacao').textContent = 'Erro ao processar dados';
-      }
-    };
-
-    function carregarPlanilha() {
-      document.getElementById('lblUltimaAtualizacao').textContent = 'Sincronizando com Google Sheets...';
+    function loadSheetData() {
       const oldScript = document.getElementById('gvizScript');
       if (oldScript) oldScript.remove();
 
+      window.google = window.google || {};
+      window.google.visualization = window.google.visualization || {};
+      window.google.visualization.Query = {
+        setResponse: function(response) {
+          if (!response || !response.table || !response.table.rows) return;
+          processGvizTable(response.table);
+        }
+      };
+
       const script = document.createElement('script');
       script.id = 'gvizScript';
-      script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_=${Date.now()}`;
-      script.onerror = () => {
-        document.getElementById('statusText').textContent = 'Erro de Conexão';
-        document.getElementById('statusDot').className = 'w-2 h-2 rounded-full bg-red-500';
-        document.getElementById('lblUltimaAtualizacao').textContent = 'Verifique permissões de leitura da planilha';
-      };
+      script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&_=${Date.now()}`;
       document.body.appendChild(script);
     }
 
-    // =========================================================================
-    // FILTROS E CONTROLES
-    // =========================================================================
-    function toggleImobal() {
-      EXCLUIR_IMOBAL = !EXCLUIR_IMOBAL;
-      atualizarBotaoImobalUI();
-      aplicarFiltros();
-    }
+    function processGvizTable(table) {
+      const rows = table.rows || [];
+      const parsed = [];
 
-    function atualizarBotaoImobalUI() {
-      const btn = document.getElementById('btnFiltroImobal');
-      const icon = document.getElementById('iconImobal');
+      rows.forEach(r => {
+        const numPedido = String(cellVal(r, 0)).trim(); // Col A (0)
+        if (!numPedido || numPedido.toUpperCase() === 'NÚMERO' || numPedido.toUpperCase() === 'NUMERO') return;
 
-      if (EXCLUIR_IMOBAL) {
-        btn.className = "cursor-pointer select-none inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-orange-600 bg-orange-500 text-white text-xs font-bold transition shadow-sm";
-        icon.className = "w-4 h-4 rounded flex items-center justify-center bg-white text-orange-600 font-extrabold text-[11px]";
-      } else {
-        btn.className = "cursor-pointer select-none inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-xs font-bold transition shadow-sm";
-        icon.className = "w-4 h-4 rounded flex items-center justify-center border border-slate-300 bg-slate-100 text-transparent text-[10px]";
-      }
-    }
+        const ambiente = String(cellVal(r, 1) || 'Não Informado').trim(); // Col B (1)
+        const situacao = String(cellVal(r, 2) || 'Não Informado').trim(); // Col C (2)
+        const emissaoInfo = parseDataFocco(cellVal(r, 4) || cellRaw(r, 4)); // Col E (4)
+        const fornecedorBruto = String(cellVal(r, 10) || 'Não Informado').trim(); // Col K (10)
 
-    function limparFiltros() {
-      EXCLUIR_IMOBAL = false;
-      atualizarBotaoImobalUI();
-      document.getElementById('fUnidade').value = 'TODOS';
-      document.getElementById('fPeriodo').value = 'TODOS';
-      document.getElementById('fSituacao').value = 'TODOS';
-      document.getElementById('fFornecedor').value = 'TODOS';
-      document.getElementById('fAmbiente').value = 'TODOS';
-      document.getElementById('fItemColW').value = 'TODOS';
-      document.getElementById('txtBusca').value = '';
-      aplicarFiltros();
-    }
+        // COLUNA R (Índice 17) = Loja/Unidade (Ignora a Coluna G - Cliente)
+        const lojaColunaR = cellVal(r, 17);
+        const unidade = classificarUnidadeColunaR(lojaColunaR);
 
-    function popularSelects() {
-      const sPeriodo = document.getElementById('fPeriodo');
-      const sSituacao = document.getElementById('fSituacao');
-      const sFornecedor = document.getElementById('fFornecedor');
-      const sAmbiente = document.getElementById('fAmbiente');
-      const sItemColW = document.getElementById('fItemColW');
+        // Coluna W (Índice 22) = Item
+        const itemColW = String(cellVal(r, 22) || '').trim();
+        const isImobal = fornecedorBruto.toUpperCase().includes('IMOBAL');
+        const fornecedor = isImobal ? 'IMOBAL' : fornecedorBruto;
+        const itemFinal = isImobal ? ambiente : (itemColW || ambiente);
 
-      const vP = sPeriodo.value, vS = sSituacao.value, vF = sFornecedor.value, vA = sAmbiente.value, vI = sItemColW.value;
+        // Quantidade (Col Y = 24) e Valor c/ IPI (Col AB = 27)
+        const qtd = parseValorBR(cellRaw(r, 24) !== '' ? cellRaw(r, 24) : cellVal(r, 24));
+        const valorIPI = parseValorBR(cellRaw(r, 27) !== '' ? cellRaw(r, 27) : cellVal(r, 27));
 
-      const mapPeriodos = new Map();
-      const setSituacoes = new Set();
-      const setFornecedores = new Set();
-      const setAmbientes = new Set();
-      const setItensColW = new Set();
-
-      DADOS_ITENS.forEach(d => {
-        if (d.mesLabel && d.mesLabel !== 'S/ Data') mapPeriodos.set(d.mesLabel, d.mesOrdem);
-        if (d.s) setSituacoes.add(d.s);
-        if (d.f) setFornecedores.add(d.f);
-        if (d.a) setAmbientes.add(d.a);
-        if (d.itemW && d.itemW !== '-') setItensColW.add(d.itemW);
+        parsed.push({
+          oc: numPedido,
+          ocNum: parseInt(numPedido.replace(/\D/g, ''), 10) || 0,
+          ambiente,
+          situacao,
+          emissaoLabel: emissaoInfo.label,
+          emissaoDate: emissaoInfo.dateObj,
+          mesAno: emissaoInfo.mesAno,
+          mesSort: emissaoInfo.sortKey || 0,
+          unidade,
+          lojaOriginalR: String(lojaColunaR || '').trim(),
+          fornecedor,
+          isImobal,
+          item: itemFinal,
+          qtd,
+          valor: valorIPI
+        });
       });
 
-      const listaPeriodos = Array.from(mapPeriodos.entries()).sort((a,b) => b[1] - a[1]).map(x => x[0]);
-
-      const preencher = (sel, arr, label, valorAtual) => {
-        sel.innerHTML = `<option value="TODOS">${label}</option>`;
-        arr.forEach(item => {
-          const opt = document.createElement('option');
-          opt.value = item;
-          opt.textContent = item;
-          sel.appendChild(opt);
-        });
-        if (arr.includes(valorAtual)) sel.value = valorAtual;
-      };
-
-      preencher(sPeriodo, listaPeriodos, 'Mês/Ano: Todos', vP);
-      preencher(sSituacao, Array.from(setSituacoes).sort(), 'Situação: Todas', vS);
-      preencher(sFornecedor, Array.from(setFornecedores).sort(), 'Fornecedor: Todos', vF);
-      preencher(sAmbiente, Array.from(setAmbientes).sort(), 'Ambiente: Todos', vA);
-      preencher(sItemColW, Array.from(setItensColW).sort(), 'Item: Todos', vI);
+      rawRows = parsed;
+      populateFilterDropdowns();
+      applyFilters();
     }
 
-    function aplicarFiltros() {
+    function populateFilterDropdowns() {
+      const mesesMap = new Map();
+      const situacoes = new Set();
+      const fornecedores = new Set();
+      const ambientes = new Set();
+      const itens = new Set();
+
+      rawRows.forEach(r => {
+        if (excluirImobal && r.isImobal) return;
+        if (r.mesAno && r.mesAno !== 'Sem Data') mesesMap.set(r.mesAno, r.mesSort);
+        if (r.situacao) situacoes.add(r.situacao);
+        if (r.fornecedor) fornecedores.add(r.fornecedor);
+        if (r.ambiente) ambientes.add(r.ambiente);
+        if (r.item) itens.add(r.item);
+      });
+
+      const mesesOrdenados = Array.from(mesesMap.entries())
+        .sort((a, b) => b[1] - a[1])
+        .map(e => e[0]);
+
+      updateSelect('fMes', mesesOrdenados, 'Período: Todos', 'TODOS');
+      updateSelect('fSituacao', Array.from(situacoes).sort(), 'Situação: Todas', 'TODAS');
+      updateSelect('fFornecedor', Array.from(fornecedores).sort(), 'Fornecedor: Todos', 'TODOS');
+      updateSelect('fAmbiente', Array.from(ambientes).sort(), 'Ambiente: Todos', 'TODOS');
+      updateSelect('fItem', Array.from(itens).sort(), 'Item: Todos', 'TODOS');
+    }
+
+    function updateSelect(id, list, defaultText, defaultVal) {
+      const sel = document.getElementById(id);
+      const current = sel.value;
+      sel.innerHTML = `<option value="${defaultVal}">${defaultText}</option>`;
+      list.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = v;
+        sel.appendChild(opt);
+      });
+      if (list.includes(current)) sel.value = current;
+    }
+
+    function toggleImobal() {
+      excluirImobal = !excluirImobal;
+      const btn = document.getElementById('btnImobal');
+      if (excluirImobal) {
+        btn.classList.remove('inactive');
+        btn.textContent = '✔ EXCLUIR IMOBAL';
+      } else {
+        btn.classList.add('inactive');
+        btn.textContent = '✖ INCLUINDO IMOBAL';
+      }
+      populateFilterDropdowns();
+      applyFilters();
+    }
+
+    function resetFilters() {
+      document.getElementById('fUnidade').value = 'TODAS';
+      document.getElementById('fMes').value = 'TODOS';
+      document.getElementById('fSituacao').value = 'TODAS';
+      document.getElementById('fFornecedor').value = 'TODOS';
+      document.getElementById('fAmbiente').value = 'TODOS';
+      document.getElementById('fItem').value = 'TODOS';
+      document.getElementById('buscaTabela').value = '';
+      applyFilters();
+    }
+
+    function applyFilters() {
       const u = document.getElementById('fUnidade').value;
-      const p = document.getElementById('fPeriodo').value;
+      const m = document.getElementById('fMes').value;
       const s = document.getElementById('fSituacao').value;
       const f = document.getElementById('fFornecedor').value;
       const a = document.getElementById('fAmbiente').value;
-      const itemW = document.getElementById('fItemColW').value;
-      const busca = document.getElementById('txtBusca').value.toLowerCase().trim();
+      const it = document.getElementById('fItem').value;
 
-      const filtrados = DADOS_ITENS.filter(d => {
-        if (EXCLUIR_IMOBAL && (d.f === 'IMOBAL' || d.fBruto.toUpperCase().includes('IMOBAL'))) return false;
-        if (u !== 'TODOS' && d.u !== u) return false;
-        if (p !== 'TODOS' && d.mesLabel !== p) return false;
-        if (s !== 'TODOS' && d.s !== s) return false;
-        if (f !== 'TODOS' && d.f !== f) return false;
-        if (a !== 'TODOS' && d.a !== a) return false;
-        if (itemW !== 'TODOS' && d.itemW !== itemW) return false;
-        if (busca) {
-          const alvo = `${d.n} ${d.cf} ${d.f} ${d.itemW} ${d.a} ${d.u}`.toLowerCase();
-          if (!alvo.includes(busca)) return false;
-        }
+      filteredRows = rawRows.filter(r => {
+        if (excluirImobal && r.isImobal) return false;
+        if (u !== 'TODAS' && r.unidade !== u) return false;
+        if (m !== 'TODOS' && r.mesAno !== m) return false;
+        if (s !== 'TODAS' && r.situacao !== s) return false;
+        if (f !== 'TODOS' && r.fornecedor !== f) return false;
+        if (a !== 'TODOS' && r.ambiente !== a) return false;
+        if (it !== 'TODOS' && r.item !== it) return false;
         return true;
       });
 
-      atualizarKPIs(filtrados);
-      atualizarGraficos(filtrados);
-      atualizarTabelaConsolidada(filtrados);
+      updateKPIs();
+      renderCharts();
+      renderTable();
     }
 
-    function atualizarKPIs(lista) {
+    // =========================================================================
+    // ATUALIZAÇÃO DOS KPIs E GRÁFICOS
+    // =========================================================================
+    function formatCompactBRL(val) {
+      if (val >= 1000000) return `R$ ${(val / 1000000).toLocaleString('pt-BR', { maximumFractionDigits: 2 })} mi`;
+      if (val >= 1000) return `R$ ${(val / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} mil`;
+      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function updateKPIs() {
       const pedidosMap = new Map();
       const fornecedoresSet = new Set();
-      let valorTotal = 0;
-      let qtdVolumes = 0;
+      let somaValor = 0;
+      let somaQtd = 0;
 
-      lista.forEach(d => {
-        valorTotal += d.v;
-        qtdVolumes += d.q;
-        fornecedoresSet.add(d.f);
-        if (!pedidosMap.has(d.n)) {
-          pedidosMap.set(d.n, d.s.toUpperCase());
+      filteredRows.forEach(r => {
+        somaValor += r.valor;
+        somaQtd += r.qtd;
+        fornecedoresSet.add(r.fornecedor);
+        if (!pedidosMap.has(r.oc)) {
+          pedidosMap.set(r.oc, r.situacao.toUpperCase());
         }
       });
 
-      const totalPedidos = pedidosMap.size;
-      let liberados = 0, pendentes = 0;
+      const totalOCs = pedidosMap.size;
+      let liberados = 0;
+      let pendentes = 0;
 
-      pedidosMap.forEach(status => {
-        if (status.includes('LIBERADO') || status.includes('APROVADO') || status.includes('FATURADO') || status.includes('ENTREGUE')) {
+      pedidosMap.forEach(st => {
+        if (st.includes('ATENDIDO') || st.includes('LIBERADO') || st.includes('APROVADO')) {
           liberados++;
-        } else {
+        } else if (st.includes('DIGITA') || st.includes('PENDENTE')) {
           pendentes++;
         }
       });
 
-      const percLib = totalPedidos > 0 ? Math.round((liberados / totalPedidos) * 100) : 0;
-      const percPend = totalPedidos > 0 ? Math.round((pendentes / totalPedidos) * 100) : 0;
-      const ticketMedio = totalPedidos > 0 ? (valorTotal / totalPedidos) : 0;
+      document.getElementById('kpiPedidos').textContent = totalOCs.toLocaleString('pt-BR');
+      document.getElementById('kpiValor').textContent = formatCompactBRL(somaValor);
+      document.getElementById('kpiValorExato').textContent = somaValor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      document.getElementById('kpiLinhas').textContent = filteredRows.length.toLocaleString('pt-BR');
+      document.getElementById('kpiQtdUn').textContent = `${Math.round(somaQtd).toLocaleString('pt-BR')} un. somadas`;
 
-      document.getElementById('kpiPedidos').textContent = totalPedidos.toLocaleString('pt-BR');
-      document.getElementById('kpiValorTotal').textContent = fmtMoedaCurta(valorTotal);
-      document.getElementById('kpiValorSub').textContent = fmtMoeda(valorTotal);
-      document.getElementById('kpiTotalLinhas').textContent = lista.length.toLocaleString('pt-BR');
-      document.getElementById('kpiQtdPecas').textContent = Math.round(qtdVolumes).toLocaleString('pt-BR') + ' un. somadas';
+      const pctLib = totalOCs ? Math.round((liberados / totalOCs) * 100) : 0;
+      const pctPend = totalOCs ? Math.round((pendentes / totalOCs) * 100) : 0;
 
       document.getElementById('kpiLiberados').textContent = liberados.toLocaleString('pt-BR');
-      document.getElementById('kpiPercLiberados').textContent = `${percLib}% do total de OCs`;
-      document.getElementById('barLiberados').style.width = `${percLib}%`;
-
+      document.getElementById('kpiLiberadosPct').textContent = `${pctLib}% do total de OCs`;
       document.getElementById('kpiPendentes').textContent = pendentes.toLocaleString('pt-BR');
-      document.getElementById('kpiPercPendentes').textContent = `${percPend}% do total de OCs`;
-      document.getElementById('barPendentes').style.width = `${percPend}%`;
+      document.getElementById('kpiPendentesPct').textContent = `${pctPend}% do total de OCs`;
 
-      document.getElementById('kpiFornecedores').textContent = fornecedoresSet.size.toLocaleString('pt-BR');
-      document.getElementById('kpiTicketMedio').textContent = 'Ticket Médio: ' + fmtMoedaCurta(ticketMedio);
+      document.getElementById('kpiFornecedores').textContent = fornecedoresSet.size;
+      const ticket = totalOCs ? somaValor / totalOCs : 0;
+      document.getElementById('kpiTicketMedio').textContent = `Ticket Médio: ${ticket.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
     }
 
-    function atualizarGraficos(lista) {
+    function destroyChart(id) {
+      if (charts[id]) {
+        charts[id].destroy();
+        delete charts[id];
+      }
+    }
+
+    function renderCharts() {
       // 1. Evolução Mensal
-      const mapMes = new Map();
-      lista.forEach(d => {
-        if (d.mesLabel === 'S/ Data') return;
-        if (!mapMes.has(d.mesLabel)) {
-          mapMes.set(d.mesLabel, { ordem: d.mesOrdem, valor: 0, pedidos: new Set() });
+      const mensalMap = new Map();
+      filteredRows.forEach(r => {
+        if (!mensalMap.has(r.mesAno)) {
+          mensalMap.set(r.mesAno, { sort: r.mesSort, valor: 0, ocs: new Set() });
         }
-        const obj = mapMes.get(d.mesLabel);
-        obj.valor += d.v;
-        obj.pedidos.add(d.n);
+        const m = mensalMap.get(r.mesAno);
+        m.valor += r.valor;
+        m.ocs.add(r.oc);
       });
+      const mensalArr = Array.from(mensalMap.entries()).sort((a, b) => a[1].sort - b[1].sort);
 
-      const mesesOrdenados = Array.from(mapMes.entries())
-        .sort((a,b) => a[1].ordem - b[1].ordem)
-        .slice(-10);
-
-      renderChart('chartEvolucao', {
+      destroyChart('mensal');
+      charts.mensal = new Chart(document.getElementById('chartMensal'), {
         type: 'bar',
         data: {
-          labels: mesesOrdenados.map(x => x[0]),
+          labels: mensalArr.map(e => e[0]),
           datasets: [
             {
-              type: 'line',
-              label: 'Pedidos (OCs)',
-              data: mesesOrdenados.map(x => x[1].pedidos.size),
-              borderColor: '#10B981',
-              backgroundColor: '#10B981',
-              borderWidth: 2,
-              tension: 0.3,
-              yAxisID: 'y1'
-            },
-            {
-              type: 'bar',
               label: 'Valor Total c/ IPI (R$)',
-              data: mesesOrdenados.map(x => x[1].valor),
-              backgroundColor: '#3B82F6',
+              data: mensalArr.map(e => e[1].valor),
+              backgroundColor: '#2563eb',
               borderRadius: 6,
               yAxisID: 'y'
+            },
+            {
+              label: 'Pedidos (OCs)',
+              data: mensalArr.map(e => e[1].ocs.size),
+              type: 'line',
+              borderColor: '#16a34a',
+              backgroundColor: '#16a34a',
+              yAxisID: 'y1'
             }
           ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { position: 'top', labels: { boxWidth: 10, font: { size: 10 } } } },
           scales: {
-            y: { beginAtZero: true, ticks: { font: { size: 9.5 }, callback: v => fmtMoedaCurta(v) } },
-            y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, ticks: { font: { size: 9.5 } } },
-            x: { ticks: { font: { size: 9.5 } } }
+            y: { position: 'left', ticks: { callback: v => formatCompactBRL(v) } },
+            y1: { position: 'right', grid: { drawOnChartArea: false } }
           }
         }
       });
 
-      // 2. Top Fornecedores (Imobal Unificado)
-      const mapForn = {};
-      lista.forEach(d => {
-        const nome = d.f.substring(0, 22);
-        mapForn[nome] = (mapForn[nome] || 0) + d.v;
+      // 2. Top Fornecedores
+      const fornMap = new Map();
+      filteredRows.forEach(r => {
+        fornMap.set(r.fornecedor, (fornMap.get(r.fornecedor) || 0) + r.valor);
       });
-      const topForn = Object.entries(mapForn).sort((a,b) => b[1] - a[1]).slice(0, 7);
+      const fornTop = Array.from(fornMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 7);
 
-      renderChart('chartFornecedores', {
+      destroyChart('fornecedores');
+      charts.fornecedores = new Chart(document.getElementById('chartFornecedores'), {
         type: 'bar',
         data: {
-          labels: topForn.map(x => x[0]),
+          labels: fornTop.map(e => e[0].substring(0, 24)),
           datasets: [{
-            label: 'Total c/ IPI (R$)',
-            data: topForn.map(x => x[1]),
-            backgroundColor: '#F97316',
+            label: 'Valor c/ IPI',
+            data: fornTop.map(e => e[1]),
+            backgroundColor: '#f97316',
             borderRadius: 5
           }]
         },
@@ -753,31 +958,25 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { font: { size: 9 }, callback: v => fmtMoedaCurta(v) } },
-            y: { ticks: { font: { size: 9.5 } } }
-          }
+          scales: { x: { ticks: { callback: v => formatCompactBRL(v) } } }
         }
       });
 
-      // 3. Valor dos Pedidos por Unidade (Cast Móveis, Cast Móveis II e Select)
-      const mapUnid = { 'Cast Móveis': 0, 'Cast Móveis II': 0, 'Select': 0 };
-      lista.forEach(d => {
-        if (mapUnid[d.u] !== undefined) {
-          mapUnid[d.u] += d.v;
-        } else {
-          mapUnid['Cast Móveis'] += d.v;
-        }
-      });
+      // 3. Valor dos Pedidos por Unidade (Lendo exclusivamente Coluna R)
+      const unidadesFixas = ['Cast Móveis', 'Cast II', 'Select'];
+      const valoresUnidade = unidadesFixas.map(u =>
+        filteredRows.filter(r => r.unidade === u).reduce((acc, cur) => acc + cur.valor, 0)
+      );
 
-      renderChart('chartUnidades', {
+      destroyChart('unidades');
+      charts.unidades = new Chart(document.getElementById('chartUnidades'), {
         type: 'bar',
         data: {
-          labels: ['Cast Móveis', 'Cast Móveis II', 'Select'],
+          labels: unidadesFixas,
           datasets: [{
-            label: 'Total c/ IPI (R$)',
-            data: [mapUnid['Cast Móveis'], mapUnid['Cast Móveis II'], mapUnid['Select']],
-            backgroundColor: ['#1E40AF', '#3B82F6', '#0284C7'],
+            label: 'Valor c/ IPI (R$)',
+            data: valoresUnidade,
+            backgroundColor: ['#1d4ed8', '#4f46e5', '#0284c7'],
             borderRadius: 6
           }]
         },
@@ -785,65 +984,54 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: {
-            y: { ticks: { font: { size: 9 }, callback: v => fmtMoedaCurta(v) } },
-            x: { ticks: { font: { size: 10, weight: 'bold' } } }
-          }
+          scales: { y: { ticks: { callback: v => formatCompactBRL(v) } } }
         }
       });
 
-      // 4. Distribuição por Situação (EM %)
-      const mapSit = {};
-      let somaTotalSit = 0;
-      lista.forEach(d => {
-        mapSit[d.s] = (mapSit[d.s] || 0) + d.v;
-        somaTotalSit += d.v;
+      // 4. Situação (Rosca)
+      const sitMap = new Map();
+      const ocSitVista = new Set();
+      filteredRows.forEach(r => {
+        if (!ocSitVista.has(r.oc)) {
+          ocSitVista.add(r.oc);
+          sitMap.set(r.situacao, (sitMap.get(r.situacao) || 0) + 1);
+        }
       });
-      const topSit = Object.entries(mapSit).sort((a,b) => b[1] - a[1]);
-      const percentsSit = topSit.map(x => somaTotalSit > 0 ? Number(((x[1] / somaTotalSit) * 100).toFixed(1)) : 0);
-      const labelsSitComPerc = topSit.map((x, idx) => `${x[0]} (${percentsSit[idx].toFixed(1).replace('.', ',')}%)`);
+      const sitArr = Array.from(sitMap.entries()).sort((a, b) => b[1] - a[1]);
 
-      renderChart('chartSituacao', {
+      destroyChart('situacao');
+      charts.situacao = new Chart(document.getElementById('chartSituacao'), {
         type: 'doughnut',
         data: {
-          labels: labelsSitComPerc,
+          labels: sitArr.map(e => e[0]),
           datasets: [{
-            data: percentsSit,
-            backgroundColor: ['#1E40AF', '#10B981', '#F97316', '#6366F1', '#EF4444', '#94A3B8'],
-            borderWidth: 2
+            data: sitArr.map(e => e[1]),
+            backgroundColor: ['#2563eb', '#16a34a', '#f59e0b', '#7c3aed', '#ef4444', '#64748b']
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          cutout: '64%',
-          plugins: {
-            legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9.5 } } },
-            tooltip: {
-              callbacks: {
-                label: function(ctx) { return ` ${ctx.label}`; }
-              }
-            }
-          }
+          plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } }
         }
       });
 
       // 5. Volume por Item (Coluna W)
-      const mapItemW = {};
-      lista.forEach(d => {
-        const nomeItem = (d.itemW || 'Outros').replace(/^\d+\s*-\s*/, '').trim().substring(0, 18);
-        mapItemW[nomeItem] = (mapItemW[nomeItem] || 0) + d.v;
+      const itemMap = new Map();
+      filteredRows.forEach(r => {
+        itemMap.set(r.item, (itemMap.get(r.item) || 0) + r.valor);
       });
-      const topItensW = Object.entries(mapItemW).sort((a,b) => b[1] - a[1]).slice(0, 7);
+      const itemTop = Array.from(itemMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 7);
 
-      renderChart('chartItensColW', {
+      destroyChart('itens');
+      charts.itens = new Chart(document.getElementById('chartItens'), {
         type: 'bar',
         data: {
-          labels: topItensW.map(x => x[0]),
+          labels: itemTop.map(e => e[0].substring(0, 18)),
           datasets: [{
-            label: 'Valor (R$)',
-            data: topItensW.map(x => x[1]),
-            backgroundColor: '#1E40AF',
+            label: 'R$ c/ IPI',
+            data: itemTop.map(e => e[1]),
+            backgroundColor: '#1e40af',
             borderRadius: 5
           }]
         },
@@ -851,92 +1039,100 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: {
-            y: { ticks: { font: { size: 9 }, callback: v => fmtMoedaCurta(v) } },
-            x: { ticks: { font: { size: 9 } } }
-          }
+          scales: { y: { ticks: { callback: v => formatCompactBRL(v) } } }
         }
       });
     }
 
-    function renderChart(id, config) {
-      if (charts[id]) charts[id].destroy();
-      const ctx = document.getElementById(id).getContext('2d');
-      charts[id] = new Chart(ctx, config);
+    // =========================================================================
+    // TABELA DE ÚLTIMOS PEDIDOS ATENDIDOS (ORDEM DECRESCENTE)
+    // =========================================================================
+    function setModoTabela(modo) {
+      modoTabela = modo;
+      document.getElementById('tabAtendidos').classList.toggle('active', modo === 'ATENDIDOS');
+      document.getElementById('tabTodos').classList.toggle('active', modo === 'TODOS');
+      document.getElementById('tableTitle').textContent =
+        modo === 'ATENDIDOS'
+          ? 'Últimos Pedidos Atendidos (Ordem Decrescente)'
+          : 'Últimos Pedidos de Compra (Mais Recentes)';
+      renderTable();
     }
 
-    // =========================================================================
-    // TABELA: ORDENADA DECRESCENTE (DO MAIS RECENTE AO MAIS ANTIGO)
-    // =========================================================================
-    function atualizarTabelaConsolidada(lista) {
-      const tbody = document.getElementById('tabelaCorpo');
-      if (lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Nenhum pedido encontrado para os filtros aplicados.</td></tr>`;
-        return;
-      }
+    function renderTable() {
+      const termo = document.getElementById('buscaTabela').value.toLowerCase().trim();
+      const agrupadoOC = new Map();
 
-      const mapOC = new Map();
-      lista.forEach(d => {
-        if (!mapOC.has(d.n)) {
-          mapOC.set(d.n, {
-            n: d.n,
-            e: d.e,
-            timestamp: d.timestamp,
-            u: d.u,
-            cf: d.cf.replace(/^\d+\s*-\s*/, ''),
-            f: d.f,
-            s: d.s,
-            v: 0
+      filteredRows.forEach(r => {
+        if (modoTabela === 'ATENDIDOS' && !r.situacao.toUpperCase().includes('ATENDIDO')) return;
+
+        if (!agrupadoOC.has(r.oc)) {
+          agrupadoOC.set(r.oc, {
+            oc: r.oc,
+            ocNum: r.ocNum,
+            emissaoLabel: r.emissaoLabel,
+            emissaoDate: r.emissaoDate,
+            unidade: r.unidade,
+            fornecedor: r.fornecedor,
+            situacao: r.situacao,
+            total: 0
           });
         }
-        mapOC.get(d.n).v += d.v;
+        agrupadoOC.get(r.oc).total += r.valor;
       });
 
-      const pedidosConsolidados = Array.from(mapOC.values())
-        .sort((a, b) => {
-          if (b.timestamp !== a.timestamp) {
-            return b.timestamp - a.timestamp;
-          }
-          return (parseInt(b.n, 10) || 0) - (parseInt(a.n, 10) || 0);
-        })
-        .slice(0, 50);
+      let lista = Array.from(agrupadoOC.values());
+      if (termo) {
+        lista = lista.filter(p =>
+          p.oc.toLowerCase().includes(termo) ||
+          p.fornecedor.toLowerCase().includes(termo) ||
+          p.unidade.toLowerCase().includes(termo) ||
+          p.situacao.toLowerCase().includes(termo)
+        );
+      }
 
-      tbody.innerHTML = pedidosConsolidados.map(p => {
-        const st = p.s.toUpperCase();
-        let badge = 'bg-slate-100 text-slate-700';
-        if (st.includes('LIBERADO') || st.includes('APROVADO') || st.includes('FATURADO')) {
-          badge = 'bg-emerald-100 text-emerald-800';
-        } else if (st.includes('DIGITA') || st.includes('PENDENTE')) {
-          badge = 'bg-amber-100 text-amber-800';
-        }
+      // Ordenação decrescente por data e depois por número da OC
+      lista.sort((a, b) => (b.emissaoDate - a.emissaoDate) || (b.ocNum - a.ocNum));
 
-        let badgeUnidade = 'bg-blue-50 text-blue-700 border border-blue-200';
-        if (p.u === 'Select') badgeUnidade = 'bg-purple-50 text-purple-700 border border-purple-200';
-        else if (p.u === 'Cast Móveis II') badgeUnidade = 'bg-sky-50 text-sky-700 border border-sky-200';
+      const tbody = document.getElementById('tabelaPedidosBody');
+      tbody.innerHTML = lista.slice(0, 35).map(p => {
+        const unitClass = p.unidade === 'Cast II' ? 'unit-cast2' : (p.unidade === 'Select' ? 'unit-select' : 'unit-cast1');
+        const stUpper = p.situacao.toUpperCase();
+        const stClass = stUpper.includes('ATENDIDO') ? 'st-atendido'
+          : (stUpper.includes('LIBERADO') ? 'st-liberado'
+          : (stUpper.includes('DIGITA') ? 'st-digitacao' : 'st-outros'));
 
         return `
-          <tr class="hover:bg-slate-50 transition">
-            <td class="py-1.5 px-2 font-extrabold text-blue-700">#${p.n}</td>
-            <td class="py-1.5 px-2 text-slate-500 whitespace-nowrap">${p.e}</td>
-            <td class="py-1.5 px-2">
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${badgeUnidade}">${p.u}</span>
-            </td>
-            <td class="py-1.5 px-2 text-slate-600 truncate max-w-[130px]" title="${p.f}">${p.f}</td>
-            <td class="py-1.5 px-2">
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${badge}">${p.s}</span>
-            </td>
-            <td class="py-1.5 px-2 text-right font-bold text-slate-800 whitespace-nowrap">${fmtMoeda(p.v)}</td>
+          <tr>
+            <td><strong style="color:#1d4ed8">#${p.oc}</strong></td>
+            <td>${p.emissaoLabel}</td>
+            <td><span class="pill-unit ${unitClass}">${p.unidade}</span></td>
+            <td title="${p.fornecedor}">${p.fornecedor}</td>
+            <td><span class="pill-status ${stClass}">${p.situacao}</span></td>
+            <td style="text-align:right;font-weight:700">${p.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
           </tr>
         `;
       }).join('');
     }
 
-    // Inicialização + Ciclo Automático de 60s para a TV
-    window.addEventListener('DOMContentLoaded', () => {
-      atualizarBotaoImobalUI();
-      carregarPlanilha();
-      setInterval(carregarPlanilha, 60000);
-    });
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Auto-refresh a cada 60s
+    setInterval(() => {
+      timerSeconds--;
+      if (timerSeconds <= 0) {
+        timerSeconds = 60;
+        loadSheetData();
+      }
+      document.getElementById('countdownText').textContent = `Auto-Refresh: ${timerSeconds}s`;
+    }, 1000);
+
+    window.addEventListener('DOMContentLoaded', loadSheetData);
   </script>
 </body>
 </html>
