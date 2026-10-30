@@ -184,6 +184,189 @@
       </div>
     </header>
 
+    <!-- SEÇÃO: 3 MENUS DE FILTRO POR DATA (Chegada no Depósito, Entrega no Cliente, Fim da Montagem) -->
+    <section id="sec-date-filters" class="card-panel px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-sm border border-slate-700/60">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 border border-blue-400/30 flex items-center justify-center font-bold text-sm shrink-0">
+            📅
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-100">
+                Filtros por Período de Data
+              </h2>
+              <span class="px-2 py-0.2 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-400/30">Calendário Interativo</span>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              Clique em qualquer menu abaixo para abrir o calendário duplo e selecionar o período desejado
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Menus de Filtro por Data (Botões que abrem o calendário duplo do print) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full lg:w-auto">
+          <!-- MENU 1: Data de Chegada no Depósito -->
+          <button id="btn-trigger-chegada" type="button"
+                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm">
+            <div class="flex items-center gap-2 truncate">
+              <span class="text-base shrink-0">📦</span>
+              <div class="truncate">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-300">1. Chegada (Depósito)</div>
+                <div id="label-chegada" class="text-xs font-extrabold text-slate-100 truncate">Todas as datas</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <span id="badge-chegada" class="hidden text-[9px] px-1.5 py-0.2 rounded bg-emerald-500 text-slate-950 font-black">Ativo</span>
+              <span class="text-slate-400 group-hover:text-white text-xs">📅 ▾</span>
+            </div>
+          </button>
+
+          <!-- MENU 2: Data de Entrega no Cliente -->
+          <button id="btn-trigger-entrega" type="button"
+                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm">
+            <div class="flex items-center gap-2 truncate">
+              <span class="text-base shrink-0">🚚</span>
+              <div class="truncate">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-300">2. Entrega no Cliente</div>
+                <div id="label-entrega" class="text-xs font-extrabold text-slate-100 truncate">Todas as datas</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <span id="badge-entrega" class="hidden text-[9px] px-1.5 py-0.2 rounded bg-emerald-500 text-slate-950 font-black">Ativo</span>
+              <span class="text-slate-400 group-hover:text-white text-xs">📅 ▾</span>
+            </div>
+          </button>
+
+          <!-- MENU 3: Data do Final da Montagem (Montado) -->
+          <button id="btn-trigger-montagem" type="button"
+                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm">
+            <div class="flex items-center gap-2 truncate">
+              <span class="text-base shrink-0">🛠️</span>
+              <div class="truncate">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-300">3. Fim da Montagem</div>
+                <div id="label-montagem" class="text-xs font-extrabold text-slate-100 truncate">Todas as datas</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <span id="badge-montagem" class="hidden text-[9px] px-1.5 py-0.2 rounded bg-emerald-500 text-slate-950 font-black">Ativo</span>
+              <span class="text-slate-400 group-hover:text-white text-xs">📅 ▾</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Period Filter Alert Banner (Aparece quando algum filtro de data está ativo) -->
+      <div id="date-filter-banner" class="hidden mt-2.5 pt-2 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="font-extrabold text-amber-300 flex items-center gap-1">
+            <span>🔎</span>
+            <span>Relatório por Período:</span>
+          </span>
+          <span id="date-filter-banner-text" class="text-slate-200 font-semibold"></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-print-report" type="button" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] transition flex items-center gap-1">
+            <span>🖨️</span>
+            <span>Imprimir / Salvar Relatório</span>
+          </button>
+          <button id="btn-clear-all-dates" type="button" class="px-2.5 py-1 rounded bg-slate-700 hover:bg-rose-700 text-slate-200 hover:text-white font-bold text-[11px] transition">
+            ✕ Limpar Datas
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DUAL CALENDAR DATE RANGE PICKER MODAL (Exato modelo visual do print) -->
+    <div id="modal-date-picker" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/70 backdrop-blur-sm">
+      <div id="modal-date-picker-card" class="bg-white text-slate-800 rounded-xl shadow-2xl border border-slate-200 w-full max-w-xl overflow-hidden flex flex-col transform transition-all">
+        <!-- Modal Top Bar -->
+        <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span id="modal-filter-icon" class="text-xl">🛠️</span>
+            <div>
+              <h3 id="modal-filter-title" class="text-xs font-bold uppercase tracking-wider text-slate-600">3. Fim da Montagem (Montado)</h3>
+              <p class="text-[11px] text-slate-400">Clique nos dias de início e término no calendário</p>
+            </div>
+          </div>
+          <!-- Dropdown igual ao print: "Período automático ▾" -->
+          <div>
+            <select id="modal-preset-select" class="bg-white border border-slate-300 text-slate-700 text-xs font-semibold rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm cursor-pointer">
+              <option value="AUTO">Período automático</option>
+              <option value="CUSTOM">Período personalizado</option>
+              <option value="TODOS">Todas as datas (sem filtro)</option>
+              <option value="QUINZENA_2_OUT">15/10/2026 a 30/10/2026 (Exemplo)</option>
+              <option value="HOJE">Hoje (30/10/2026)</option>
+              <option value="ULT_7">Últimos 7 dias</option>
+              <option value="ULT_15">Últimos 15 dias</option>
+              <option value="QUINZENA_1_OUT">01/10/2026 a 15/10/2026</option>
+              <option value="MES_OUT">Outubro/2026 completo</option>
+              <option value="MES_SET">Setembro/2026 completo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Calendars Body: Duplo Calendário Lado a Lado -->
+        <div class="p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
+          <!-- Calendário 1: Data de início -->
+          <div class="flex flex-col">
+            <div class="text-center font-bold text-xs text-slate-700 mb-2">Data de início</div>
+            <div class="flex items-center justify-between mb-2 px-1">
+              <div class="flex items-center gap-1 font-extrabold text-xs text-slate-800">
+                <span id="label-month-start">OUT. DE 2026</span>
+                <span class="text-[10px] text-slate-400">▾</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btn-prev-month-start" type="button" class="w-6 h-6 rounded hover:bg-slate-100 flex items-center justify-center text-slate-600 font-extrabold text-xs cursor-pointer">‹</button>
+                <button id="btn-next-month-start" type="button" class="w-6 h-6 rounded hover:bg-slate-100 flex items-center justify-center text-slate-600 font-extrabold text-xs cursor-pointer">›</button>
+              </div>
+            </div>
+            <!-- Dias da semana: D S T Q Q S S -->
+            <div class="grid grid-cols-7 gap-1 text-center text-[11px] font-semibold text-slate-400 mb-1 border-b border-slate-100 pb-1">
+              <div>D</div><div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
+            </div>
+            <!-- Grid de Dias de Início -->
+            <div id="grid-days-start" class="grid grid-cols-7 gap-y-1 gap-x-0.5 text-center text-xs"></div>
+          </div>
+
+          <!-- Calendário 2: Data de término -->
+          <div class="flex flex-col sm:pl-6 pt-4 sm:pt-0">
+            <div class="text-center font-bold text-xs text-slate-700 mb-2">Data de término</div>
+            <div class="flex items-center justify-between mb-2 px-1">
+              <div class="flex items-center gap-1 font-extrabold text-xs text-slate-800">
+                <span id="label-month-end">OUT. DE 2026</span>
+                <span class="text-[10px] text-slate-400">▾</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btn-prev-month-end" type="button" class="w-6 h-6 rounded hover:bg-slate-100 flex items-center justify-center text-slate-600 font-extrabold text-xs cursor-pointer">‹</button>
+                <button id="btn-next-month-end" type="button" class="w-6 h-6 rounded hover:bg-slate-100 flex items-center justify-center text-slate-600 font-extrabold text-xs cursor-pointer">›</button>
+              </div>
+            </div>
+            <!-- Dias da semana: D S T Q Q S S -->
+            <div class="grid grid-cols-7 gap-1 text-center text-[11px] font-semibold text-slate-400 mb-1 border-b border-slate-100 pb-1">
+              <div>D</div><div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
+            </div>
+            <!-- Grid de Dias de Término -->
+            <div id="grid-days-end" class="grid grid-cols-7 gap-y-1 gap-x-0.5 text-center text-xs"></div>
+          </div>
+        </div>
+
+        <!-- Footer com Cancelar e Aplicar (Identico ao print) -->
+        <div class="px-5 py-3 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-slate-500 font-medium">Período:</span>
+            <span id="modal-summary-dates" class="font-extrabold text-slate-900">Todas as datas</span>
+            <button id="modal-btn-clear-selection" type="button" class="ml-1 text-[11px] text-rose-600 hover:text-rose-800 font-bold underline cursor-pointer">Limpar</button>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="modal-btn-cancel" type="button" class="text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer">Cancelar</button>
+            <button id="modal-btn-apply" type="button" class="px-5 py-1.5 text-xs font-extrabold text-slate-800 bg-slate-200 hover:bg-slate-900 hover:text-white rounded-full shadow-sm transition cursor-pointer">Aplicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- ROW 1: 6 KPI SCORECARDS (Identical layout to reference image) -->
     <section id="sec-kpis" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
       <!-- KPI 1: Cumprimento de Prazo -->
@@ -536,7 +719,13 @@
       tvAutoRotate: false,
       tvTimer: null,
       tvProgressTimer: null,
-      tvProgress: 0
+      tvProgress: 0,
+      filterChegadaStart: null,
+      filterChegadaEnd: null,
+      filterEntregaStart: null,
+      filterEntregaEnd: null,
+      filterMontagemStart: null,
+      filterMontagemEnd: null
     };
 
     let charts = {};
@@ -547,6 +736,30 @@
     function normCliente(c) {
       if (!c || c === "—") return "";
       return String(c).trim().toUpperCase();
+    }
+
+    
+    function parseIsoDate(str) {
+      if (!str) return null;
+      const m = String(str).trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!m) return null;
+      return new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10));
+    }
+
+    function fmtIsoDate(dt) {
+      if (!dt) return "";
+      const y = dt.getFullYear();
+      const m = String(dt.getMonth() + 1).padStart(2, "0");
+      const d = String(dt.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function fmtBrDisplay(dt) {
+      if (!dt) return "";
+      const d = String(dt.getDate()).padStart(2, "0");
+      const m = String(dt.getMonth() + 1).padStart(2, "0");
+      const y = dt.getFullYear();
+      return `${d}/${m}/${y}`;
     }
 
     function parseBrDate(str) {
@@ -1026,6 +1239,31 @@
             (r.pedido || "").toLowerCase().includes(q);
           if (!match) return false;
         }
+
+        // Filtro 1: Data de Chegada no Depósito (d_dep)
+        if (state.filterChegadaStart || state.filterChegadaEnd) {
+          const dt = parseBrDate(r.d_dep);
+          if (!dt) return false;
+          if (state.filterChegadaStart && dt < state.filterChegadaStart) return false;
+          if (state.filterChegadaEnd && dt > state.filterChegadaEnd) return false;
+        }
+
+        // Filtro 2: Data de Entrega no Cliente (d_ent)
+        if (state.filterEntregaStart || state.filterEntregaEnd) {
+          const dt = parseBrDate(r.d_ent);
+          if (!dt) return false;
+          if (state.filterEntregaStart && dt < state.filterEntregaStart) return false;
+          if (state.filterEntregaEnd && dt > state.filterEntregaEnd) return false;
+        }
+
+        // Filtro 3: Data do Final da Montagem (d_fim)
+        if (state.filterMontagemStart || state.filterMontagemEnd) {
+          const dt = parseBrDate(r.d_fim);
+          if (!dt) return false;
+          if (state.filterMontagemStart && dt < state.filterMontagemStart) return false;
+          if (state.filterMontagemEnd && dt > state.filterMontagemEnd) return false;
+        }
+
         return true;
       });
     }
@@ -1753,6 +1991,257 @@
       }
     }
 
+    
+    // ==========================================
+    // DUAL CALENDAR DATE RANGE PICKER (Looker Studio / Print Style)
+    // ==========================================
+    const CAL_MONTHS_PT = ["JAN.", "FEV.", "MAR.", "ABR.", "MAI.", "JUN.", "JUL.", "AGO.", "SET.", "OUT.", "NOV.", "DEZ."];
+
+    const calState = {
+      activeType: "montagem", // "chegada", "entrega", "montagem"
+      tempStart: null,
+      tempEnd: null,
+      viewStartYear: 2026,
+      viewStartMonth: 9, // 0-indexed (9 = Outubro)
+      viewEndYear: 2026,
+      viewEndMonth: 9
+    };
+
+    function isSameDay(d1, d2) {
+      if (!d1 || !d2) return false;
+      return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+    }
+
+    function isDateBetween(d, dStart, dEnd) {
+      if (!d || !dStart || !dEnd) return false;
+      const t = d.getTime();
+      const t1 = dStart.getTime();
+      const t2 = dEnd.getTime();
+      return t >= Math.min(t1, t2) && t <= Math.max(t1, t2);
+    }
+
+    function renderCalendarGrid(pane) {
+      const isStart = pane === "start";
+      const year = isStart ? calState.viewStartYear : calState.viewEndYear;
+      const month = isStart ? calState.viewStartMonth : calState.viewEndMonth;
+      const labelEl = document.getElementById(isStart ? "label-month-start" : "label-month-end");
+      const gridEl = document.getElementById(isStart ? "grid-days-start" : "grid-days-end");
+
+      if (labelEl) {
+        labelEl.textContent = `${CAL_MONTHS_PT[month]} DE ${year}`;
+      }
+      if (!gridEl) return;
+
+      const firstDay = new Date(year, month, 1);
+      const sunFirstOffset = firstDay.getDay(); // 0 = Domingo, 1 = Segunda ...
+      const totalDays = new Date(year, month + 1, 0).getDate();
+
+      let html = "";
+      // Slots vazios antes do dia 1
+      for (let i = 0; i < sunFirstOffset; i++) {
+        html += `<div class="h-7 w-7"></div>`;
+      }
+
+      // Dias do mês
+      for (let day = 1; day <= totalDays; day++) {
+        const curDate = new Date(year, month, day);
+        const isStartDay = isSameDay(curDate, calState.tempStart);
+        const isEndDay = isSameDay(curDate, calState.tempEnd);
+        const inRange = isDateBetween(curDate, calState.tempStart, calState.tempEnd);
+
+        let dayClass = "w-7 h-7 mx-auto flex items-center justify-center rounded-full text-xs font-medium cursor-pointer transition ";
+        if (isStartDay && isEndDay) {
+          dayClass += "border-2 border-slate-900 bg-slate-900 text-white font-extrabold shadow-sm";
+        } else if (isStartDay) {
+          dayClass += isStart
+            ? "border-2 border-slate-900 bg-slate-900 text-white font-extrabold shadow-sm"
+            : "border border-slate-700 bg-slate-100 text-slate-900 font-bold";
+        } else if (isEndDay) {
+          dayClass += !isStart
+            ? "border-2 border-slate-900 bg-slate-900 text-white font-extrabold shadow-sm"
+            : "border border-slate-700 bg-slate-100 text-slate-900 font-bold";
+        } else if (inRange) {
+          dayClass += "bg-blue-100/70 text-blue-900 font-bold rounded-none";
+        } else {
+          dayClass += "text-slate-700 hover:bg-slate-100 hover:text-slate-900";
+        }
+
+        html += `
+          <div class="py-0.5">
+            <button type="button" data-pane="${pane}" data-y="${year}" data-m="${month}" data-d="${day}" class="btn-cal-day ${dayClass}">
+              ${day}
+            </button>
+          </div>
+        `;
+      }
+      gridEl.innerHTML = html;
+
+      gridEl.querySelectorAll(".btn-cal-day").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const y = parseInt(btn.getAttribute("data-y"), 10);
+          const m = parseInt(btn.getAttribute("data-m"), 10);
+          const d = parseInt(btn.getAttribute("data-d"), 10);
+          const pickedDate = new Date(y, m, d);
+
+          if (pane === "start") {
+            calState.tempStart = pickedDate;
+            if (!calState.tempEnd || calState.tempEnd < pickedDate) {
+              calState.tempEnd = pickedDate;
+            }
+          } else {
+            calState.tempEnd = pickedDate;
+            if (!calState.tempStart || calState.tempStart > pickedDate) {
+              calState.tempStart = pickedDate;
+            }
+          }
+          const presetSel = document.getElementById("modal-preset-select");
+          if (presetSel) presetSel.value = "CUSTOM";
+          renderBothCalendars();
+          updateModalSummary();
+        });
+      });
+    }
+
+    function renderBothCalendars() {
+      renderCalendarGrid("start");
+      renderCalendarGrid("end");
+    }
+
+    function updateModalSummary() {
+      const summaryEl = document.getElementById("modal-summary-dates");
+      if (!summaryEl) return;
+      if (calState.tempStart && calState.tempEnd) {
+        if (isSameDay(calState.tempStart, calState.tempEnd)) {
+          summaryEl.textContent = fmtBrDisplay(calState.tempStart);
+        } else {
+          summaryEl.textContent = `${fmtBrDisplay(calState.tempStart)} até ${fmtBrDisplay(calState.tempEnd)}`;
+        }
+      } else if (calState.tempStart) {
+        summaryEl.textContent = `A partir de ${fmtBrDisplay(calState.tempStart)}`;
+      } else if (calState.tempEnd) {
+        summaryEl.textContent = `Até ${fmtBrDisplay(calState.tempEnd)}`;
+      } else {
+        summaryEl.textContent = "Todas as datas (sem filtro)";
+      }
+    }
+
+    function openDatePickerModal(type) {
+      calState.activeType = type;
+      const cap = type.charAt(0).toUpperCase() + type.slice(1);
+      calState.tempStart = state[`filter${cap}Start`];
+      calState.tempEnd = state[`filter${cap}End`];
+
+      // Inicializa visualização no mês do filtro ou Outubro/2026
+      if (calState.tempStart) {
+        calState.viewStartYear = calState.tempStart.getFullYear();
+        calState.viewStartMonth = calState.tempStart.getMonth();
+      } else {
+        calState.viewStartYear = 2026;
+        calState.viewStartMonth = 9;
+      }
+      if (calState.tempEnd) {
+        calState.viewEndYear = calState.tempEnd.getFullYear();
+        calState.viewEndMonth = calState.tempEnd.getMonth();
+      } else {
+        calState.viewEndYear = 2026;
+        calState.viewEndMonth = 9;
+      }
+
+      const iconEl = document.getElementById("modal-filter-icon");
+      const titleEl = document.getElementById("modal-filter-title");
+      if (type === "chegada") {
+        if (iconEl) iconEl.textContent = "📦";
+        if (titleEl) titleEl.textContent = "1. Chegada (no Depósito)";
+      } else if (type === "entrega") {
+        if (iconEl) iconEl.textContent = "🚚";
+        if (titleEl) titleEl.textContent = "2. Entrega no Cliente";
+      } else {
+        if (iconEl) iconEl.textContent = "🛠️";
+        if (titleEl) titleEl.textContent = "3. Fim da Montagem (Montado)";
+      }
+
+      const presetSel = document.getElementById("modal-preset-select");
+      if (presetSel) {
+        if (!calState.tempStart && !calState.tempEnd) {
+          presetSel.value = "AUTO";
+        } else {
+          presetSel.value = "CUSTOM";
+        }
+      }
+
+      renderBothCalendars();
+      updateModalSummary();
+
+      const modal = document.getElementById("modal-date-picker");
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function closeDatePickerModal() {
+      const modal = document.getElementById("modal-date-picker");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function applyModalSelection() {
+      const type = calState.activeType;
+      const cap = type.charAt(0).toUpperCase() + type.slice(1);
+      state[`filter${cap}Start`] = calState.tempStart;
+      state[`filter${cap}End`] = calState.tempEnd;
+      closeDatePickerModal();
+      updateAll();
+    }
+
+    function updateDateFilterUI() {
+      const types = [
+        { id: "chegada", label: "Chegada Depósito", start: state.filterChegadaStart, end: state.filterChegadaEnd },
+        { id: "entrega", label: "Entrega Cliente", start: state.filterEntregaStart, end: state.filterEntregaEnd },
+        { id: "montagem", label: "Fim Montagem", start: state.filterMontagemStart, end: state.filterMontagemEnd }
+      ];
+
+      const activeTags = [];
+      types.forEach(t => {
+        const labelEl = document.getElementById(`label-${t.id}`);
+        const badgeEl = document.getElementById(`badge-${t.id}`);
+        const btnEl = document.getElementById(`btn-trigger-${t.id}`);
+
+        if (t.start || t.end) {
+          const sStr = t.start ? fmtBrDisplay(t.start) : "*";
+          const eStr = t.end ? fmtBrDisplay(t.end) : "*";
+          const text = isSameDay(t.start, t.end) ? sStr : `${sStr} a ${eStr}`;
+          if (labelEl) labelEl.textContent = text;
+          if (badgeEl) badgeEl.classList.remove("hidden");
+          if (btnEl) {
+            btnEl.classList.add("ring-2", "ring-emerald-400", "border-emerald-500", "bg-slate-800");
+          }
+          activeTags.push(`<strong>${t.label}:</strong> ${text}`);
+        } else {
+          if (labelEl) labelEl.textContent = "Todas as datas";
+          if (badgeEl) badgeEl.classList.add("hidden");
+          if (btnEl) {
+            btnEl.classList.remove("ring-2", "ring-emerald-400", "border-emerald-500");
+          }
+        }
+      });
+
+      const banner = document.getElementById("date-filter-banner");
+      const bannerText = document.getElementById("date-filter-banner-text");
+      if (activeTags.length > 0) {
+        banner.classList.remove("hidden");
+        const rows = getFilteredData();
+        bannerText.innerHTML = `${activeTags.join(" • ")} <span class="ml-2 px-2 py-0.5 rounded bg-emerald-600 text-white font-extrabold">${rows.length} contrato(s) no período</span>`;
+      } else {
+        banner.classList.add("hidden");
+      }
+    }
+
+    function resetDateFilters() {
+      state.filterChegadaStart = null;
+      state.filterChegadaEnd = null;
+      state.filterEntregaStart = null;
+      state.filterEntregaEnd = null;
+      state.filterMontagemStart = null;
+      state.filterMontagemEnd = null;
+      updateAll();
+    }
     function updateAll() {
       const rows = getFilteredData();
       const metrics = renderKPIs(rows);
@@ -1762,6 +2251,7 @@
       try { renderContractsTable(rows); } catch (e) { console.error(e); }
       try { renderCharts(rows, metrics); } catch (e) { console.error(e); }
       try { applySectionView(); } catch (e) { console.error(e); }
+      try { updateDateFilterUI(); } catch (e) { console.error(e); }
     }
 
     function toggleTvRotation() {
@@ -1851,7 +2341,7 @@
         document.getElementById("filter-montador").value = "TODOS";
         document.getElementById("filter-mes").value = "TODOS";
         document.getElementById("search-input").value = "";
-        updateAll();
+        resetDateFilters();
       });
 
       document.querySelectorAll(".nav-view-btn").forEach(btn => {
@@ -1900,6 +2390,125 @@
 
       setInterval(syncFromGoogleSheets, 30000);
       setTimeout(syncFromGoogleSheets, 800);
+
+      
+      // Listeners dos 3 Menus que abrem o Calendário Duplo do Print
+      const btnTrigChegada = document.getElementById("btn-trigger-chegada");
+      if (btnTrigChegada) btnTrigChegada.addEventListener("click", () => openDatePickerModal("chegada"));
+
+      const btnTrigEntrega = document.getElementById("btn-trigger-entrega");
+      if (btnTrigEntrega) btnTrigEntrega.addEventListener("click", () => openDatePickerModal("entrega"));
+
+      const btnTrigMontagem = document.getElementById("btn-trigger-montagem");
+      if (btnTrigMontagem) btnTrigMontagem.addEventListener("click", () => openDatePickerModal("montagem"));
+
+      // Controles de Navegação de Mês nos Calendários
+      document.getElementById("btn-prev-month-start")?.addEventListener("click", () => {
+        calState.viewStartMonth--;
+        if (calState.viewStartMonth < 0) {
+          calState.viewStartMonth = 11;
+          calState.viewStartYear--;
+        }
+        renderCalendarGrid("start");
+      });
+      document.getElementById("btn-next-month-start")?.addEventListener("click", () => {
+        calState.viewStartMonth++;
+        if (calState.viewStartMonth > 11) {
+          calState.viewStartMonth = 0;
+          calState.viewStartYear++;
+        }
+        renderCalendarGrid("start");
+      });
+      document.getElementById("btn-prev-month-end")?.addEventListener("click", () => {
+        calState.viewEndMonth--;
+        if (calState.viewEndMonth < 0) {
+          calState.viewEndMonth = 11;
+          calState.viewEndYear--;
+        }
+        renderCalendarGrid("end");
+      });
+      document.getElementById("btn-next-month-end")?.addEventListener("click", () => {
+        calState.viewEndMonth++;
+        if (calState.viewEndMonth > 11) {
+          calState.viewEndMonth = 0;
+          calState.viewEndYear++;
+        }
+        renderCalendarGrid("end");
+      });
+
+      // Dropdown de Período Automático no Modal
+      document.getElementById("modal-preset-select")?.addEventListener("change", e => {
+        const val = e.target.value;
+        if (val === "TODOS" || val === "AUTO") {
+          calState.tempStart = null;
+          calState.tempEnd = null;
+        } else if (val === "QUINZENA_2_OUT") {
+          calState.tempStart = new Date(2026, 9, 15);
+          calState.tempEnd = new Date(2026, 9, 30);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 9;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 9;
+        } else if (val === "HOJE") {
+          calState.tempStart = new Date(2026, 9, 30);
+          calState.tempEnd = new Date(2026, 9, 30);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 9;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 9;
+        } else if (val === "ULT_7") {
+          calState.tempStart = new Date(2026, 9, 23);
+          calState.tempEnd = new Date(2026, 9, 30);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 9;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 9;
+        } else if (val === "ULT_15") {
+          calState.tempStart = new Date(2026, 9, 15);
+          calState.tempEnd = new Date(2026, 9, 30);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 9;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 9;
+        } else if (val === "QUINZENA_1_OUT") {
+          calState.tempStart = new Date(2026, 9, 1);
+          calState.tempEnd = new Date(2026, 9, 15);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 9;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 9;
+        } else if (val === "MES_OUT") {
+          calState.tempStart = new Date(2026, 9, 1);
+          calState.tempEnd = new Date(2026, 9, 31);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 9;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 9;
+        } else if (val === "MES_SET") {
+          calState.tempStart = new Date(2026, 8, 1);
+          calState.tempEnd = new Date(2026, 8, 30);
+          calState.viewStartYear = 2026; calState.viewStartMonth = 8;
+          calState.viewEndYear = 2026; calState.viewEndMonth = 8;
+        }
+        renderBothCalendars();
+        updateModalSummary();
+      });
+
+      // Botões do Modal
+      document.getElementById("modal-btn-clear-selection")?.addEventListener("click", () => {
+        calState.tempStart = null;
+        calState.tempEnd = null;
+        const presetSel = document.getElementById("modal-preset-select");
+        if (presetSel) presetSel.value = "TODOS";
+        renderBothCalendars();
+        updateModalSummary();
+      });
+
+      document.getElementById("modal-btn-cancel")?.addEventListener("click", closeDatePickerModal);
+      document.getElementById("modal-btn-apply")?.addEventListener("click", applyModalSelection);
+
+      // Fecha ao clicar fora do card
+      document.getElementById("modal-date-picker")?.addEventListener("click", e => {
+        if (e.target.id === "modal-date-picker") {
+          closeDatePickerModal();
+        }
+      });
+      // Fecha com Escape
+      window.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeDatePickerModal();
+      });
+
+      // Botões de Limpar e Imprimir no Banner
+      document.getElementById("btn-clear-all-dates")?.addEventListener("click", resetDateFilters);
+      document.getElementById("btn-print-report")?.addEventListener("click", () => window.print());
 
       updateAll();
     });
