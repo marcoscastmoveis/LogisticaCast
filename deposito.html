@@ -41,6 +41,7 @@
 </head>
 <body class="min-h-screen flex flex-col lg:flex-row overflow-x-hidden">
 
+
   <!-- Left Sidebar (Identical aesthetic to reference image) -->
   <aside class="w-full lg:w-56 xl:w-60 bg-[#071936] text-white flex flex-col justify-between relative overflow-hidden shrink-0 select-none">
     <!-- Background Warehouse Illustration -->
@@ -48,6 +49,7 @@
          alt=" Centro de Distribuição "
          class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity pointer-events-none" />
     <div class="absolute inset-0 bg-gradient-to-b from-[#071936]/95 via-[#071936]/80 to-[#041024]/90 pointer-events-none"></div>
+
 
     <!-- Top Brand & Navigation -->
     <div class="relative z-10 p-4 lg:p-5">
@@ -60,10 +62,11 @@
           </svg>
         </div>
         <div>
-          <div class="text-xs font-semibold uppercase tracking-wider text-sky-400">Cast Móveis Planejados</div>
+          <div class="text-xs font-semibold uppercase tracking-wider text-sky-400">Painel TV Depósito</div>
           <div class="text-sm font-bold tracking-tight text-white leading-tight">Controle Logístico</div>
         </div>
       </div>
+
 
       <!-- Navigation Buttons -->
       <nav class="flex lg:flex-col gap-1.5 overflow-x-auto pb-1 lg:pb-0">
@@ -75,6 +78,43 @@
           <span>Visão Geral</span>
         </button>
 
+
+        <button id="nav-etapas" type="button" data-view="etapas"
+                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <span>Tempos por Etapa</span>
+        </button>
+
+
+        <button id="nav-montadores" type="button" data-view="montadores"
+                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+          </svg>
+          <span>Eficiência & Montagem</span>
+        </button>
+
+
+        <button id="nav-gargalos" type="button" data-view="gargalos"
+                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Prazos & Gargalos</span>
+        </button>
+
+
+        <button id="nav-lojas" type="button" data-view="lojas"
+                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Lojas & Perfil</span>
+        </button>
+
+
         <button id="nav-contratos" type="button" data-view="contratos"
                 class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -84,6 +124,7 @@
         </button>
       </nav>
     </div>
+
 
     <!-- Bottom Sidebar Quote & TV Auto-Rotate Control -->
     <div class="relative z-10 p-4 lg:p-5 mt-auto border-t border-slate-700/50">
@@ -101,14 +142,17 @@
         <div id="tv-status-label" class="text-[10px] text-slate-400 mt-1">Pausado • Clique para alternar etapas na TV</div>
       </div>
 
+
       <p class="hidden lg:block text-xs text-slate-300/90 leading-relaxed font-medium">
         Dados que impulsionam<br/>a entrega e montagem<br/>do depósito.
       </p>
     </div>
   </aside>
 
+
   <!-- Main Dashboard Area -->
   <main class="flex-1 p-3 sm:p-4 lg:p-5 space-y-3.5 max-w-full overflow-x-hidden">
+
 
     <!-- Top Header & Filters Bar -->
     <header class="card-panel px-4 py-3 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
@@ -120,6 +164,7 @@
           Visão integrada de tempos por etapa, entregas no cliente, montagem e performance operacional
         </p>
       </div>
+
 
       <!-- Filter Controls (Matching Mês / Planta / Linha / Turno + Timestamp) -->
       <div class="flex flex-wrap items-end gap-2 sm:gap-2.5">
@@ -135,6 +180,7 @@
           </select>
         </div>
 
+
         <div>
           <label for="filter-loja" class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Loja</label>
           <select id="filter-loja" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -145,12 +191,14 @@
           </select>
         </div>
 
+
         <div>
           <label for="filter-montador" class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Montador</label>
           <select id="filter-montador" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2.5 py-1.5 max-w-[170px] truncate focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="TODOS">Todos</option>
           </select>
         </div>
+
 
         <div>
           <label for="filter-mes" class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Mês Medição</label>
@@ -162,17 +210,20 @@
           </select>
         </div>
 
+
         <button id="btn-reset-filters" type="button"
                 class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition">
           Limpar
         </button>
 
+
         <!-- Live Sync & Fullscreen Controls -->
         <button id="btn-sync-sheets" type="button" title="Sincronizar agora com a planilha Google Sheets"
                 class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 transition">
           <span id="sync-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="sync-status-text">Sync Auto (30s)</span>
+          <span id="sync-status-text">Sync Auto (60s)</span>
         </button>
+
 
         <button id="btn-fullscreen-tv" type="button" title="Abrir em Tela Cheia para TV"
                 class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition">
@@ -185,7 +236,7 @@
     </header>
 
     <!-- SEÇÃO: 3 MENUS DE FILTRO POR DATA (Chegada no Depósito, Entrega no Cliente, Fim da Montagem) -->
-    <section id="sec-date-filters" class="card-panel px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-sm border border-slate-700/60">
+    <section id="sec-date-filters" class="card-panel px-4 py-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-sm border border-slate-700/60 transition-all duration-200">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 border border-blue-400/30 flex items-center justify-center font-bold text-sm shrink-0">
@@ -266,11 +317,11 @@
           <span id="date-filter-banner-text" class="text-slate-200 font-semibold"></span>
         </div>
         <div class="flex items-center gap-2">
-          <button id="btn-print-report" type="button" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] transition flex items-center gap-1">
+          <button id="btn-print-report" type="button" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] transition flex items-center gap-1 cursor-pointer">
             <span>🖨️</span>
             <span>Imprimir / Salvar Relatório</span>
           </button>
-          <button id="btn-clear-all-dates" type="button" class="px-2.5 py-1 rounded bg-slate-700 hover:bg-rose-700 text-slate-200 hover:text-white font-bold text-[11px] transition">
+          <button id="btn-clear-all-dates" type="button" class="px-2.5 py-1 rounded bg-slate-700 hover:bg-rose-700 text-slate-200 hover:text-white font-bold text-[11px] transition cursor-pointer">
             ✕ Limpar Datas
           </button>
         </div>
@@ -351,7 +402,7 @@
           </div>
         </div>
 
-        <!-- Footer com Cancelar e Aplicar (Identico ao print) -->
+        <!-- Footer com Cancelar e Aplicar (Idêntico ao print) -->
         <div class="px-5 py-3 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-2 text-xs">
             <span class="text-slate-500 font-medium">Período:</span>
@@ -367,6 +418,7 @@
     </div>
 
 
+
     <!-- ROW 1: 6 KPI SCORECARDS (Identical layout to reference image) -->
     <section id="sec-kpis" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
       <!-- KPI 1: Cumprimento de Prazo -->
@@ -379,14 +431,15 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Dentro do Prazo</div>
-            <div id="kpi-prazo-val" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">94,6%</div>
+            <div id="kpi-prazo-val" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">96,0%</div>
           </div>
         </div>
         <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
-          <span class="text-emerald-600 font-bold" id="kpi-prazo-sub">▲ 35 de 37</span>
+          <span class="text-emerald-600 font-bold" id="kpi-prazo-sub">▲ 48 de 50</span>
           <span class="text-slate-400 truncate">no prazo de montagem</span>
         </div>
       </div>
+
 
       <!-- KPI 2: Tempo Total Médio (Medição -> Fim) -->
       <div class="card-panel p-3.5 flex flex-col justify-between">
@@ -398,7 +451,7 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Tempo Total Médio</div>
-            <div id="kpi-total-dias" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">51,3 d</div>
+            <div id="kpi-total-dias" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">47,4 d</div>
           </div>
         </div>
         <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
@@ -406,6 +459,7 @@
           <span class="text-slate-400 truncate">(contratos finalizados)</span>
         </div>
       </div>
+
 
       <!-- KPI 3: Gargalo Principal (Pagamento -> Depósito) -->
       <div class="card-panel p-3.5 flex flex-col justify-between">
@@ -417,14 +471,15 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Pagto → Depósito</div>
-            <div id="kpi-pag-dep" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">19,7 d</div>
+            <div id="kpi-pag-dep" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">21,7 d</div>
           </div>
         </div>
         <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
-          <span class="text-rose-600 font-bold" id="kpi-pag-dep-pct">▲ Maior etapa</span>
+          <span class="text-rose-600 font-bold" id="kpi-pag-dep-pct">45% do ciclo</span>
           <span class="text-slate-400 truncate">do ciclo logístico</span>
         </div>
       </div>
+
 
       <!-- KPI 4: Eficiência Depósito -> Entrega + Montagem -->
       <div class="card-panel p-3.5 flex flex-col justify-between">
@@ -436,14 +491,15 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Início → Fim Mont.</div>
-            <div id="kpi-montagem-dias" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">3,5 d</div>
+            <div id="kpi-montagem-dias" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">5,6 d</div>
           </div>
         </div>
         <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
-          <span class="text-teal-600 font-bold" id="kpi-dep-cli-sub">Dep→Cli: 7,4 d</span>
-          <span class="text-slate-400 truncate" id="kpi-cli-ini-sub">• Cli→Início: 6,8 d</span>
+          <span class="text-teal-600 font-bold" id="kpi-dep-cli-sub">Dep→Cli: 5,0 d</span>
+          <span class="text-slate-400 truncate">• Cli→Início: 5,7 d</span>
         </div>
       </div>
+
 
       <!-- KPI 5: Volume Total -->
       <div class="card-panel p-3.5 flex flex-col justify-between">
@@ -455,7 +511,7 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Volume Movimentado</div>
-            <div id="kpi-volumes" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">8.931</div>
+            <div id="kpi-volumes" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">11.551</div>
           </div>
         </div>
         <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
@@ -463,6 +519,7 @@
           <span class="text-slate-400 truncate">nos contratos filtrados</span>
         </div>
       </div>
+
 
       <!-- KPI 6: Contratos Monitorados -->
       <div class="card-panel p-3.5 flex flex-col justify-between">
@@ -474,15 +531,16 @@
           </div>
           <div class="text-right flex-1">
             <div class="text-[11px] font-semibold text-slate-500">Contratos Ativos</div>
-            <div id="kpi-contratos" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">37</div>
+            <div id="kpi-contratos" class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">29</div>
           </div>
         </div>
-        <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[11px]">
-          <span class="text-blue-700 font-bold truncate" id="kpi-contratos-sub">4 no dep. • 7 em mont.</span>
-          <span class="text-slate-400 truncate" id="kpi-contratos-excl">(excl. 14 finaliz.)</span>
+        <div class="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1 text-[11px]">
+          <span class="text-emerald-600 font-bold" id="kpi-contratos-sub">10 finalizados</span>
+          <span class="text-slate-400 truncate">• 7 em montagem</span>
         </div>
       </div>
     </section>
+
 
     <!-- ROW 2: 3 CHARTS (Combo Stage Lead Time + Horizontal Montadores + Green Column Total Time per Contract) -->
     <section id="sec-row2" class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
@@ -499,18 +557,20 @@
         </div>
       </div>
 
-      <!-- Chart 2: Contratos Montados por Montador (Horizontal Bars) -->
+
+      <!-- Chart 2: Volumes por Montador (Horizontal Bars) -->
       <div class="card-panel p-4 lg:col-span-4 flex flex-col">
         <div class="flex items-center justify-between mb-2">
           <div>
-            <h2 class="text-sm font-bold text-slate-800">Contratos Montados por Montador</h2>
-            <p class="text-[11px] text-slate-500">Quantidade de contratos por montador nos filtros selecionados</p>
+            <h2 class="text-sm font-bold text-slate-800">Volumes Atribuídos por Montador</h2>
+            <p class="text-[11px] text-slate-500">Quantidade de volumes nos contratos filtrados</p>
           </div>
         </div>
         <div class="relative h-60 w-full mt-auto">
           <canvas id="chartMontadores"></canvas>
         </div>
       </div>
+
 
       <!-- Chart 3: Tempo Total por Contrato (Green Columns) -->
       <div class="card-panel p-4 lg:col-span-3 flex flex-col">
@@ -525,6 +585,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- ROW 3: Donut Stage Distribution + Stage Averages Table/Bars + Critical Contracts Table -->
     <section id="sec-row3" class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
@@ -546,6 +607,7 @@
         </div>
       </div>
 
+
       <!-- Panel 2: Tabela Visual com a Média de Cada Etapa do Processo -->
       <div class="card-panel p-4 lg:col-span-4 flex flex-col justify-between">
         <div class="mb-2">
@@ -554,6 +616,7 @@
         </div>
         <div id="stage-averages-bars" class="space-y-2 my-auto"></div>
       </div>
+
 
       <!-- Panel 3: Contratos com Maior Tempo / Atenção (Color-Coded Table like "Linhas com Menor Eficiência") -->
       <div class="card-panel p-4 lg:col-span-4 flex flex-col justify-between">
@@ -578,6 +641,7 @@
       </div>
     </section>
 
+
     <!-- ROW 4: Produção/Volumes por Loja + Perfil Operacional (3 Donuts) -->
     <section id="sec-row4" class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
       <!-- Left: Volumes e Contratos por Loja (3 Columns like 1º/2º/3º Turno) -->
@@ -590,6 +654,7 @@
           <canvas id="chartLojasCol"></canvas>
         </div>
       </div>
+
 
       <!-- Right: Perfil Operacional (3 Mini Donuts side by side) -->
       <div class="card-panel p-4 lg:col-span-8 flex flex-col justify-between">
@@ -623,6 +688,7 @@
       </div>
     </section>
 
+
     <!-- ROW 5: TABELA DINÂMICA DE CONTRATOS (Inicia na Linha 14 da Planilha + Campo Montador) -->
     <section id="sec-table" class="card-panel p-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
@@ -635,17 +701,17 @@
           </p>
         </div>
 
+
         <div class="flex flex-wrap items-center gap-2">
           <input id="search-input" type="text" placeholder="Buscar contrato, cliente ou montador..."
                  class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
       </div>
 
-      <!-- Stage Quick Pills + Highlight Legend -->
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 mb-3">
-        <div id="stage-pills-container" class="flex flex-wrap gap-1.5"></div>
-        <div id="table-alerts-summary" class="flex flex-wrap items-center gap-2 text-[11px]"></div>
-      </div>
+
+      <!-- Stage Quick Pills -->
+      <div id="stage-pills-container" class="flex flex-wrap gap-1.5 mb-3"></div>
+
 
       <!-- Full Responsive Table -->
       <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg">
@@ -660,11 +726,10 @@
               <th class="py-2.5 px-2 text-center font-semibold" title="Data da Compra - Data Ass. Medição">Med → Comp</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data do Pagamento - Data da Compra">Comp → Pag</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data Chegada no Depósito - Data do Pagamento">Pag → Dep</th>
-              <th id="th-dep-cli" class="py-2.5 px-2.5 text-center font-bold bg-sky-800 text-white transition-colors" title="Quantos dias o material está no depósito (Chegada no Depósito → Entrega no Cliente ou Hoje). Destaque acima de 5 dias.">Dias no Depósito</th>
+              <th class="py-2.5 px-2 text-center font-semibold" title="Data Entrega no Cliente - Data Chegada no Depósito">Dep → Cli</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data Início Montagem - Data Entrega no Cliente">Cli → Início</th>
               <th class="py-2.5 px-2 text-center font-semibold" title="Data Fim Montagem - Data Início Montagem">Início → Fim</th>
               <th class="py-2.5 px-2.5 text-center font-bold bg-blue-900/60" title="Data Fim Montagem - Data Ass. Medição">Tempo Total</th>
-              <th class="py-2.5 px-2.5 text-center font-bold bg-amber-900/80 text-amber-100" title="Prazo limite para montagem (Coluna R da planilha). Destaque quando faltam menos de 10 dias ou vencido.">Prazo p/ Montagem</th>
               <th class="py-2.5 px-2.5 font-semibold">Montador</th>
             </tr>
           </thead>
@@ -673,10 +738,12 @@
       </div>
     </section>
 
+
   </main>
 
+
   <script>
-    const RAW_DATA = [{"row": 2, "pedido": "268063", "contrato": "77101", "nf": "208486", "loja": "SELECT", "cliente": "DAVID SMITH TOMAZ", "transportador": "LUCAS HENRIQUE WENNING - TRANSDEM", "decorado": "SIM", "d_med": "24/08/2026", "d_comp": "26/08/2026", "d_pag": "25/08/2026", "d_dep": "28/09/2026", "d_ent": "08/10/2026", "d_ini": "13/10/2026", "d_fim": "", "prazo": "26/10/2026", "volumes": 190, "fin_status": "Liberado", "montador": "EDIVALDO DE OLIVEIRA CASTILHO", "etapa": "EM MONTAGEM", "mes": "Agosto/2026", "is_at": false, "no_prazo": false, "s1": 2, "s2": -1, "s3": 34, "s4": 10, "s4_open": false, "s5": 5, "s6": null, "total": null, "elapsed": 50}, {"row": 3, "pedido": "268030", "contrato": "66401", "nf": "208483", "loja": "AFONSO", "cliente": "ANA CAROLINE DE JESUS OLIVEIRA", "transportador": "LUCAS HENRIQUE WENNING - TRANSDEM", "decorado": "NÃO", "d_med": "21/08/2026", "d_comp": "26/08/2026", "d_pag": "31/08/2026", "d_dep": "28/09/2026", "d_ent": "09/10/2026", "d_ini": "14/10/2026", "d_fim": "20/10/2026", "prazo": "23/10/2026", "volumes": 96, "fin_status": "Liberado", "montador": "MARCIEL", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 5, "s2": 5, "s3": 28, "s4": 11, "s4_open": false, "s5": 5, "s6": 6, "total": 60, "elapsed": 60}, {"row": 4, "pedido": "269382", "contrato": "AT172132 COMPWD", "nf": "208485", "loja": "AFONSO", "cliente": "WD", "transportador": "LUCAS HENRIQUE WENNING - TRANSDEM", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "28/09/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 1, "fin_status": "Pendente", "montador": "ELIAS CASTILHO GOMES", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Setembro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 31, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 5, "pedido": "267990", "contrato": "265201", "nf": "208479", "loja": "MATRIZ", "cliente": "NICOLAS FLABES MACIEL", "transportador": "LUCAS HENRIQUE WENNING - TRANSDEM", "decorado": "NÃO", "d_med": "19/08/2026", "d_comp": "26/08/2026", "d_pag": "31/08/2026", "d_dep": "28/09/2026", "d_ent": "05/10/2026", "d_ini": "13/10/2026", "d_fim": "16/10/2026", "prazo": "21/10/2026", "volumes": 156, "fin_status": "Liberado", "montador": "ADIL APARECIDO DE OLIVEIRA SOUZA FILHO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 7, "s2": 5, "s3": 28, "s4": 7, "s4_open": false, "s5": 8, "s6": 3, "total": 58, "elapsed": 58}, {"row": 6, "pedido": "269309", "contrato": "AT169179 KLEBER", "nf": "208484", "loja": "MATRIZ", "cliente": "KLEBER", "transportador": "LUCAS HENRIQUE WENNING - TRANSDEM", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "28/09/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 5, "fin_status": "Pendente", "montador": "ELIAS CASTILHO GOMES", "etapa": "ASSISTÊNCIA FINALIZADA", "mes": "Setembro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 31, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 7, "pedido": "267813", "contrato": "79302", "nf": "208951", "loja": "SELECT", "cliente": "PAULA LIMA BARRETO", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "11/08/2026", "d_comp": "27/08/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "05/10/2026", "d_ini": "05/10/2026", "d_fim": "09/10/2026", "prazo": "13/10/2026", "volumes": 359, "fin_status": "Liberado", "montador": "KENNY ROGERS CONCEIÇÃO ELIAS", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 18, "s3": 16, "s4": 5, "s4_open": false, "s5": 0, "s6": 4, "total": 59, "elapsed": 59}, {"row": 8, "pedido": "267814", "contrato": "73502", "nf": "208952", "loja": "SELECT", "cliente": "MARIA APARECIDA MENDES", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "05/08/2026", "d_comp": "24/08/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "06/10/2026", "d_ini": "13/10/2026", "d_fim": "21/10/2026", "prazo": "07/10/2026", "volumes": 251, "fin_status": "Liberado", "montador": "ELIAS CASTILHO GOMES", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": false, "s1": 19, "s2": 21, "s3": 16, "s4": 6, "s4_open": false, "s5": 7, "s6": 8, "total": 77, "elapsed": 77}, {"row": 9, "pedido": "267927", "contrato": "67701", "nf": "208954", "loja": "SELECT", "cliente": "LUIZ FERNANDO COSTA SANTOS", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "15/08/2026", "d_comp": "25/08/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "07/10/2026", "d_ini": "13/10/2026", "d_fim": "20/10/2026", "prazo": "16/10/2026", "volumes": 344, "fin_status": "Liberado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": false, "s1": 10, "s2": 20, "s3": 16, "s4": 7, "s4_open": false, "s5": 6, "s6": 7, "total": 66, "elapsed": 66}, {"row": 10, "pedido": "269126", "contrato": "62101", "nf": "208967", "loja": "SELECT", "cliente": "IGOR EDUARDO BATISTA JARDIM", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "23/08/2026", "d_comp": "09/09/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "03/10/2026", "d_ini": "06/10/2026", "d_fim": "10/10/2026", "prazo": "23/10/2026", "volumes": 120, "fin_status": "Solicitado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 17, "s2": 5, "s3": 16, "s4": 3, "s4_open": false, "s5": 3, "s6": 4, "total": 48, "elapsed": 48}, {"row": 11, "pedido": "269744", "contrato": "AT169478 CLAUDINEIA", "nf": "208998", "loja": "SELECT", "cliente": "CLAUDINEIA APARECIDA DUARTE MUGNAINI", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "30/09/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 1, "fin_status": "Pendente", "montador": "", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 29, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 12, "pedido": "268695", "contrato": "262301", "nf": "208994", "loja": "MATRIZ", "cliente": "FLAVIA MILCA AFONSO MARTINS", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "21/08/2026", "d_comp": "09/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "02/10/2026", "d_ini": "20/10/2026", "d_fim": "20/10/2026", "prazo": "23/10/2026", "volumes": 109, "fin_status": "Liberado", "montador": "ALMIRO ESTEVÃO RIBEIRO NETO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 19, "s2": 1, "s3": 20, "s4": 2, "s4_open": false, "s5": 18, "s6": 0, "total": 60, "elapsed": 60}, {"row": 13, "pedido": "268725", "contrato": "264001", "nf": "208995", "loja": "MATRIZ", "cliente": "JOANA DE QUADROS", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "01/09/2026", "d_comp": "03/09/2026", "d_pag": "09/09/2026", "d_dep": "30/09/2026", "d_ent": "02/10/2026", "d_ini": "06/10/2026", "d_fim": "13/10/2026", "prazo": "03/11/2026", "volumes": 157, "fin_status": "Liberado", "montador": "EDIVALDO DE OLIVEIRA CASTILHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 6, "s3": 21, "s4": 2, "s4_open": false, "s5": 4, "s6": 7, "total": 42, "elapsed": 42}, {"row": 14, "pedido": "268780", "contrato": "239301", "nf": "208982", "loja": "MATRIZ", "cliente": "ANA CAROLINA ALVES DE LIMA", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "03/09/2026", "d_comp": "03/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "09/10/2026", "d_ini": "21/10/2026", "d_fim": "21/10/2026", "prazo": "05/11/2026", "volumes": 345, "fin_status": "Liberado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 7, "s3": 20, "s4": 9, "s4_open": false, "s5": 12, "s6": 0, "total": 48, "elapsed": 48}, {"row": 15, "pedido": "269105", "contrato": "268901", "nf": "208996", "loja": "MATRIZ", "cliente": "FELIPE CESAR MIANO GODOY", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "09/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "07/10/2026", "d_ini": "21/10/2026", "d_fim": "", "prazo": "10/11/2026", "volumes": 83, "fin_status": "Liberado", "montador": "EDIVALDO DE OLIVEIRA CASTILHO", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 1, "s3": 20, "s4": 7, "s4_open": false, "s5": 14, "s6": null, "total": null, "elapsed": 43}, {"row": 16, "pedido": "269121", "contrato": "167801", "nf": "208985", "loja": "MATRIZ", "cliente": "VERA LUCIA ALVES QUEIROZ(tem decor)", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "SIM", "d_med": "08/09/2026", "d_comp": "09/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "08/10/2026", "d_ini": "20/10/2026", "d_fim": "24/10/2026", "prazo": "10/11/2026", "volumes": 265, "fin_status": "Solicitado", "montador": "GUILHERME E LEANDRO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 1, "s3": 20, "s4": 8, "s4_open": false, "s5": 12, "s6": 4, "total": 46, "elapsed": 46}, {"row": 17, "pedido": "269498", "contrato": "111002", "nf": "208971", "loja": "MATRIZ", "cliente": "RAQUEL BARROS CARVALHAIS", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "SIM", "d_med": "14/09/2026", "d_comp": "14/09/2026", "d_pag": "16/09/2026", "d_dep": "30/09/2026", "d_ent": "07/10/2026", "d_ini": "09/10/2026", "d_fim": "20/10/2026", "prazo": "16/11/2026", "volumes": 135, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 2, "s3": 14, "s4": 7, "s4_open": false, "s5": 2, "s6": 11, "total": 36, "elapsed": 36}, {"row": 18, "pedido": "269507", "contrato": "156303 (156305)", "nf": "208974", "loja": "MATRIZ", "cliente": "VITORIA GABRIELA DA SILVA BATISTA", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "11/09/2026", "d_comp": "11/09/2026", "d_pag": "16/09/2026", "d_dep": "30/09/2026", "d_ent": "01/10/2026", "d_ini": "05/10/2026", "d_fim": "07/10/2026", "prazo": "13/11/2026", "volumes": 141, "fin_status": "Solicitado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 5, "s3": 14, "s4": 1, "s4_open": false, "s5": 4, "s6": 2, "total": 26, "elapsed": 26}, {"row": 19, "pedido": "268532", "contrato": "19401", "nf": "208978", "loja": "AFONSO", "cliente": "GERALDO ANTONIO CASTILHO DE ASSIS", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "01/09/2026", "d_comp": "01/09/2026", "d_pag": "03/09/2026", "d_dep": "30/09/2026", "d_ent": "06/10/2026", "d_ini": "13/10/2026", "d_fim": "", "prazo": "03/11/2026", "volumes": 370, "fin_status": "Solicitado", "montador": "JOSE PAULO DA SILVA, UAEKSON", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 2, "s3": 27, "s4": 6, "s4_open": false, "s5": 7, "s6": null, "total": null, "elapsed": 42}, {"row": 20, "pedido": "269098", "contrato": "AT172132", "nf": "208969", "loja": "AFONSO", "cliente": "WILLIAM FERREIRA DUARTE RIBEIRO", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "09/09/2026", "d_comp": "09/09/2026", "d_pag": "09/09/2026", "d_dep": "30/09/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "11/11/2026", "volumes": 0, "fin_status": "Pendente", "montador": "ELIAS CASTILHO GOMES", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Setembro/2026", "is_at": true, "no_prazo": true, "s1": 0, "s2": 0, "s3": 21, "s4": 29, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 21}, {"row": 21, "pedido": "269125", "contrato": "49302", "nf": "208966", "loja": "AFONSO", "cliente": "JOÃO LUIS MORAES", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "04/09/2026", "d_comp": "11/09/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "14/10/2026", "d_ini": "20/10/2026", "d_fim": "22/10/2026", "prazo": "06/11/2026", "volumes": 115, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 7, "s2": 3, "s3": 16, "s4": 14, "s4_open": false, "s5": 6, "s6": 2, "total": 48, "elapsed": 48}, {"row": 22, "pedido": "269127", "contrato": "65801", "nf": "208968", "loja": "AFONSO", "cliente": "VICTOR HUGO DE OLIVEIRA", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "04/09/2026", "d_comp": "11/09/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "06/10/2026", "d_ini": "08/10/2026", "d_fim": "09/10/2026", "prazo": "06/11/2026", "volumes": 118, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 7, "s2": 3, "s3": 16, "s4": 6, "s4_open": false, "s5": 2, "s6": 1, "total": 35, "elapsed": 35}, {"row": 23, "pedido": "269494", "contrato": "229201", "nf": "209445", "loja": "MATRIZ", "cliente": "EDINEI INACIO RABELO", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "09/09/2026", "d_comp": "11/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "22/10/2026", "d_ini": "26/10/2026", "d_fim": "", "prazo": "11/11/2026", "volumes": 281, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 11, "s3": 17, "s4": 13, "s4_open": false, "s5": 4, "s6": null, "total": null, "elapsed": 47}, {"row": 24, "pedido": "269735", "contrato": "231201", "nf": "209449", "loja": "MATRIZ", "cliente": "LUCAS CARVALHO DA SILVA ARANTES", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "15/09/2026", "d_comp": "15/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "19/10/2026", "d_ini": "23/10/2026", "d_fim": "", "prazo": "17/11/2026", "volumes": 356, "fin_status": "Liberado", "montador": "HEMERSON CONCEIÇÃO CLEMENTE", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 7, "s3": 17, "s4": 10, "s4_open": false, "s5": 4, "s6": null, "total": null, "elapsed": 38}, {"row": 25, "pedido": "269813", "contrato": "59004", "nf": "209454", "loja": "MATRIZ", "cliente": "FRANCIELI CAMARGO DE ALBUQUERQUE", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "15/09/2026", "d_comp": "16/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "22/10/2026", "d_ini": "23/10/2026", "d_fim": "", "prazo": "17/11/2026", "volumes": 201, "fin_status": "Liberado", "montador": "MARCIEL", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 6, "s3": 17, "s4": 13, "s4_open": false, "s5": 1, "s6": null, "total": null, "elapsed": 38}, {"row": 26, "pedido": "269947", "contrato": "139601", "nf": "209455", "loja": "MATRIZ", "cliente": "GABRIELA DE SOUZA ATHAIDE", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "SIM", "d_med": "17/09/2026", "d_comp": "17/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "23/10/2026", "d_ini": "26/10/2026", "d_fim": "", "prazo": "19/11/2026", "volumes": 351, "fin_status": "Liberado", "montador": "DIEGO ALMEIDA MARINHO", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 5, "s3": 17, "s4": 14, "s4_open": false, "s5": 3, "s6": null, "total": null, "elapsed": 39}, {"row": 27, "pedido": "270361", "contrato": "80601", "nf": "210089", "loja": "SELECT", "cliente": "CELESTE MOURA BLANCO", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "07/09/2026", "d_comp": "23/09/2026", "d_pag": "25/09/2026", "d_dep": "20/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "09/11/2026", "volumes": 1119, "fin_status": "Liberado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 2, "s3": 25, "s4": 9, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 52}, {"row": 28, "pedido": "270663", "contrato": "88301", "nf": "210073", "loja": "SELECT", "cliente": "CONSTRUTORA PONTELLI E CASTILHO", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "16/09/2026", "d_comp": "25/09/2026", "d_pag": "29/09/2026", "d_dep": "20/10/2026", "d_ent": "28/10/2026", "d_ini": "", "d_fim": "", "prazo": "18/11/2026", "volumes": 388, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 9, "s2": 4, "s3": 21, "s4": 8, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 42}, {"row": 29, "pedido": "270802", "contrato": "AT173810", "nf": "210082", "loja": "SELECT", "cliente": "RAFAEL MORAES SANTOS", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "29/09/2026", "d_comp": "29/09/2026", "d_pag": "29/09/2026", "d_dep": "20/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "01/12/2026", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Setembro/2026", "is_at": true, "no_prazo": true, "s1": 0, "s2": 0, "s3": 21, "s4": 9, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 21}, {"row": 30, "pedido": "", "contrato": "66001", "nf": "", "loja": "SELECT", "cliente": "ELAINE CRISTINA", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "24/09/2026", "d_pag": "28/09/2026", "d_dep": "23/10/2026", "d_ent": "29/10/2026", "d_ini": "", "d_fim": "", "prazo": "10/11/2026", "volumes": 914, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 4, "s3": 25, "s4": 6, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 51}, {"row": 31, "pedido": "", "contrato": "69603", "nf": "", "loja": "SELECT", "cliente": "JORGE JACOB", "transportador": "—", "decorado": "NÃO", "d_med": "01/10/2026", "d_comp": "02/10/2026", "d_pag": "05/10/2026", "d_dep": "26/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "03/12/2026", "volumes": 58, "fin_status": "Liberado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 3, "s3": 21, "s4": 3, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 28}, {"row": 32, "pedido": "", "contrato": "80502", "nf": "", "loja": "SELECT", "cliente": "MARCIO CARLOS", "transportador": "—", "decorado": "NÃO", "d_med": "25/09/2026", "d_comp": "28/09/2026", "d_pag": "02/10/2026", "d_dep": "26/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "27/11/2026", "volumes": 565, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 4, "s3": 24, "s4": 3, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 34}, {"row": 33, "pedido": "", "contrato": "87301", "nf": "", "loja": "SELECT", "cliente": "ELAINE CRISTINA", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "24/09/2026", "d_pag": "28/09/2026", "d_dep": "23/10/2026", "d_ent": "29/10/2026", "d_ini": "", "d_fim": "", "prazo": "10/11/2026", "volumes": 11, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 4, "s3": 25, "s4": 6, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 51}, {"row": 34, "pedido": "", "contrato": "98202", "nf": "", "loja": "MATRIZ", "cliente": "GABRIELLY AGUIAR", "transportador": "—", "decorado": "NÃO", "d_med": "15/09/2026", "d_comp": "28/09/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "27/10/2026", "d_ini": "", "d_fim": "", "prazo": "17/11/2026", "volumes": 195, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 13, "s2": 4, "s3": 21, "s4": 4, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 42}, {"row": 35, "pedido": "", "contrato": "229301", "nf": "", "loja": "MATRIZ", "cliente": "STEFANY MAYARA", "transportador": "—", "decorado": "NÃO", "d_med": "01/10/2026", "d_comp": "01/10/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "27/10/2026", "d_ini": "", "d_fim": "", "prazo": "03/12/2026", "volumes": 128, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 1, "s3": 21, "s4": 4, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 26}, {"row": 36, "pedido": "", "contrato": "262503", "nf": "", "loja": "MATRIZ", "cliente": "E A JOSE SOROCABA", "transportador": "—", "decorado": "NÃO", "d_med": "29/09/2026", "d_comp": "02/10/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "01/12/2026", "volumes": 676, "fin_status": "Liberado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 0, "s3": 21, "s4": 6, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 30}, {"row": 37, "pedido": "", "contrato": "271101", "nf": "", "loja": "MATRIZ", "cliente": "JESSICA MARIA", "transportador": "—", "decorado": "NÃO", "d_med": "21/08/2026", "d_comp": "28/09/2026", "d_pag": "29/09/2026", "d_dep": "23/10/2026", "d_ent": "28/10/2026", "d_ini": "", "d_fim": "", "prazo": "23/10/2026", "volumes": 51, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Agosto/2026", "is_at": false, "no_prazo": false, "s1": 38, "s2": 1, "s3": 24, "s4": 5, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 68}, {"row": 38, "pedido": "", "contrato": "AT 172191", "nf": "", "loja": "SELECT", "cliente": "LUCIMARA", "transportador": "—", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "23/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 5, "fin_status": "Pendente", "montador": "", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Outubro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 6, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 39, "pedido": "", "contrato": "AT173031", "nf": "", "loja": "MATRIZ", "cliente": "ALEX", "transportador": "—", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "23/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 18, "fin_status": "Pendente", "montador": "", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Outubro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 6, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 40, "pedido": "", "contrato": "AT167089", "nf": "", "loja": "AFONSO", "cliente": "GIOVANNA", "transportador": "—", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "23/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 1, "fin_status": "Pendente", "montador": "", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Outubro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 6, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 41, "pedido": "", "contrato": "82301", "nf": "", "loja": "SELECT", "cliente": "ELAINE CRISTINA", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "24/09/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "29/10/2026", "d_ini": "", "d_fim": "", "prazo": "10/11/2026", "volumes": 283, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 8, "s3": 21, "s4": 6, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 51}, {"row": 42, "pedido": "", "contrato": "AT173686", "nf": "", "loja": "MATRIZ", "cliente": "REINALDO", "transportador": "—", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Outubro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 43, "pedido": "272919", "contrato": "AT175085", "nf": "211033", "loja": "SELECT", "cliente": "LUIS ANTONIO COLARINO", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "26/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 1, "fin_status": "Pendente", "montador": "", "etapa": "ASSISTÊNCIA PENDENTE", "mes": "Outubro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 3, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 44, "pedido": "271767", "contrato": "AT173686", "nf": "211031", "loja": "MATRIZ", "cliente": "REINALDO YUJI OGASSAWARA", "transportador": "TRANSPORTES LUZZA & LUZZA LTDA - ME", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "26/10/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 1, "fin_status": "Pendente", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Outubro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 3, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 46, "pedido": "271813", "contrato": "85301", "nf": "PROMO_26", "loja": "SELECT", "cliente": "WANDRE NAHUM DE OLIVEIRA", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "06/10/2026", "d_comp": "07/10/2026", "d_pag": "09/10/2026", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "08/12/2026", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 2, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 3}, {"row": 47, "pedido": "271244", "contrato": "260701", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 48, "pedido": "271247", "contrato": "264301", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 49, "pedido": "271248", "contrato": "270701", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 50, "pedido": "271250", "contrato": "267101", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 51, "pedido": "271275", "contrato": "269001", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 52, "pedido": "271278", "contrato": "280301", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 53, "pedido": "271345", "contrato": "267001", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 54, "pedido": "271351", "contrato": "111501", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 03/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 55, "pedido": "271811", "contrato": "108401", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 03/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 56, "pedido": "271812", "contrato": "266801", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 57, "pedido": "271953", "contrato": "264601", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 58, "pedido": "271958", "contrato": "171801", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 59, "pedido": "272253", "contrato": "205901", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 60, "pedido": "272257", "contrato": "268701", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 61, "pedido": "272525", "contrato": "238401", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 62, "pedido": "272527", "contrato": "238401", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 63, "pedido": "272528", "contrato": "238402", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 64, "pedido": "272570", "contrato": "209303", "nf": "PROMO_26", "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA", "cliente": "—", "transportador": "EM PRODUÇÃO", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": null}];
+    const RAW_DATA = [{"row": 2, "pedido": "268063", "contrato": "77101", "nf": "208486", "loja": "SELECT", "cliente": "DAVID SMITH TOMAZ", "transportador": "—", "decorado": "SIM", "d_med": "24/08/2026", "d_comp": "27/08/2026", "d_pag": "01/09/2026", "d_dep": "28/09/2026", "d_ent": "08/10/2026", "d_ini": "13/10/2026", "d_fim": "03/11/2026", "prazo": "26/10/2026", "volumes": 190, "fin_status": "Liberado", "montador": "EDIVALDO DE OLIVEIRA CASTILHO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": false, "s1": 3, "s2": 5, "s3": 27, "s4": 10, "s4_open": false, "s5": 5, "s6": 21, "total": 71, "elapsed": 71}, {"row": 3, "pedido": "268030", "contrato": "66401", "nf": "208483", "loja": "AFONSO", "cliente": "ANA CAROLINE DE JESUS OLIVEIRA", "transportador": "—", "decorado": "NÃO", "d_med": "21/08/2026", "d_comp": "26/08/2026", "d_pag": "31/08/2026", "d_dep": "28/09/2026", "d_ent": "09/10/2026", "d_ini": "14/10/2026", "d_fim": "20/10/2026", "prazo": "23/10/2026", "volumes": 96, "fin_status": "Liberado", "montador": "MARCIEL", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 5, "s2": 5, "s3": 28, "s4": 11, "s4_open": false, "s5": 5, "s6": 6, "total": 60, "elapsed": 60}, {"row": 4, "pedido": "267990", "contrato": "265201", "nf": "208479", "loja": "MATRIZ", "cliente": "NICOLAS FLABES MACIEL", "transportador": "—", "decorado": "NÃO", "d_med": "25/08/2026", "d_comp": "26/08/2026", "d_pag": "31/08/2026", "d_dep": "28/09/2026", "d_ent": "05/10/2026", "d_ini": "13/10/2026", "d_fim": "16/10/2026", "prazo": "27/10/2026", "volumes": 156, "fin_status": "Liberado", "montador": "ADIL APARECIDO DE OLIVEIRA SOUZA FILHO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 5, "s3": 28, "s4": 7, "s4_open": false, "s5": 8, "s6": 3, "total": 52, "elapsed": 52}, {"row": 5, "pedido": "267813", "contrato": "79302", "nf": "208951", "loja": "SELECT", "cliente": "PAULA LIMA BARRETO", "transportador": "—", "decorado": "NÃO", "d_med": "24/08/2026", "d_comp": "27/08/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "05/10/2026", "d_ini": "05/10/2026", "d_fim": "09/10/2026", "prazo": "26/10/2026", "volumes": 359, "fin_status": "Liberado", "montador": "KENNY ROGERS CONCEIÇÃO ELIAS", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 18, "s3": 16, "s4": 5, "s4_open": false, "s5": 0, "s6": 4, "total": 46, "elapsed": 46}, {"row": 6, "pedido": "267814", "contrato": "73502", "nf": "208952", "loja": "SELECT", "cliente": "MARIA APARECIDA MENDES", "transportador": "—", "decorado": "NÃO", "d_med": "24/08/2026", "d_comp": "24/08/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "06/10/2026", "d_ini": "13/10/2026", "d_fim": "21/10/2026", "prazo": "26/10/2026", "volumes": 251, "fin_status": "Liberado", "montador": "ELIAS CASTILHO GOMES", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 21, "s3": 16, "s4": 6, "s4_open": false, "s5": 7, "s6": 8, "total": 58, "elapsed": 58}, {"row": 7, "pedido": "267927", "contrato": "67701", "nf": "208954", "loja": "SELECT", "cliente": "LUIZ FERNANDO COSTA SANTOS", "transportador": "—", "decorado": "NÃO", "d_med": "24/08/2026", "d_comp": "25/08/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "07/10/2026", "d_ini": "13/10/2026", "d_fim": "20/10/2026", "prazo": "26/10/2026", "volumes": 344, "fin_status": "Liberado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 20, "s3": 16, "s4": 7, "s4_open": false, "s5": 6, "s6": 7, "total": 57, "elapsed": 57}, {"row": 8, "pedido": "269126", "contrato": "62101", "nf": "208967", "loja": "SELECT", "cliente": "IGOR EDUARDO BATISTA JARDIM", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "09/09/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "03/10/2026", "d_ini": "06/10/2026", "d_fim": "10/10/2026", "prazo": "10/11/2026", "volumes": 120, "fin_status": "Solicitado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 5, "s3": 16, "s4": 3, "s4_open": false, "s5": 3, "s6": 4, "total": 32, "elapsed": 32}, {"row": 9, "pedido": "269744", "contrato": "AT169478 CLAUDINEIA", "nf": "208998", "loja": "SELECT", "cliente": "CLAUDINEIA APARECIDA DUARTE MUGNAINI", "transportador": "—", "decorado": "NÃO", "d_med": "", "d_comp": "", "d_pag": "", "d_dep": "30/09/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "", "volumes": 1, "fin_status": "Pendente", "montador": "", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": true, "no_prazo": true, "s1": null, "s2": null, "s3": null, "s4": 37, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": null}, {"row": 10, "pedido": "268695", "contrato": "262301", "nf": "208994", "loja": "MATRIZ", "cliente": "FLAVIA MILCA AFONSO MARTINS", "transportador": "—", "decorado": "NÃO", "d_med": "01/09/2026", "d_comp": "02/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "02/10/2026", "d_ini": "20/10/2026", "d_fim": "20/10/2026", "prazo": "03/11/2026", "volumes": 109, "fin_status": "Liberado", "montador": "ALMIRO ESTEVÃO RIBEIRO NETO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 8, "s3": 20, "s4": 2, "s4_open": false, "s5": 18, "s6": 0, "total": 49, "elapsed": 49}, {"row": 11, "pedido": "268725", "contrato": "264001", "nf": "208995", "loja": "MATRIZ", "cliente": "JOANA DE QUADROS", "transportador": "—", "decorado": "NÃO", "d_med": "01/09/2026", "d_comp": "03/09/2026", "d_pag": "09/09/2026", "d_dep": "30/09/2026", "d_ent": "02/10/2026", "d_ini": "06/10/2026", "d_fim": "13/10/2026", "prazo": "03/11/2026", "volumes": 157, "fin_status": "Liberado", "montador": "EDIVALDO DE OLIVEIRA CASTILHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 6, "s3": 21, "s4": 2, "s4_open": false, "s5": 4, "s6": 7, "total": 42, "elapsed": 42}, {"row": 12, "pedido": "268780", "contrato": "239301", "nf": "208982", "loja": "MATRIZ", "cliente": "ANA CAROLINA ALVES DE LIMA", "transportador": "—", "decorado": "NÃO", "d_med": "03/09/2026", "d_comp": "03/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "09/10/2026", "d_ini": "21/10/2026", "d_fim": "21/10/2026", "prazo": "05/11/2026", "volumes": 345, "fin_status": "Liberado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 7, "s3": 20, "s4": 9, "s4_open": false, "s5": 12, "s6": 0, "total": 48, "elapsed": 48}, {"row": 13, "pedido": "269105", "contrato": "268901", "nf": "208996", "loja": "MATRIZ", "cliente": "FELIPE CESAR MIANO GODOY", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "09/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "07/10/2026", "d_ini": "21/10/2026", "d_fim": "28/10/2026", "prazo": "10/11/2026", "volumes": 83, "fin_status": "Liberado", "montador": "EDIVALDO DE OLIVEIRA CASTILHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 1, "s3": 20, "s4": 7, "s4_open": false, "s5": 14, "s6": 7, "total": 50, "elapsed": 50}, {"row": 14, "pedido": "269121", "contrato": "167801", "nf": "208985", "loja": "MATRIZ", "cliente": "VERA LUCIA ALVES QUEIROZ(tem decor)", "transportador": "—", "decorado": "SIM", "d_med": "08/09/2026", "d_comp": "09/09/2026", "d_pag": "10/09/2026", "d_dep": "30/09/2026", "d_ent": "08/10/2026", "d_ini": "20/10/2026", "d_fim": "24/10/2026", "prazo": "10/11/2026", "volumes": 265, "fin_status": "Solicitado", "montador": "GUILHERME E LEANDRO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 1, "s3": 20, "s4": 8, "s4_open": false, "s5": 12, "s6": 4, "total": 46, "elapsed": 46}, {"row": 15, "pedido": "269498", "contrato": "111002", "nf": "208971", "loja": "MATRIZ", "cliente": "RAQUEL BARROS CARVALHAIS", "transportador": "—", "decorado": "SIM", "d_med": "14/09/2026", "d_comp": "14/09/2026", "d_pag": "16/09/2026", "d_dep": "30/09/2026", "d_ent": "07/10/2026", "d_ini": "09/10/2026", "d_fim": "20/10/2026", "prazo": "16/11/2026", "volumes": 135, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 2, "s3": 14, "s4": 7, "s4_open": false, "s5": 2, "s6": 11, "total": 36, "elapsed": 36}, {"row": 16, "pedido": "269507", "contrato": "156303 (156305)", "nf": "208974", "loja": "MATRIZ", "cliente": "VITORIA GABRIELA DA SILVA BATISTA", "transportador": "—", "decorado": "NÃO", "d_med": "11/09/2026", "d_comp": "11/09/2026", "d_pag": "16/09/2026", "d_dep": "30/09/2026", "d_ent": "01/10/2026", "d_ini": "05/10/2026", "d_fim": "07/10/2026", "prazo": "13/11/2026", "volumes": 141, "fin_status": "Solicitado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 5, "s3": 14, "s4": 1, "s4_open": false, "s5": 4, "s6": 2, "total": 26, "elapsed": 26}, {"row": 17, "pedido": "268532", "contrato": "19401", "nf": "208978", "loja": "AFONSO", "cliente": "GERALDO ANTONIO CASTILHO DE ASSIS", "transportador": "—", "decorado": "NÃO", "d_med": "01/09/2026", "d_comp": "01/09/2026", "d_pag": "03/09/2026", "d_dep": "30/09/2026", "d_ent": "06/10/2026", "d_ini": "13/10/2026", "d_fim": "23/10/2026", "prazo": "03/11/2026", "volumes": 370, "fin_status": "Solicitado", "montador": "UAEKSON", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 2, "s3": 27, "s4": 6, "s4_open": false, "s5": 7, "s6": 10, "total": 52, "elapsed": 52}, {"row": 18, "pedido": "269125", "contrato": "49302", "nf": "208966", "loja": "AFONSO", "cliente": "JOÃO LUIS MORAES", "transportador": "—", "decorado": "NÃO", "d_med": "04/09/2026", "d_comp": "11/09/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "14/10/2026", "d_ini": "20/10/2026", "d_fim": "22/10/2026", "prazo": "06/11/2026", "volumes": 115, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 7, "s2": 3, "s3": 16, "s4": 14, "s4_open": false, "s5": 6, "s6": 2, "total": 48, "elapsed": 48}, {"row": 19, "pedido": "269127", "contrato": "65801", "nf": "208968", "loja": "AFONSO", "cliente": "VICTOR HUGO DE OLIVEIRA", "transportador": "—", "decorado": "NÃO", "d_med": "04/09/2026", "d_comp": "11/09/2026", "d_pag": "14/09/2026", "d_dep": "30/09/2026", "d_ent": "06/10/2026", "d_ini": "08/10/2026", "d_fim": "09/10/2026", "prazo": "06/11/2026", "volumes": 118, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 7, "s2": 3, "s3": 16, "s4": 6, "s4_open": false, "s5": 2, "s6": 1, "total": 35, "elapsed": 35}, {"row": 20, "pedido": "269494", "contrato": "229201", "nf": "209445", "loja": "MATRIZ", "cliente": "EDINEI INACIO RABELO", "transportador": "—", "decorado": "NÃO", "d_med": "09/09/2026", "d_comp": "11/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "22/10/2026", "d_ini": "26/10/2026", "d_fim": "30/10/2026", "prazo": "11/11/2026", "volumes": 281, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 11, "s3": 17, "s4": 13, "s4_open": false, "s5": 4, "s6": 4, "total": 51, "elapsed": 51}, {"row": 21, "pedido": "269735", "contrato": "231201", "nf": "209449", "loja": "MATRIZ", "cliente": "LUCAS CARVALHO DA SILVA ARANTES", "transportador": "—", "decorado": "NÃO", "d_med": "15/09/2026", "d_comp": "15/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "19/10/2026", "d_ini": "23/10/2026", "d_fim": "", "prazo": "17/11/2026", "volumes": 356, "fin_status": "Liberado", "montador": "HEMERSON CONCEIÇÃO CLEMENTE", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 7, "s3": 17, "s4": 10, "s4_open": false, "s5": 4, "s6": null, "total": null, "elapsed": 38}, {"row": 22, "pedido": "269813", "contrato": "59004", "nf": "209454", "loja": "MATRIZ", "cliente": "FRANCIELI CAMARGO DE ALBUQUERQUE", "transportador": "—", "decorado": "NÃO", "d_med": "15/09/2026", "d_comp": "16/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "22/10/2026", "d_ini": "23/10/2026", "d_fim": "30/10/2026", "prazo": "17/11/2026", "volumes": 201, "fin_status": "Liberado", "montador": "MARCIEL", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 6, "s3": 17, "s4": 13, "s4_open": false, "s5": 1, "s6": 7, "total": 45, "elapsed": 45}, {"row": 23, "pedido": "269947", "contrato": "139601", "nf": "209455", "loja": "MATRIZ", "cliente": "GABRIELA DE SOUZA ATHAIDE", "transportador": "—", "decorado": "SIM", "d_med": "17/09/2026", "d_comp": "17/09/2026", "d_pag": "22/09/2026", "d_dep": "09/10/2026", "d_ent": "23/10/2026", "d_ini": "26/10/2026", "d_fim": "30/10/2026", "prazo": "19/11/2026", "volumes": 351, "fin_status": "Liberado", "montador": "DIEGO ALMEIDA MARINHO", "etapa": "FINALIZADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 5, "s3": 17, "s4": 14, "s4_open": false, "s5": 3, "s6": 4, "total": 43, "elapsed": 43}, {"row": 24, "pedido": "270361", "contrato": "80601", "nf": "210089", "loja": "SELECT", "cliente": "CELESTE MOURA BLANCO", "transportador": "—", "decorado": "NÃO", "d_med": "07/09/2026", "d_comp": "23/09/2026", "d_pag": "25/09/2026", "d_dep": "20/10/2026", "d_ent": "30/10/2026", "d_ini": "09/11/2026", "d_fim": "", "prazo": "09/11/2026", "volumes": 1119, "fin_status": "Liberado", "montador": "HEMERSON CONCEIÇÃO CLEMENTE", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 2, "s3": 25, "s4": 10, "s4_open": false, "s5": 10, "s6": null, "total": null, "elapsed": 63}, {"row": 25, "pedido": "270663", "contrato": "88301", "nf": "210073", "loja": "SELECT", "cliente": "CONSTRUTORA PONTELLI E CASTILHO", "transportador": "—", "decorado": "NÃO", "d_med": "16/09/2026", "d_comp": "25/09/2026", "d_pag": "29/09/2026", "d_dep": "20/10/2026", "d_ent": "28/10/2026", "d_ini": "03/11/2026", "d_fim": "", "prazo": "18/11/2026", "volumes": 388, "fin_status": "Liberado", "montador": "JOSUÉ LUIZ DOS SANTOS FILHO, RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 9, "s2": 4, "s3": 21, "s4": 8, "s4_open": false, "s5": 6, "s6": null, "total": null, "elapsed": 48}, {"row": 26, "pedido": "", "contrato": "66001", "nf": "", "loja": "SELECT", "cliente": "ELAINE CRISTINA", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "24/09/2026", "d_pag": "28/09/2026", "d_dep": "23/10/2026", "d_ent": "29/10/2026", "d_ini": "03/11/2026", "d_fim": "", "prazo": "10/11/2026", "volumes": 914, "fin_status": "Liberado", "montador": "DIEGO ALMEIDA MARINHO", "etapa": "EM MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 4, "s3": 25, "s4": 6, "s4_open": false, "s5": 5, "s6": null, "total": null, "elapsed": 56}, {"row": 27, "pedido": "", "contrato": "69603", "nf": "", "loja": "SELECT", "cliente": "JORGE JACOB", "transportador": "—", "decorado": "NÃO", "d_med": "01/10/2026", "d_comp": "02/10/2026", "d_pag": "05/10/2026", "d_dep": "26/10/2026", "d_ent": "03/11/2026", "d_ini": "03/11/2026", "d_fim": "", "prazo": "03/12/2026", "volumes": 58, "fin_status": "Liberado", "montador": "UAEKSON", "etapa": "EM MONTAGEM", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 3, "s3": 21, "s4": 8, "s4_open": false, "s5": 0, "s6": null, "total": null, "elapsed": 33}, {"row": 28, "pedido": "", "contrato": "80502", "nf": "", "loja": "SELECT", "cliente": "MARCIO CARLOS", "transportador": "—", "decorado": "NÃO", "d_med": "25/09/2026", "d_comp": "28/09/2026", "d_pag": "02/10/2026", "d_dep": "26/10/2026", "d_ent": "03/11/2026", "d_ini": "", "d_fim": "", "prazo": "27/11/2026", "volumes": 565, "fin_status": "Solicitado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 4, "s3": 24, "s4": 8, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 39}, {"row": 29, "pedido": "", "contrato": "87301", "nf": "", "loja": "SELECT", "cliente": "ELAINE CRISTINA", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "24/09/2026", "d_pag": "28/09/2026", "d_dep": "23/10/2026", "d_ent": "29/10/2026", "d_ini": "", "d_fim": "", "prazo": "10/11/2026", "volumes": 11, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 4, "s3": 25, "s4": 6, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 51}, {"row": 30, "pedido": "", "contrato": "98202", "nf": "", "loja": "MATRIZ", "cliente": "GABRIELLY AGUIAR", "transportador": "—", "decorado": "NÃO", "d_med": "15/09/2026", "d_comp": "28/09/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "27/10/2026", "d_ini": "", "d_fim": "", "prazo": "17/11/2026", "volumes": 195, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 13, "s2": 4, "s3": 21, "s4": 4, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 42}, {"row": 31, "pedido": "", "contrato": "229301", "nf": "", "loja": "MATRIZ", "cliente": "STEFANY MAYARA", "transportador": "—", "decorado": "NÃO", "d_med": "01/10/2026", "d_comp": "01/10/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "27/10/2026", "d_ini": "27/10/2026", "d_fim": "", "prazo": "03/12/2026", "volumes": 128, "fin_status": "Liberado", "montador": "GUILHERME E LEANDRO", "etapa": "EM MONTAGEM", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 0, "s2": 1, "s3": 21, "s4": 4, "s4_open": false, "s5": 0, "s6": null, "total": null, "elapsed": 26}, {"row": 32, "pedido": "", "contrato": "262503", "nf": "", "loja": "MATRIZ", "cliente": "E A JOSE SOROCABA", "transportador": "—", "decorado": "NÃO", "d_med": "29/09/2026", "d_comp": "02/10/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "02/11/2026", "d_ini": "", "d_fim": "", "prazo": "01/12/2026", "volumes": 676, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 0, "s3": 21, "s4": 10, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 34}, {"row": 33, "pedido": "", "contrato": "271101", "nf": "", "loja": "MATRIZ", "cliente": "JESSICA MARIA", "transportador": "—", "decorado": "NÃO", "d_med": "21/08/2026", "d_comp": "28/09/2026", "d_pag": "29/09/2026", "d_dep": "23/10/2026", "d_ent": "28/10/2026", "d_ini": "03/11/2026", "d_fim": "", "prazo": "23/10/2026", "volumes": 51, "fin_status": "Liberado", "montador": "RENATO ANTONIO DE CAMARGO JUNIOR", "etapa": "FINALIZADO", "mes": "Agosto/2026", "is_at": false, "no_prazo": false, "s1": 38, "s2": 1, "s3": 24, "s4": 5, "s4_open": false, "s5": 6, "s6": null, "total": null, "elapsed": 74}, {"row": 34, "pedido": "", "contrato": "82301", "nf": "", "loja": "SELECT", "cliente": "ELAINE CRISTINA", "transportador": "—", "decorado": "NÃO", "d_med": "08/09/2026", "d_comp": "24/09/2026", "d_pag": "02/10/2026", "d_dep": "23/10/2026", "d_ent": "29/10/2026", "d_ini": "", "d_fim": "", "prazo": "10/11/2026", "volumes": 283, "fin_status": "Liberado", "montador": "", "etapa": "ENTREGUE - AG. MONTAGEM", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 16, "s2": 8, "s3": 21, "s4": 6, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 51}, {"row": 36, "pedido": "271813", "contrato": "85301", "nf": "PROMO_26", "loja": "SELECT", "cliente": "WANDRE NAHUM DE OLIVEIRA", "transportador": "—", "decorado": "NÃO", "d_med": "06/10/2026", "d_comp": "07/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "08/12/2026", "volumes": 184, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 2, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 31}, {"row": 37, "pedido": "271244", "contrato": "260701", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "GIOVANA VISCONTI S VIANNA", "transportador": "—", "decorado": "NÃO", "d_med": "28/09/2026", "d_comp": "01/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "30/11/2026", "volumes": 261, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 8, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 39}, {"row": 38, "pedido": "271247", "contrato": "264301", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "IVETE ALVES DOS SANTOS MENDONÇA", "transportador": "—", "decorado": "NÃO", "d_med": "29/09/2026", "d_comp": "01/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "01/12/2026", "volumes": 187, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 8, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 38}, {"row": 39, "pedido": "271248", "contrato": "270701", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "ELI XAVIER", "transportador": "—", "decorado": "NÃO", "d_med": "28/09/2026", "d_comp": "01/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "30/11/2026", "volumes": 34, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 8, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 39}, {"row": 40, "pedido": "271250", "contrato": "267101", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "ELVIRA TERESA LIZIER SANCHES", "transportador": "—", "decorado": "NÃO", "d_med": "28/09/2026", "d_comp": "01/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "30/11/2026", "volumes": 150, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 8, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 39}, {"row": 41, "pedido": "271275", "contrato": "269001", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "SARA MARIA LEITA MORAES FANTIM", "transportador": "—", "decorado": "NÃO", "d_med": "28/09/2026", "d_comp": "01/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "30/11/2026", "volumes": 28, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 8, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 39}, {"row": 42, "pedido": "271278", "contrato": "280301", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "RAQUEL BARROS CARVALHAIS", "transportador": "—", "decorado": "SIM", "d_med": "28/09/2026", "d_comp": "01/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "30/11/2026", "volumes": 11, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 3, "s2": 8, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 39}, {"row": 43, "pedido": "271345", "contrato": "267001", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "ANTONIO MIGUEL BATISTA DOURADO", "transportador": "—", "decorado": "NÃO", "d_med": "30/09/2026", "d_comp": "02/10/2026", "d_pag": "02/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "02/12/2026", "volumes": 89, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 0, "s3": 34, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 37}, {"row": 44, "pedido": "271351", "contrato": "111501", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "JOYCE FERNANDA GUILANDA DE AMORIM", "transportador": "—", "decorado": "SIM", "d_med": "30/09/2026", "d_comp": "02/10/2026", "d_pag": "09/10/2026", "d_dep": "Prev. 03/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "02/12/2026", "volumes": 164, "fin_status": "Solicitado", "montador": "", "etapa": "FATURADO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 2, "s2": 7, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 9}, {"row": 45, "pedido": "271811", "contrato": "108401", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "DIRCE ROSA", "transportador": "—", "decorado": "SIM", "d_med": "06/10/2026", "d_comp": "07/10/2026", "d_pag": "09/10/2026", "d_dep": "Prev. 03/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "08/12/2026", "volumes": 149, "fin_status": "Liberado", "montador": "", "etapa": "FATURADO", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 2, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 3}, {"row": 46, "pedido": "271812", "contrato": "266801", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "ROSANA JOVALENTE MELO DE MOURA", "transportador": "—", "decorado": "NÃO", "d_med": "06/10/2026", "d_comp": "07/10/2026", "d_pag": "09/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "08/12/2026", "volumes": 118, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 2, "s3": 27, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 31}, {"row": 47, "pedido": "271953", "contrato": "264601", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "ANDERSON MACHADO ASSATO", "transportador": "—", "decorado": "NÃO", "d_med": "22/10/2026", "d_comp": "23/10/2026", "d_pag": "23/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "24/12/2026", "volumes": 625, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 1, "s2": 0, "s3": 13, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 15}, {"row": 48, "pedido": "271958", "contrato": "171801", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "MARIA FERNANDA SANCHES", "transportador": "—", "decorado": "NÃO", "d_med": "30/09/2026", "d_comp": "08/10/2026", "d_pag": "13/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "02/12/2026", "volumes": 271, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Setembro/2026", "is_at": false, "no_prazo": true, "s1": 8, "s2": 5, "s3": 23, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 37}, {"row": 49, "pedido": "272253", "contrato": "205901", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "AMANDA MENEGHEL CODOGNOTO DE ALMEIDA", "transportador": "—", "decorado": "NÃO", "d_med": "08/10/2026", "d_comp": "13/10/2026", "d_pag": "19/10/2026", "d_dep": "05/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "10/12/2026", "volumes": 349, "fin_status": "Solicitado", "montador": "", "etapa": "NO DEPÓSITO", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 5, "s2": 6, "s3": 17, "s4": 1, "s4_open": true, "s5": null, "s6": null, "total": null, "elapsed": 29}, {"row": 50, "pedido": "272257", "contrato": "268701", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "CRISTIANE APARECIDA METZGER BORGES", "transportador": "—", "decorado": "NÃO", "d_med": "08/10/2026", "d_comp": "13/10/2026", "d_pag": "19/10/2026", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "10/12/2026", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 5, "s2": 6, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 11}, {"row": 51, "pedido": "272525", "contrato": "238401", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "DIEGO TADEU BONILLIA ZANARDO", "transportador": "—", "decorado": "NÃO", "d_med": "09/10/2026", "d_comp": "15/10/2026", "d_pag": "19/10/2026", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "11/12/2026", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 6, "s2": 4, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 10}, {"row": 52, "pedido": "272528", "contrato": "238402", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "DIEGO TADEU BONILLIA ZANARDO", "transportador": "—", "decorado": "NÃO", "d_med": "09/10/2026", "d_comp": "15/10/2026", "d_pag": "19/10/2026", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "11/12/2026", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 6, "s2": 4, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 10}, {"row": 53, "pedido": "272570", "contrato": "209303", "nf": "PROMO_26", "loja": "MATRIZ", "cliente": "GABRIELA DA SILVA MACHADO", "transportador": "—", "decorado": "NÃO", "d_med": "09/10/2026", "d_comp": "15/10/2026", "d_pag": "20/10/2026", "d_dep": "Prev. 09/11/2026", "d_ent": "", "d_ini": "", "d_fim": "", "prazo": "11/12/2026", "volumes": 0, "fin_status": "Pendente", "montador": "", "etapa": "CHEGARÁ EM BREVE", "mes": "Outubro/2026", "is_at": false, "no_prazo": true, "s1": 6, "s2": 5, "s3": null, "s4": null, "s4_open": false, "s5": null, "s6": null, "total": null, "elapsed": 11}];
     const STAGES_ORDER = [
       "CHEGARÁ EM BREVE",
       "NO DEPÓSITO",
@@ -685,13 +752,6 @@
       "FINALIZADO"
     ];
 
-    // Na exibição automática da TV, ficam no loop apenas as 4 etapas operacionais ativas (sem TODOS e sem FINALIZADO)
-    const TV_CYCLE_STAGES = [
-      "CHEGARÁ EM BREVE",
-      "NO DEPÓSITO",
-      "ENTREGUE - AG. MONTAGEM",
-      "EM MONTAGEM"
-    ];
 
     const STAGE_COLORS = {
       "CHEGARÁ EM BREVE": "#1d4ed8",
@@ -701,6 +761,7 @@
       "FINALIZADO": "#059669"
     };
 
+
     const STAGE_BADGE_CLASSES = {
       "CHEGARÁ EM BREVE": "bg-blue-100 text-blue-800 border-blue-200",
       "NO DEPÓSITO": "bg-sky-100 text-sky-800 border-sky-200",
@@ -708,6 +769,7 @@
       "EM MONTAGEM": "bg-emerald-100 text-emerald-800 border-emerald-200",
       "FINALIZADO": "bg-teal-100 text-teal-900 border-teal-300"
     };
+
 
     const state = {
       etapa: "TODOS",
@@ -728,463 +790,9 @@
       filterMontagemEnd: null
     };
 
+
     let charts = {};
 
-    const SHEET_ID = "1oE983PuIyK-t1CRjm81sl-o3ReBSWPOrKmT346uBsaA";
-    const SHEET_NAME = "Página1";
-
-    function normCliente(c) {
-      if (!c || c === "—") return "";
-      return String(c).trim().toUpperCase();
-    }
-
-    
-    function parseIsoDate(str) {
-      if (!str) return null;
-      const m = String(str).trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
-      if (!m) return null;
-      return new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10));
-    }
-
-    function fmtIsoDate(dt) {
-      if (!dt) return "";
-      const y = dt.getFullYear();
-      const m = String(dt.getMonth() + 1).padStart(2, "0");
-      const d = String(dt.getDate()).padStart(2, "0");
-      return `${y}-${m}-${d}`;
-    }
-
-    function fmtBrDisplay(dt) {
-      if (!dt) return "";
-      const d = String(dt.getDate()).padStart(2, "0");
-      const m = String(dt.getMonth() + 1).padStart(2, "0");
-      const y = dt.getFullYear();
-      return `${d}/${m}/${y}`;
-    }
-
-    function parseBrDate(str) {
-      if (!str || typeof str !== "string") return null;
-      const clean = str.trim();
-      const m = clean.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-      if (!m) return null;
-      const d = parseInt(m[1], 10);
-      const mo = parseInt(m[2], 10) - 1;
-      let y = parseInt(m[3], 10);
-      if (y < 100) y += 2000;
-      const dt = new Date(y, mo, d);
-      return isNaN(dt.getTime()) ? null : dt;
-    }
-
-    function diffDays(dStart, dEnd) {
-      const dt1 = parseBrDate(dStart);
-      const dt2 = parseBrDate(dEnd);
-      if (!dt1 || !dt2) return null;
-      return Math.round((dt2 - dt1) / (1000 * 60 * 60 * 24));
-    }
-
-    function parseNumVal(str) {
-      if (str === undefined || str === null || str === "") return 0;
-      if (typeof str === "number") return Math.round(str);
-      const s = String(str).trim();
-      if (s.includes("/")) return 0; // Previne que datas sejam interpretadas como números (ex: 07/10/2026 virando 7.102.026)
-      const cleaned = s.replace(/[^\d,.-]/g, "").trim();
-      if (!cleaned) return 0;
-      const norm = cleaned.replace(/\./g, "").replace(",", ".");
-      const n = parseFloat(norm);
-      return isNaN(n) ? 0 : Math.round(n);
-    }
-
-    const BASELINE_DATA = RAW_DATA.map(r => Object.assign({}, r));
-    const SNAPSHOT_BY_ROW = {};
-    const SNAPSHOT_BY_PEDIDO = {};
-    const SNAPSHOT_BY_KEY = {};
-    const SNAPSHOT_BY_CLIENTE_UNIQ = {};
-
-    function rebuildSnapshots(list) {
-      const cliCounts = {};
-      list.forEach(r => {
-        const nc = normCliente(r.cliente);
-        if (nc) cliCounts[nc] = (cliCounts[nc] || 0) + 1;
-      });
-      list.forEach(r => {
-        if (r.row) SNAPSHOT_BY_ROW[r.row] = Object.assign({}, r);
-        if (r.pedido) SNAPSHOT_BY_PEDIDO[String(r.pedido).trim()] = Object.assign({}, r);
-        const nc = normCliente(r.cliente);
-        const k = (r.pedido ? "P:" + String(r.pedido).trim() : "") + "|C:" + nc;
-        if (k !== "|C:") SNAPSHOT_BY_KEY[k] = Object.assign({}, r);
-        if (nc && cliCounts[nc] === 1) {
-          SNAPSHOT_BY_CLIENTE_UNIQ[nc] = Object.assign({}, r);
-        }
-      });
-    }
-    rebuildSnapshots(BASELINE_DATA);
-
-    function findSnapshotMatch(rawPedido, rawContrato, rawCliente, rowNum, isGvizFallback) {
-      const ped = rawPedido ? String(rawPedido).trim() : "";
-      const con = rawContrato ? String(rawContrato).trim() : "";
-      const nc = normCliente(rawCliente);
-
-      if (ped && SNAPSHOT_BY_PEDIDO[ped]) {
-        return SNAPSHOT_BY_PEDIDO[ped];
-      }
-      if (con) {
-        const byCon = BASELINE_DATA.find(b => b.contrato === con && ((ped && b.pedido === ped) || (nc && normCliente(b.cliente) === nc)));
-        if (byCon) return byCon;
-        const byConOnly = BASELINE_DATA.find(b => b.contrato === con);
-        if (byConOnly) return byConOnly;
-      }
-      const keyLookup = (ped ? "P:" + ped : "") + "|C:" + nc;
-      if (keyLookup !== "|C:" && SNAPSHOT_BY_KEY[keyLookup]) {
-        return SNAPSHOT_BY_KEY[keyLookup];
-      }
-      if (nc && SNAPSHOT_BY_CLIENTE_UNIQ[nc]) {
-        return SNAPSHOT_BY_CLIENTE_UNIQ[nc];
-      }
-      if (!isGvizFallback && rowNum && SNAPSHOT_BY_ROW[rowNum]) {
-        return SNAPSHOT_BY_ROW[rowNum];
-      }
-      return null;
-    }
-
-    function parseCsvRows(csvText) {
-      const rows = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
-      for (let i = 0; i < csvText.length; i++) {
-        const ch = csvText[i];
-        const next = csvText[i + 1];
-        if (inQuotes) {
-          if (ch === '"' && next === '"') {
-            cur += '"';
-            i++;
-          } else if (ch === '"') {
-            inQuotes = false;
-          } else {
-            cur += ch;
-          }
-        } else {
-          if (ch === '"') {
-            inQuotes = true;
-          } else if (ch === ",") {
-            row.push(cur);
-            cur = "";
-          } else if (ch === "\r" && next === "\n") {
-            row.push(cur);
-            rows.push(row);
-            row = [];
-            cur = "";
-            i++;
-          } else if (ch === "\n" || ch === "\r") {
-            row.push(cur);
-            rows.push(row);
-            row = [];
-            cur = "";
-          } else {
-            cur += ch;
-          }
-        }
-      }
-      if (cur.length > 0 || row.length > 0) {
-        row.push(cur);
-        rows.push(row);
-      }
-      return rows;
-    }
-
-    function buildRecordFromRowArray(arr, rowNum, isGvizFallback) {
-      const get = i => (arr[i] !== undefined && arr[i] !== null ? String(arr[i]).trim() : "");
-      if (!arr || !arr.some(cell => cell !== undefined && cell !== null && String(cell).trim() !== "")) {
-        return null;
-      }
-      const rawPedido = get(0);
-      const rawContrato = get(1);
-      const rawCliente = get(8);
-      if (rawPedido.toUpperCase() === "PEDIDO" || rawContrato.toUpperCase() === "CONTRATO" || rawCliente.toUpperCase() === "CLIENTE") {
-        return null;
-      }
-
-      const snap = findSnapshotMatch(rawPedido, rawContrato, rawCliente, rowNum, isGvizFallback);
-
-      const pedido = rawPedido || (isGvizFallback && snap ? snap.pedido : "");
-      let contrato = rawContrato;
-      const cliente = rawCliente || (isGvizFallback && snap ? snap.cliente : "");
-
-      // In gviz, mixed-type text strings in numeric Column B (like "156303 (156305)" or "AT...") return empty
-      if (!contrato && isGvizFallback && snap) {
-        contrato = snap.contrato;
-      }
-      if (!contrato) return null;
-
-      const is_at = /^AT\b|^AT\d|^AT\s/i.test(contrato);
-      const nf = get(2) || (isGvizFallback && snap ? snap.nf : "");
-      const loja = get(3) || (isGvizFallback && snap ? snap.loja : "") || "N/I";
-      const transportador = get(7) || (isGvizFallback && snap ? snap.transportador : "") || "—";
-      const rawDec = get(9).toUpperCase();
-      const decorado = rawDec === "SIM" ? "SIM" : (rawDec === "NÃO" || rawDec === "NAO" ? "NÃO" : (isGvizFallback && snap ? snap.decorado : "NÃO"));
-
-      const d_med = get(10) || (isGvizFallback && snap ? snap.d_med : "");
-      const d_comp = get(11) || (isGvizFallback && snap ? snap.d_comp : "");
-      const d_pag = get(12) || (isGvizFallback && snap ? snap.d_pag : "");
-      const d_dep = get(13) || (isGvizFallback && snap ? snap.d_dep : "");
-      // Utiliza estritamente a Coluna O (QUANTIDADE DE VOLUMES - índice 14) da planilha
-      const rawVolQtd = get(14);
-      const vol_qtd = (rawVolQtd && !rawVolQtd.includes("/")) ? parseNumVal(rawVolQtd) : 0;
-      const volumes = vol_qtd > 0 ? vol_qtd : (isGvizFallback && snap ? snap.volumes : 0);
-
-      let lib_fin = get(15);
-      if (!lib_fin && isGvizFallback && snap && snap.fin_status === "Solicitado") {
-        lib_fin = "SOLIC.";
-      }
-      let fin_status = "Pendente";
-      if (lib_fin) {
-        fin_status = lib_fin.toUpperCase().includes("SOLIC") ? "Solicitado" : "Liberado";
-      }
-
-      const prazo = get(17) || (isGvizFallback && snap ? snap.prazo : "") || (d_med ? calcWorkdaysBr(d_med, 45) : "");
-      const d_ent = get(18) || (isGvizFallback && snap ? snap.d_ent : "");
-      const d_ini = get(19) || (isGvizFallback && snap ? snap.d_ini : "");
-      const d_fim = get(20) || (isGvizFallback && snap ? snap.d_fim : "");
-      const montador = get(21) || (isGvizFallback && snap ? snap.montador : "");
-      const etapa = get(22) || (isGvizFallback && snap ? snap.etapa : "");
-
-      const now = new Date();
-      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-      const dtFim = parseBrDate(d_fim);
-      const dtIni = parseBrDate(d_ini);
-      const dtEnt = parseBrDate(d_ent);
-      const dtDep = parseBrDate(d_dep);
-      const dtPag = parseBrDate(d_pag);
-      const dtComp = parseBrDate(d_comp);
-      const dtMed = parseBrDate(d_med);
-
-      const s1 = diffDays(d_med, d_comp);
-      const s2 = diffDays(d_comp, d_pag);
-      const s3 = diffDays(d_pag, d_dep);
-      const s4_closed = diffDays(d_dep, d_ent);
-      let s4 = s4_closed;
-      let s4_open = false;
-      if (s4_closed === null && dtDep && (etapa === "NO DEPÓSITO" || !dtEnt)) {
-        s4 = Math.max(0, Math.round((todayMidnight - dtDep) / (1000 * 60 * 60 * 24)));
-        s4_open = true;
-      }
-      const s5 = diffDays(d_ent, d_ini);
-      const s6 = diffDays(d_ini, d_fim);
-      const total = diffDays(d_med, d_fim);
-
-      const latestDt = dtFim || dtIni || dtEnt || ((etapa === "NO DEPÓSITO" && dtDep) ? todayMidnight : dtDep) || dtPag || dtComp;
-      const elapsed = (dtMed && latestDt) ? Math.round((latestDt - dtMed) / (1000 * 60 * 60 * 24)) : null;
-
-      let no_prazo = true;
-      const dtPrazo = parseBrDate(prazo);
-      const dtRef = dtFim || todayMidnight;
-      if (dtPrazo && dtRef > dtPrazo) no_prazo = false;
-
-      const monthsPt = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-      const refCohort = dtMed || dtComp || dtDep;
-      const mes = refCohort ? `${monthsPt[refCohort.getMonth()]}/${refCohort.getFullYear()}` : "Outubro/2026";
-
-      return {
-        row: rowNum,
-        pedido,
-        contrato,
-        nf,
-        loja,
-        cliente: cliente || "—",
-        transportador,
-        decorado,
-        d_med, d_comp, d_pag, d_dep, d_ent, d_ini, d_fim, prazo,
-        volumes,
-        fin_status,
-        montador,
-        etapa,
-        mes,
-        is_at,
-        no_prazo,
-        s1, s2, s3, s4, s4_open, s5, s6, total, elapsed
-      };
-    }
-
-    function applySyncedRecords(parsed, statusEl, isGvizSource = false) {
-      if (parsed && parsed.length > 5) {
-        let finalRecords = parsed;
-
-        // Se a resposta veio do endpoint gviz e a planilha estiver com filtro ativo ocultando etapas (ex.: FINALIZADO),
-        // preserva os contratos das etapas ocultadas pelo filtro da planilha para nunca sumirem do dashboard
-        if (isGvizSource) {
-          const parsedActive = parsed.filter(r => !r.is_at);
-          const missingStages = new Set();
-          STAGES_ORDER.forEach(st => {
-            const baseCount = BASELINE_DATA.filter(r => !r.is_at && r.etapa === st).length;
-            const curCount = parsedActive.filter(r => r.etapa === st).length;
-            if (baseCount > 0 && curCount === 0) {
-              missingStages.add(st);
-            }
-          });
-
-          if (missingStages.size > 0) {
-            const seenKeys = new Set(parsed.map(r => `${r.contrato}|${r.pedido}|${normCliente(r.cliente)}`));
-            const SeenPedidos = new Set(parsed.map(r => r.pedido).filter(Boolean));
-            const preserved = BASELINE_DATA.filter(b => {
-              if (!missingStages.has(b.etapa)) return false;
-              const k = `${b.contrato}|${b.pedido}|${normCliente(b.cliente)}`;
-              if (seenKeys.has(k)) return false;
-              if (b.pedido && SeenPedidos.has(b.pedido)) return false;
-              return true;
-            });
-            finalRecords = [...parsed, ...preserved].sort((a, b) => (a.row || 999) - (b.row || 999));
-          }
-        } else {
-          // Se veio do CSV completo (sem filtro de visualização), atualiza a base de referência completa
-          BASELINE_DATA.length = 0;
-          finalRecords.forEach(r => BASELINE_DATA.push(Object.assign({}, r)));
-        }
-
-        RAW_DATA.length = 0;
-        finalRecords.forEach(item => {
-          RAW_DATA.push(item);
-        });
-        rebuildSnapshots(RAW_DATA);
-        populateMontadorDropdown();
-        updateAll();
-        if (statusEl) {
-          const now = new Date();
-          statusEl.textContent = "Ao Vivo • " + now.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit", second: "2-digit"});
-        }
-        return true;
-      }
-      return false;
-    }
-
-    function parseCsvAndApply(csvText, isGvizCsv, statusEl) {
-      const rawRows = parseCsvRows(csvText);
-      if (!rawRows || rawRows.length < 2) throw new Error("Empty CSV");
-      const parsed = [];
-      for (let i = 1; i < rawRows.length; i++) {
-        const rec = buildRecordFromRowArray(rawRows[i], i + 1, isGvizCsv);
-        if (rec) parsed.push(rec);
-      }
-      if (!applySyncedRecords(parsed, statusEl, isGvizCsv)) {
-        throw new Error("Insufficient rows");
-      }
-    }
-
-    function fetchWithTimeout(url, timeoutMs = 6000) {
-      const ctrl = new AbortController();
-      const id = setTimeout(() => ctrl.abort(), timeoutMs);
-      return fetch(url, { cache: "no-store", signal: ctrl.signal }).finally(() => clearTimeout(id));
-    }
-
-    async function syncFromGoogleSheets() {
-      const statusEl = document.getElementById("sync-status-text");
-      if (statusEl) statusEl.textContent = "Sincronizando...";
-      const ts = Date.now();
-      const exportUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0&_ts=${ts}`;
-      const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_ts=${ts}`;
-
-      // Tier 1: Direct Google Sheets CSV Export (preserves 100% of mixed-type strings/numbers and ignores sheet UI filters)
-      try {
-        const r1 = await fetchWithTimeout(exportUrl, 5000);
-        if (r1.ok) {
-          const txt = await r1.text();
-          if (txt && txt.includes("CONTRATO")) {
-            parseCsvAndApply(txt, false, statusEl);
-            return;
-          }
-        }
-      } catch (_) {}
-
-      // Tier 2: CORS Relays wrapping raw Google Sheets CSV Export (bypasses 307 redirect CORS on TV/Safari)
-      const proxyUrls = [
-        `https://corsproxy.io/?${encodeURIComponent(exportUrl)}`,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(exportUrl)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(exportUrl)}`
-      ];
-      for (const pUrl of proxyUrls) {
-        try {
-          const rp = await fetchWithTimeout(pUrl, 5500);
-          if (rp.ok) {
-            const txt = await rp.text();
-            if (txt && txt.includes("CONTRATO")) {
-              parseCsvAndApply(txt, false, statusEl);
-              return;
-            }
-          }
-        } catch (_) {}
-      }
-
-      // Tier 3: gviz CSV with smart mixed-type fallback & filter-safe merge
-      try {
-        const r3 = await fetchWithTimeout(gvizCsvUrl, 5000);
-        if (r3.ok) {
-          const txt = await r3.text();
-          if (txt && txt.length > 50) {
-            parseCsvAndApply(txt, true, statusEl);
-            return;
-          }
-        }
-      } catch (_) {}
-
-      // Tier 4: Native Google Visualization JSONP (google.visualization.Query.setResponse) - zero CORS restrictions
-      window.google = window.google || {};
-      window.google.visualization = window.google.visualization || {};
-      window.google.visualization.Query = window.google.visualization.Query || {};
-      window.google.visualization.Query.setResponse = function(payload) {
-        try {
-          if (!payload || !payload.table || !payload.table.rows) {
-            if (statusEl) statusEl.textContent = "Ao Vivo (Base Atual)";
-            return;
-          }
-          const rows = payload.table.rows;
-          const parsed = [];
-          let dataRowIdx = 2;
-          rows.forEach((r) => {
-            const c = r.c || [];
-            const arr = [];
-            for (let k = 0; k < 26; k++) {
-              const cell = c[k];
-              if (!cell) {
-                arr.push("");
-              } else if (cell.f !== undefined && cell.f !== null && String(cell.f).trim() !== "") {
-                arr.push(String(cell.f).trim());
-              } else if (cell.v !== undefined && cell.v !== null) {
-                const sv = String(cell.v).trim();
-                const dm = sv.match(/^Date\((\d+),(\d+),(\d+)\)/);
-                if (dm) {
-                  const yy = dm[1];
-                  const mm = String(parseInt(dm[2], 10) + 1).padStart(2, "0");
-                  const dd = String(parseInt(dm[3], 10)).padStart(2, "0");
-                  arr.push(`${dd}/${mm}/${yy}`);
-                } else {
-                  arr.push(sv);
-                }
-              } else {
-                arr.push("");
-              }
-            }
-            if (arr[0] && String(arr[0]).toUpperCase() === "PEDIDO") return;
-            const rec = buildRecordFromRowArray(arr, dataRowIdx++, true);
-            if (rec) parsed.push(rec);
-          });
-          if (!applySyncedRecords(parsed, statusEl, true) && statusEl) {
-            statusEl.textContent = "Ao Vivo (Base Atual)";
-          }
-        } catch (err) {
-          if (statusEl) statusEl.textContent = "Ao Vivo (Base Atual)";
-        }
-      };
-
-      const oldScript = document.getElementById("gviz-jsonp-script");
-      if (oldScript) oldScript.remove();
-      const s = document.createElement("script");
-      s.id = "gviz-jsonp-script";
-      s.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&_ts=${ts}`;
-      s.onerror = () => {
-        if (statusEl) statusEl.textContent = "Sync Auto (30s)";
-      };
-      document.body.appendChild(s);
-    }
 
     function avg(arr) {
       const valid = arr.filter(v => typeof v === "number" && !isNaN(v));
@@ -1192,10 +800,12 @@
       return valid.reduce((a, b) => a + b, 0) / valid.length;
     }
 
+
     function fmtDays(v, decimals = 1) {
       if (v === null || v === undefined || isNaN(v)) return "—";
       return v.toFixed(decimals).replace(".", ",");
     }
+
 
     function populateMontadorDropdown() {
       const select = document.getElementById("filter-montador");
@@ -1212,10 +822,8 @@
       optSem.value = "SEM_MONTADOR";
       optSem.textContent = "Sem Montador Definido";
       select.appendChild(optSem);
-      if (state.montador && (state.montador === "TODOS" || state.montador === "SEM_MONTADOR" || montadores.includes(state.montador))) {
-        select.value = state.montador;
-      }
     }
+
 
     function getFilteredData() {
       return RAW_DATA.filter(r => {
@@ -1268,10 +876,12 @@
       });
     }
 
+
     function renderKPIs(rows) {
       const totalCount = rows.length;
       const noPrazoCount = rows.filter(r => r.no_prazo).length;
       const prazoPct = totalCount ? (noPrazoCount / totalCount) * 100 : 0;
+
 
       const m1 = avg(rows.map(r => r.s1));
       const m2 = avg(rows.map(r => r.s2));
@@ -1281,41 +891,41 @@
       const m6 = avg(rows.map(r => r.s6));
       const mTotal = avg(rows.map(r => r.total));
 
+
       const totalVolumes = rows.reduce((acc, r) => acc + (r.volumes || 0), 0);
       const countFinalizados = rows.filter(r => r.etapa === "FINALIZADO").length;
       const countMontagem = rows.filter(r => r.etapa === "EM MONTAGEM").length;
-      const countNoDeposito = rows.filter(r => r.etapa === "NO DEPÓSITO").length;
-      const countAtivosSemFinalizados = rows.filter(r => r.etapa !== "FINALIZADO").length;
+
 
       document.getElementById("kpi-prazo-val").textContent = fmtDays(prazoPct, 1) + "%";
       document.getElementById("kpi-prazo-sub").textContent = "▲ " + noPrazoCount + " de " + totalCount;
 
+
       document.getElementById("kpi-total-dias").textContent = mTotal > 0 ? fmtDays(mTotal, 1) + " d" : fmtDays(avg(rows.map(r => r.elapsed)), 1) + " d*";
       document.getElementById("kpi-total-sub").textContent = mTotal > 0 ? "Medição → Fim" : "Tempo parcial médio";
+
 
       document.getElementById("kpi-pag-dep").textContent = fmtDays(m3, 1) + " d";
       const sumStages = m1 + m2 + m3 + m4 + m5 + m6;
       const pctPagDep = sumStages > 0 ? (m3 / sumStages) * 100 : 0;
       document.getElementById("kpi-pag-dep-pct").textContent = fmtDays(pctPagDep, 0) + "% do ciclo";
 
+
       document.getElementById("kpi-montagem-dias").textContent = fmtDays(m6, 1) + " d";
       document.getElementById("kpi-dep-cli-sub").textContent = "Dep→Cli: " + fmtDays(m4, 1) + " d";
-      const cliIniEl = document.getElementById("kpi-cli-ini-sub");
-      if (cliIniEl) cliIniEl.textContent = "• Cli→Início: " + fmtDays(m5, 1) + " d";
+
 
       document.getElementById("kpi-volumes").textContent = totalVolumes.toLocaleString("pt-BR");
-      const withVolCount = rows.filter(r => (r.volumes || 0) > 0).length;
-      document.getElementById("kpi-volumes-sub").textContent = "volumes (" + withVolCount + "/" + totalCount + " contr.)";
+      document.getElementById("kpi-volumes-sub").textContent = "volumes (" + totalCount + " contr.)";
 
-      document.getElementById("kpi-contratos").textContent = String(countAtivosSemFinalizados);
-      document.getElementById("kpi-contratos-sub").textContent = countNoDeposito + " no dep. • " + countMontagem + " em mont.";
-      const exclEl = document.getElementById("kpi-contratos-excl");
-      if (exclEl) {
-        exclEl.textContent = countFinalizados > 0 ? "(excl. " + countFinalizados + " finaliz.)" : "em andamento";
-      }
+
+      document.getElementById("kpi-contratos").textContent = String(totalCount);
+      document.getElementById("kpi-contratos-sub").textContent = countFinalizados + " finaliz. • " + countMontagem + " mont.";
+
 
       return { m1, m2, m3, m4, m5, m6, mTotal };
     }
+
 
     function renderStageAveragesTable(metrics) {
       const container = document.getElementById("stage-averages-bars");
@@ -1328,6 +938,7 @@
         { label: "6. Início → Fim da Montagem", val: metrics.m6, color: "bg-emerald-600" }
       ];
       const maxVal = Math.max(...items.map(i => i.val), 1);
+
 
       let html = items.map(item => {
         const widthPct = Math.min(100, Math.round((item.val / maxVal) * 100));
@@ -1344,6 +955,7 @@
         `;
       }).join("");
 
+
       html += `
         <div class="pt-2 mt-2 border-t border-slate-200 flex items-center justify-between">
           <span class="text-xs font-extrabold uppercase text-slate-700">Tempo Total (Medição → Finalização)</span>
@@ -1352,6 +964,7 @@
       `;
       container.innerHTML = html;
     }
+
 
     function renderCriticalContracts(rows) {
       const tbody = document.getElementById("critical-contracts-tbody");
@@ -1363,19 +976,23 @@
         .sort((a, b) => b.cycleMetric - a.cycleMetric)
         .slice(0, 6);
 
+
       if (!sorted.length) {
         tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-slate-400">Nenhum contrato para o filtro atual</td></tr>';
         return;
       }
+
 
       tbody.innerHTML = sorted.map((r, idx) => {
         const pagDep = r.s3 !== null ? r.s3 : "—";
         const depCli = r.s4 !== null ? r.s4 : "—";
         const tot = r.total !== null ? r.total + " d" : (r.elapsed !== null ? r.elapsed + " d*" : "—");
 
+
         const pagClass = r.s3 >= 25 ? "bg-rose-50 text-rose-700 font-bold" : (r.s3 >= 18 ? "bg-amber-50 text-amber-700 font-semibold" : "bg-emerald-50 text-emerald-700");
         const depClass = r.s4 >= 10 ? "bg-rose-50 text-rose-700 font-bold" : (r.s4 >= 6 ? "bg-amber-50 text-amber-700 font-semibold" : "bg-emerald-50 text-emerald-700");
         const totClass = r.cycleMetric >= 58 ? "bg-rose-100 text-rose-800 font-extrabold" : (r.cycleMetric >= 45 ? "bg-amber-100 text-amber-800 font-bold" : "bg-emerald-100 text-emerald-800 font-bold");
+
 
         return `
           <tr class="hover:bg-slate-50">
@@ -1392,10 +1009,12 @@
       }).join("");
     }
 
+
     function renderStageLegendAndPills() {
       const baseRows = RAW_DATA.filter(r => !r.is_at);
       const totalBase = baseRows.length || 1;
       const legendEl = document.getElementById("stage-legend-list");
+
 
       legendEl.innerHTML = STAGES_ORDER.map(st => {
         const cnt = baseRows.filter(r => r.etapa === st).length;
@@ -1413,6 +1032,7 @@
         `;
       }).join("");
 
+
       legendEl.querySelectorAll(".stage-legend-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const st = btn.getAttribute("data-stage");
@@ -1421,6 +1041,7 @@
           updateAll();
         });
       });
+
 
       const pillsEl = document.getElementById("stage-pills-container");
       const allOptions = ["TODOS", ...STAGES_ORDER];
@@ -1439,6 +1060,7 @@
         `;
       }).join("");
 
+
       pillsEl.querySelectorAll(".stage-pill-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           state.etapa = btn.getAttribute("data-pill");
@@ -1448,176 +1070,24 @@
       });
     }
 
-    function calcWorkdaysBr(dMedStr, workdaysCount) {
-      const dt = parseBrDate(dMedStr);
-      if (!dt) return "";
-      const cur = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
-      let rem = Math.abs(workdaysCount || 45);
-      while (rem > 0) {
-        cur.setDate(cur.getDate() + 1);
-        const wd = cur.getDay();
-        if (wd !== 0 && wd !== 6) rem--;
-      }
-      const dd = String(cur.getDate()).padStart(2, "0");
-      const mm = String(cur.getMonth() + 1).padStart(2, "0");
-      const yy = cur.getFullYear();
-      return `${dd}/${mm}/${yy}`;
-    }
 
     function renderContractsTable(rows) {
       const tbody = document.getElementById("contracts-table-tbody");
-      const thDepCli = document.getElementById("th-dep-cli");
-      if (thDepCli) {
-        if (state.etapa === "NO DEPÓSITO") {
-          thDepCli.textContent = "Dias no Depósito (Cheg → Hoje)";
-          thDepCli.className = "py-2.5 px-2.5 text-center font-extrabold bg-sky-600 text-white transition-colors";
-        } else {
-          thDepCli.textContent = "Dias no Depósito (Dep → Cli)";
-          thDepCli.className = "py-2.5 px-2.5 text-center font-bold bg-sky-800 text-white transition-colors";
-        }
-      }
-
-      const alertsSummaryEl = document.getElementById("table-alerts-summary");
-
       if (!rows.length) {
-        if (alertsSummaryEl) alertsSummaryEl.innerHTML = "";
-        tbody.innerHTML = '<tr><td colspan="14" class="py-6 text-center text-slate-400 font-medium">Nenhum contrato encontrado para os filtros selecionados.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="12" class="py-6 text-center text-slate-400 font-medium">Nenhum contrato encontrado para os filtros selecionados.</td></tr>';
         return;
       }
 
-      const now = new Date();
-      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-      let countDepGt5 = 0;
-      let countPrazoLt10 = 0;
-
-      const rowsHtml = rows.map(r => {
-        const isFinalizado = r.etapa === "FINALIZADO";
+      tbody.innerHTML = rows.map(r => {
         const badgeCls = STAGE_BADGE_CLASSES[r.etapa] || "bg-slate-100 text-slate-700 border-slate-200";
         const cellVal = v => (v !== null && v !== undefined ? `<span class="font-semibold text-slate-800">${v} d</span>` : `<span class="text-slate-300">—</span>`);
+        const totVal = r.total !== null ? `<span class="px-2 py-0.5 rounded bg-blue-50 text-blue-800 font-extrabold">${r.total} d</span>` : `<span class="text-slate-300">—</span>`;
 
-        // Verifica dias no depósito (s4): superior a 5 dias (> 5)
-        const diasDep = (r.s4 !== null && r.s4 !== undefined) ? Number(r.s4) : null;
-        const isDepAlert = !isFinalizado && diasDep !== null && diasDep > 5;
-        if (isDepAlert) countDepGt5++;
-
-        // Coluna Dias no Depósito (Chegada no depósito até entrega no cliente, ou até hoje se ainda no depósito)
-        let depCliHtml = `<span class="text-slate-300">—</span>`;
-        if (diasDep !== null) {
-          const chegShort = r.d_dep ? r.d_dep.slice(0, 5) : "";
-          const hasEnt = r.d_ent && r.d_ent !== "Cancelado";
-          const subLabel = hasEnt
-            ? `Cheg: ${chegShort} → Ent: ${r.d_ent.slice(0, 5)}`
-            : (chegShort ? `Desde ${chegShort} (no depósito)` : "No depósito");
-
-          if (isDepAlert) {
-            const alertCls = (r.etapa === "NO DEPÓSITO" || r.s4_open)
-              ? "bg-rose-600 text-white border-rose-700 shadow-sm ring-2 ring-rose-200"
-              : "bg-amber-500 text-slate-950 border-amber-600 shadow-sm";
-            depCliHtml = `
-              <div class="flex flex-col items-center leading-tight" title="ALERTA: Material com mais de 5 dias no depósito (${diasDep} dias)">
-                <span class="px-2 py-0.5 rounded text-[11px] font-extrabold border ${alertCls}">⚠️ ${diasDep} dias</span>
-                <span class="text-[10px] ${r.etapa === 'NO DEPÓSITO' ? 'text-rose-700 font-bold' : 'text-amber-800 font-semibold'} mt-0.5">${subLabel}</span>
-              </div>
-            `;
-          } else if (r.etapa === "NO DEPÓSITO" || r.s4_open) {
-            depCliHtml = `
-              <div class="flex flex-col items-center leading-tight" title="No depósito há ${diasDep} dia(s) (dentro do limite de 5 dias)">
-                <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-sky-100 text-sky-900 border-sky-300">${diasDep} dias</span>
-                <span class="text-[10px] text-slate-500 mt-0.5">${subLabel}</span>
-              </div>
-            `;
-          } else {
-            depCliHtml = `
-              <div class="flex flex-col items-center leading-tight">
-                <span class="font-semibold text-slate-800">${diasDep} dias</span>
-                ${chegShort && hasEnt ? `<span class="text-[10px] text-slate-400">${chegShort}→${r.d_ent.slice(0, 5)}</span>` : ""}
-              </div>
-            `;
-          }
-        }
-
-        const totVal = r.total !== null
-          ? `<span class="px-2 py-0.5 rounded bg-blue-50 text-blue-800 font-extrabold">${r.total} d</span>`
-          : (r.elapsed !== null && r.elapsed !== undefined
-              ? `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold" title="Tempo parcial acumulado até a etapa atual">${r.elapsed} d*</span>`
-              : `<span class="text-slate-300">—</span>`);
-
-        // Coluna Prazo para Montagem: destaca quando faltam menos de 10 dias (diffPrazo < 10) ou vencido
-        const prazoStr = r.prazo || (r.d_med ? calcWorkdaysBr(r.d_med, 45) : "");
-        let prazoHtml = `<span class="text-slate-300">—</span>`;
-        let isPrazoAlert = false;
-        let diffPrazoVal = null;
-
-        if (prazoStr) {
-          const dtPrazo = parseBrDate(prazoStr);
-          if (dtPrazo) {
-            diffPrazoVal = Math.round((dtPrazo - todayMidnight) / (1000 * 60 * 60 * 24));
-            if (isFinalizado) {
-              const cls = r.no_prazo ? "bg-emerald-50 text-emerald-800 border-emerald-200" : "bg-rose-50 text-rose-800 border-rose-200";
-              prazoHtml = `
-                <div class="flex flex-col items-center leading-tight">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${cls}">${prazoStr}</span>
-                  <span class="text-[10px] text-slate-400 mt-0.5">Finalizado</span>
-                </div>
-              `;
-            } else if (diffPrazoVal < 0) {
-              isPrazoAlert = true;
-              countPrazoLt10++;
-              prazoHtml = `
-                <div class="flex flex-col items-center leading-tight" title="ALERTA CRÍTICO: Prazo de montagem vencido há ${Math.abs(diffPrazoVal)} dia(s)">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-extrabold border bg-rose-600 text-white border-rose-700 shadow-sm ring-2 ring-rose-200">🚨 ${prazoStr}</span>
-                  <span class="text-[10px] text-rose-700 font-extrabold mt-0.5">Vencido há ${Math.abs(diffPrazoVal)} d</span>
-                </div>
-              `;
-            } else if (diffPrazoVal < 10) {
-              isPrazoAlert = true;
-              countPrazoLt10++;
-              prazoHtml = `
-                <div class="flex flex-col items-center leading-tight" title="ALERTA: Menos de 10 dias para o prazo de montagem (faltam ${diffPrazoVal} dias)">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-extrabold border bg-amber-500 text-slate-950 border-amber-600 shadow-sm ring-2 ring-amber-200">⏰ ${prazoStr}</span>
-                  <span class="text-[10px] text-amber-800 font-extrabold mt-0.5">${diffPrazoVal === 0 ? "Vence HOJE!" : `Faltam ${diffPrazoVal} d (<10d)`}</span>
-                </div>
-              `;
-            } else {
-              prazoHtml = `
-                <div class="flex flex-col items-center leading-tight">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-200">${prazoStr}</span>
-                  <span class="text-[10px] text-slate-500 mt-0.5">Faltam ${diffPrazoVal} d</span>
-                </div>
-              `;
-            }
-          } else {
-            prazoHtml = `<span class="font-semibold text-slate-700">${prazoStr}</span>`;
-          }
-        }
-
-        // Destaque visual da linha inteira quando contrato tem > 5 dias no depósito ou < 10 dias para o prazo de montagem
-        let rowHighlightCls = "hover:bg-blue-50/40 transition";
-        if (isPrazoAlert && diffPrazoVal !== null && diffPrazoVal < 0) {
-          rowHighlightCls = "bg-rose-50/75 hover:bg-rose-100/70 border-l-4 border-l-rose-600 transition";
-        } else if ((isDepAlert && (r.etapa === "NO DEPÓSITO" || r.s4_open)) || isPrazoAlert) {
-          rowHighlightCls = "bg-amber-50/70 hover:bg-amber-100/60 border-l-4 border-l-amber-500 transition";
-        } else if (isDepAlert) {
-          rowHighlightCls = "bg-amber-50/35 hover:bg-amber-50/70 border-l-4 border-l-amber-400 transition";
-        }
-
-        const alertTags = [];
-        if (isDepAlert) {
-          alertTags.push(`<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-rose-100 text-rose-800 border border-rose-300" title="Superior a 5 dias no depósito">&gt;5d Dep</span>`);
-        }
-        if (isPrazoAlert) {
-          alertTags.push(`<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300" title="A menos de 10 dias do prazo para montagem">&lt;10d Prazo</span>`);
-        }
 
         return `
-          <tr class="${rowHighlightCls}">
-            <td class="py-2 px-2.5 font-bold text-slate-900 whitespace-nowrap">
-              <div class="flex items-center gap-1.5">
-                <span>${r.contrato}</span>
-                ${alertTags.join("")}
-              </div>
-            </td>
+          <tr class="hover:bg-blue-50/40 transition">
+            <td class="py-2 px-2.5 font-bold text-slate-900 whitespace-nowrap">${r.contrato}</td>
             <td class="py-2 px-2.5 text-slate-700 font-medium max-w-[200px] truncate" title="${r.cliente}">${r.cliente}</td>
             <td class="py-2 px-2 font-semibold text-slate-600">${r.loja}</td>
             <td class="py-2 px-2 text-center whitespace-nowrap" title="Quantidade de volumes do contrato ${r.contrato}">
@@ -1631,33 +1101,18 @@
             <td class="py-2 px-2 text-center">${cellVal(r.s1)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s2)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s3)}</td>
-            <td class="py-2 px-2.5 text-center ${isDepAlert ? 'bg-rose-50/60' : 'bg-sky-50/40'}">${depCliHtml}</td>
+            <td class="py-2 px-2 text-center">${cellVal(r.s4)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s5)}</td>
             <td class="py-2 px-2 text-center">${cellVal(r.s6)}</td>
             <td class="py-2 px-2.5 text-center bg-blue-50/20">${totVal}</td>
-            <td class="py-2 px-2.5 text-center whitespace-nowrap ${isPrazoAlert ? 'bg-amber-50/60' : ''}">${prazoHtml}</td>
             <td class="py-2 px-2.5 font-semibold text-slate-700 max-w-[190px] truncate" title="${r.montador || 'Não atribuído'}">
               ${r.montador ? r.montador : '<span class="text-slate-400 font-normal italic">Aguardando atribuição</span>'}
             </td>
           </tr>
         `;
       }).join("");
-
-      tbody.innerHTML = rowsHtml;
-
-      if (alertsSummaryEl) {
-        alertsSummaryEl.innerHTML = `
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold border ${countDepGt5 > 0 ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-slate-100 text-slate-600 border-slate-200'}">
-            <span>⚠️ Dias no Depósito &gt; 5d:</span>
-            <span class="px-1.5 py-0.2 rounded bg-white/80 text-rose-900 font-extrabold">${countDepGt5}</span>
-          </span>
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold border ${countPrazoLt10 > 0 ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-slate-100 text-slate-600 border-slate-200'}">
-            <span>⏰ Prazo Montagem &lt; 10d (ou vencido):</span>
-            <span class="px-1.5 py-0.2 rounded bg-white/80 text-amber-950 font-extrabold">${countPrazoLt10}</span>
-          </span>
-        `;
-      }
     }
+
 
     function renderCharts(rows, metrics) {
       // 1. Combo Chart: Stage Averages + Cumulative Line
@@ -1676,6 +1131,7 @@
         cumulativeData[i] = next;
         return next;
       }, 0);
+
 
       if (charts.combo) charts.combo.destroy();
       charts.combo = new Chart(document.getElementById("chartComboEtapas"), {
@@ -1717,100 +1173,49 @@
         }
       });
 
-      // 2. Horizontal Bar Chart: Contratos Montados por Montador
-      const formatMontadorLabel = (name) => {
-        if (!name) return "A Definir";
-        const parts = name.trim().split(/\s+/);
-        if (parts.length >= 3 && ["E", "DE", "DA", "DO", "DOS"].includes(parts[1].toUpperCase())) {
-          return parts.slice(0, 3).join(" ");
-        }
-        return parts.slice(0, 2).join(" ");
-      };
 
+      // 2. Horizontal Bar Chart: Volumes by Montador
       const montMap = {};
       rows.forEach(r => {
+        const key = r.montador ? r.montador.split(" ").slice(0, 2).join(" ") : "A Definir";
         if (r.montador) {
-          const key = formatMontadorLabel(r.montador);
-          if (!montMap[key]) {
-            montMap[key] = { total: 0, finalizados: 0, emMontagem: 0, volumes: 0 };
-          }
-          montMap[key].total += 1;
-          if (r.etapa === "FINALIZADO") {
-            montMap[key].finalizados += 1;
-          } else {
-            montMap[key].emMontagem += 1;
-          }
-          montMap[key].volumes += (r.volumes || 0);
+          montMap[key] = (montMap[key] || 0) + (r.volumes || 1);
         }
       });
-      const montEntries = Object.entries(montMap)
-        .sort((a, b) => (b[1].total - a[1].total) || (b[1].finalizados - a[1].finalizados))
-        .slice(0, 10);
+      const montEntries = Object.entries(montMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
       if (!montEntries.length) {
-        montEntries.push(["Sem Montador", { total: 0, finalizados: 0, emMontagem: 0, volumes: 0 }]);
+        montEntries.push(["Sem Montador", 0]);
       }
+
 
       if (charts.montadores) charts.montadores.destroy();
       charts.montadores = new Chart(document.getElementById("chartMontadores"), {
         type: "bar",
         data: {
           labels: montEntries.map(e => e[0]),
-          datasets: [
-            {
-              label: "Montados (Finalizados)",
-              data: montEntries.map(e => e[1].finalizados),
-              backgroundColor: "#1d4ed8",
-              borderRadius: 4
-            },
-            {
-              label: "Em Montagem",
-              data: montEntries.map(e => e[1].emMontagem),
-              backgroundColor: "#93c5fd",
-              borderRadius: 4
-            }
-          ]
+          datasets: [{
+            label: "Volumes",
+            data: montEntries.map(e => e[1]),
+            backgroundColor: ["#0f3f7a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd"],
+            borderRadius: 4
+          }]
         },
         options: {
           indexAxis: "y",
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: true,
-              position: "top",
-              labels: { boxWidth: 10, font: { size: 10 } }
-            },
-            tooltip: {
-              callbacks: {
-                afterBody: (items) => {
-                  const idx = items[0]?.dataIndex;
-                  const entry = montEntries[idx]?.[1];
-                  if (!entry) return "";
-                  return `Total: ${entry.total} contrato(s) (${entry.volumes} vol.)`;
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              stacked: true,
-              beginAtZero: true,
-              ticks: { precision: 0, stepSize: 1, font: { size: 10 } },
-              title: { display: true, text: "Nº de Contratos", font: { size: 10 } }
-            },
-            y: {
-              stacked: true,
-              ticks: { autoSkip: false, font: { size: 10 } }
-            }
-          }
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true } }
         }
       });
+
 
       // 3. Green Column Chart: Total Time per Contract
       const contractsWithTime = rows
         .map(r => ({ label: r.contrato, val: r.total !== null ? r.total : (r.elapsed || 0) }))
         .filter(x => x.val > 0)
         .slice(0, 10);
+
 
       if (charts.tempoContratos) charts.tempoContratos.destroy();
       charts.tempoContratos = new Chart(document.getElementById("chartTempoContratos"), {
@@ -1835,22 +1240,11 @@
         }
       });
 
-      // 4. Donut Chart: Stage Distribution (mostra distribuição entre etapas respeitando Loja/Montador/Mês, destacando a etapa selecionada)
-      const baseForStages = RAW_DATA.filter(r => {
-        if (r.is_at) return false;
-        if (state.loja !== "TODOS" && r.loja !== state.loja) return false;
-        if (state.montador !== "TODOS") {
-          if (state.montador === "SEM_MONTADOR") {
-            if (r.montador) return false;
-          } else if (r.montador !== state.montador) {
-            return false;
-          }
-        }
-        if (state.mes !== "TODOS" && r.mes !== state.mes) return false;
-        return true;
-      });
-      document.getElementById("donut-center-count").textContent = String(state.etapa === "TODOS" ? baseForStages.length : rows.length);
-      const stageCounts = STAGES_ORDER.map(st => baseForStages.filter(r => r.etapa === st).length);
+
+      // 4. Donut Chart: Stage Distribution
+      document.getElementById("donut-center-count").textContent = String(rows.length);
+      const stageCounts = STAGES_ORDER.map(st => rows.filter(r => r.etapa === st).length);
+
 
       if (charts.donutEtapas) charts.donutEtapas.destroy();
       charts.donutEtapas = new Chart(document.getElementById("chartDonutEtapas"), {
@@ -1872,9 +1266,11 @@
         }
       });
 
+
       // 5. Store Columns (MATRIZ, SELECT, AFONSO)
       const lojas = ["MATRIZ", "SELECT", "AFONSO"];
       const lojaCounts = lojas.map(l => rows.filter(r => r.loja === l).length);
+
 
       if (charts.lojasCol) charts.lojasCol.destroy();
       charts.lojasCol = new Chart(document.getElementById("chartLojasCol"), {
@@ -1897,6 +1293,7 @@
         }
       });
 
+
       // 6. Mini Donuts: Loja, Decorado, Financeiro
       if (charts.donutLoja) charts.donutLoja.destroy();
       charts.donutLoja = new Chart(document.getElementById("chartDonutLoja"), {
@@ -1916,6 +1313,7 @@
           plugins: { legend: { position: "right", labels: { boxWidth: 8, font: { size: 10 } } } }
         }
       });
+
 
       const decCounts = [
         rows.filter(r => r.decorado === "SIM").length,
@@ -1940,6 +1338,7 @@
         }
       });
 
+
       const finLabels = ["Liberado", "Solicitado", "Pendente"];
       const finCounts = finLabels.map(fl => rows.filter(r => r.fin_status === fl).length);
       if (charts.donutFinanceiro) charts.donutFinanceiro.destroy();
@@ -1962,34 +1361,6 @@
       });
     }
 
-    function applySectionView() {
-      const secRow2 = document.getElementById("sec-row2");
-      const secRow3 = document.getElementById("sec-row3");
-      const secRow4 = document.getElementById("sec-row4");
-      const secTable = document.getElementById("sec-table");
-
-      secRow2.classList.remove("hidden");
-      secRow3.classList.remove("hidden");
-      secRow4.classList.remove("hidden");
-      secTable.classList.remove("hidden");
-
-      if (state.view === "etapas") {
-        secRow4.classList.add("hidden");
-      } else if (state.view === "montadores") {
-        secRow3.classList.add("hidden");
-        secRow4.classList.add("hidden");
-      } else if (state.view === "gargalos") {
-        secRow2.classList.add("hidden");
-        secRow4.classList.add("hidden");
-      } else if (state.view === "lojas") {
-        secRow2.classList.add("hidden");
-        secRow3.classList.add("hidden");
-      } else if (state.view === "contratos") {
-        secRow2.classList.add("hidden");
-        secRow3.classList.add("hidden");
-        secRow4.classList.add("hidden");
-      }
-    }
 
     
     // ==========================================
@@ -2037,12 +1408,10 @@
       const totalDays = new Date(year, month + 1, 0).getDate();
 
       let html = "";
-      // Slots vazios antes do dia 1
       for (let i = 0; i < sunFirstOffset; i++) {
         html += `<div class="h-7 w-7"></div>`;
       }
 
-      // Dias do mês
       for (let day = 1; day <= totalDays; day++) {
         const curDate = new Date(year, month, day);
         const isStartDay = isSameDay(curDate, calState.tempStart);
@@ -2131,7 +1500,6 @@
       calState.tempStart = state[`filter${cap}Start`];
       calState.tempEnd = state[`filter${cap}End`];
 
-      // Inicializa visualização no mês do filtro ou Outubro/2026
       if (calState.tempStart) {
         calState.viewStartYear = calState.tempStart.getFullYear();
         calState.viewStartMonth = calState.tempStart.getMonth();
@@ -2242,6 +1610,41 @@
       state.filterMontagemEnd = null;
       updateAll();
     }
+
+    function applySectionView() {
+      const secRow2 = document.getElementById("sec-row2");
+      const secRow3 = document.getElementById("sec-row3");
+      const secRow4 = document.getElementById("sec-row4");
+      const secTable = document.getElementById("sec-table");
+      const secDateFilters = document.getElementById("sec-date-filters");
+
+      secRow2.classList.remove("hidden");
+      secRow3.classList.remove("hidden");
+      secRow4.classList.remove("hidden");
+      secTable.classList.remove("hidden");
+      // Na visualização Visão Geral (ou qualquer outra diferente de contratos), os filtros de data ficam visíveis
+      if (secDateFilters) secDateFilters.classList.remove("hidden");
+
+      if (state.view === "etapas") {
+        secRow4.classList.add("hidden");
+      } else if (state.view === "montadores") {
+        secRow3.classList.add("hidden");
+        secRow4.classList.add("hidden");
+      } else if (state.view === "gargalos") {
+        secRow2.classList.add("hidden");
+        secRow4.classList.add("hidden");
+      } else if (state.view === "lojas") {
+        secRow2.classList.add("hidden");
+        secRow3.classList.add("hidden");
+      } else if (state.view === "contratos") {
+        // Exclusivo da Tabela de Contratos: retira filtros por período de data para deixar a TV mais limpa
+        secRow2.classList.add("hidden");
+        secRow3.classList.add("hidden");
+        secRow4.classList.add("hidden");
+        if (secDateFilters) secDateFilters.classList.add("hidden");
+      }
+    }
+
     function updateAll() {
       const rows = getFilteredData();
       const metrics = renderKPIs(rows);
@@ -2254,10 +1657,12 @@
       try { updateDateFilterUI(); } catch (e) { console.error(e); }
     }
 
+
     function toggleTvRotation() {
       const btn = document.getElementById("btn-tv-cycle");
       const statusLabel = document.getElementById("tv-status-label");
       const progressBar = document.getElementById("tv-progress-bar");
+
 
       if (state.tvTimer) {
         clearInterval(state.tvTimer);
@@ -2268,6 +1673,7 @@
         state.tvProgressTimer = null;
       }
 
+
       state.tvAutoRotate = !state.tvAutoRotate;
       if (!state.tvAutoRotate) {
         btn.textContent = "ATIVAR";
@@ -2277,24 +1683,23 @@
         return;
       }
 
+
       btn.textContent = "ATIVO";
       btn.className = "px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition";
-      const cycleStages = TV_CYCLE_STAGES;
+      const cycleStages = ["TODOS", ...STAGES_ORDER];
       let idx = cycleStages.indexOf(state.etapa);
-      if (idx < 0) {
-        idx = 0;
-        state.etapa = cycleStages[0];
-        document.getElementById("filter-etapa").value = state.etapa;
-        updateAll();
-      }
+      if (idx < 0) idx = 0;
+
 
       state.tvProgress = 0;
-      statusLabel.textContent = `Loop TV (8s): ${state.etapa}`;
+      statusLabel.textContent = "Alternando etapas a cada 8s na TV...";
+
 
       state.tvProgressTimer = setInterval(() => {
         state.tvProgress = (state.tvProgress + 12.5) % 100;
         progressBar.style.width = state.tvProgress + "%";
       }, 1000);
+
 
       state.tvTimer = setInterval(() => {
         idx = (idx + 1) % cycleStages.length;
@@ -2302,13 +1707,14 @@
         document.getElementById("filter-etapa").value = state.etapa;
         state.tvProgress = 0;
         progressBar.style.width = "0%";
-        statusLabel.textContent = `Loop TV (8s): ${state.etapa}`;
         updateAll();
       }, 8000);
     }
 
+
     window.addEventListener("DOMContentLoaded", () => {
       populateMontadorDropdown();
+
 
       document.getElementById("filter-etapa").addEventListener("change", e => {
         state.etapa = e.target.value;
@@ -2344,6 +1750,7 @@
         resetDateFilters();
       });
 
+
       document.querySelectorAll(".nav-view-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           document.querySelectorAll(".nav-view-btn").forEach(b => {
@@ -2358,6 +1765,157 @@
       });
 
 
+
+
+    const SHEET_ID = "1oE983PuIyK-t1CRjm81sl-o3ReBSWPOrKmT346uBsaA";
+    const SHEET_NAME = "Página1";
+
+
+    
+    function fmtBrDisplay(dt) {
+      if (!dt) return "";
+      const d = String(dt.getDate()).padStart(2, "0");
+      const m = String(dt.getMonth() + 1).padStart(2, "0");
+      const y = dt.getFullYear();
+      return `${d}/${m}/${y}`;
+    }
+
+    function parseBrDate(str) {
+      if (!str || typeof str !== "string") return null;
+      const clean = str.trim();
+      const m = clean.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+      if (!m) return null;
+      const d = parseInt(m[1], 10);
+      const mo = parseInt(m[2], 10) - 1;
+      let y = parseInt(m[3], 10);
+      if (y < 100) y += 2000;
+      const dt = new Date(y, mo, d);
+      return isNaN(dt.getTime()) ? null : dt;
+    }
+
+
+    function diffDays(dStart, dEnd) {
+      const dt1 = parseBrDate(dStart);
+      const dt2 = parseBrDate(dEnd);
+      if (!dt1 || !dt2) return null;
+      return Math.round((dt2 - dt1) / (1000 * 60 * 60 * 24));
+    }
+
+    function parseNumVal(str) {
+      if (str === undefined || str === null || str === "") return 0;
+      if (typeof str === "number") return Math.round(str);
+      const s = String(str).trim();
+      if (s.includes("/")) return 0;
+      const cleaned = s.replace(/[^\d,.-]/g, "").trim();
+      if (!cleaned) return 0;
+      const norm = cleaned.replace(/\./g, "").replace(",", ".");
+      const n = parseFloat(norm);
+      return isNaN(n) ? 0 : Math.round(n);
+    }
+
+
+    function syncFromGoogleSheets() {
+      const statusEl = document.getElementById("sync-status-text");
+      if (statusEl) statusEl.textContent = "Sincronizando...";
+
+
+      window.__handleGvizResponse = function( payload ) {
+        try {
+          if (!payload || !payload.table || !payload.table.rows) return;
+          const rows = payload.table.rows;
+          const parsed = [];
+          const monthsPt = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+          rows.forEach((r, idx) => {
+            const c = r.c || [];
+            const val = i => (c[i] && (c[i].f || c[i].v !== null && c[i].v !== undefined)) ? String(c[i].f || c[i].v).trim() : "";
+            const contrato = val(1);
+            const cliente = val(4);
+            if (!contrato && !cliente) return;
+            if (contrato.toUpperCase() === "CONTRATO") return;
+
+
+            const d_med = val(10);
+            const d_comp = val(11);
+            const d_pag = val(12);
+            const d_dep = val(13);
+            const d_ent = val(14);
+            const d_ini = val(15);
+            const d_fim = val(16);
+            const prazo = val(17);
+            const volumes = parseInt(val(18), 10) || 0;
+            const fin_status = val(23) || "Pendente";
+            const montador = val(24);
+            const etapa = val(25);
+
+
+            const is_at = contrato.toUpperCase().includes("AT");
+            const s1 = diffDays(d_med, d_comp);
+            const s2 = diffDays(d_comp, d_pag);
+            const s3 = diffDays(d_pag, d_dep);
+            const s4 = diffDays(d_dep, d_ent);
+            const s5 = diffDays(d_ent, d_ini);
+            const s6 = diffDays(d_ini, d_fim);
+            const total = diffDays(d_med, d_fim);
+
+
+            const lastDate = d_fim || d_ini || d_ent || d_dep || d_pag || d_comp || d_med;
+            const elapsed = diffDays(d_med, lastDate);
+
+
+            let no_prazo = true;
+            const dtPrazo = parseBrDate(prazo);
+            const dtRef = parseBrDate(d_fim) || new Date(2026, 9, 21);
+            if (dtPrazo && dtRef > dtPrazo) no_prazo = false;
+
+
+            const dtMed = parseBrDate(d_med) || parseBrDate(d_dep);
+            const mes = dtMed ? `${monthsPt[dtMed.getMonth()]}/${dtMed.getFullYear()}` : "Outubro/2026";
+
+
+            parsed.push({
+              row: idx + 2,
+              pedido: val(0),
+              contrato,
+              nf: val(2),
+              loja: val(3) || "N/I",
+              cliente,
+              transportador: val(6) || "—",
+              decorado: val(9).toUpperCase() === "SIM" ? "SIM" : "NÃO",
+              d_med, d_comp, d_pag, d_dep, d_ent, d_ini, d_fim, prazo,
+              volumes, fin_status, montador, etapa, mes, is_at, no_prazo,
+              s1, s2, s3, s4, s5, s6, total, elapsed
+            });
+          });
+
+
+          if (parsed.length > 5) {
+            RAW_DATA.length = 0;
+            parsed.forEach(item => RAW_DATA.push(item));
+            populateMontadorDropdown();
+            updateAll();
+            if (statusEl) {
+              const now = new Date();
+              statusEl.textContent = "Ao Vivo • " + now.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"});
+            }
+          }
+        } catch (err) {
+          if (statusEl) statusEl.textContent = "Base Local Ativa";
+        }
+      };
+
+
+      const oldScript = document.getElementById("gviz-jsonp-script");
+      if (oldScript) oldScript.remove();
+      const s = document.createElement("script");
+      s.id = "gviz-jsonp-script";
+      s.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:__handleGvizResponse&sheet=${encodeURIComponent(SHEET_NAME)}&_ts=${Date.now()}`;
+      s.onerror = () => {
+        if (statusEl) statusEl.textContent = "Sync Auto (Local)";
+      };
+      document.body.appendChild(s);
+    }
+
+
       document.getElementById("btn-tv-cycle").addEventListener("click", toggleTvRotation);
       document.getElementById("btn-sync-sheets").addEventListener("click", syncFromGoogleSheets);
       document.getElementById("btn-fullscreen-tv").addEventListener("click", () => {
@@ -2367,29 +1925,9 @@
           document.exitFullscreen().catch(() => {});
         }
       });
-      // Atualiza o tempo no depósito (Hoje - Chegada no Depósito) para contratos em aberto
-      const nowInit = new Date();
-      const todayInit = new Date(nowInit.getFullYear(), nowInit.getMonth(), nowInit.getDate());
-      RAW_DATA.forEach(r => {
-        const dtDep = parseBrDate(r.d_dep);
-        const dtEnt = parseBrDate(r.d_ent);
-        const dtMed = parseBrDate(r.d_med);
-        const dtPrazo = parseBrDate(r.prazo);
-        const dtFim = parseBrDate(r.d_fim);
-        if (!dtEnt && dtDep && r.etapa === "NO DEPÓSITO") {
-          r.s4 = Math.max(0, Math.round((todayInit - dtDep) / (1000 * 60 * 60 * 24)));
-          r.s4_open = true;
-          if (dtMed) {
-            r.elapsed = Math.round((todayInit - dtMed) / (1000 * 60 * 60 * 24));
-          }
-        }
-        if (dtPrazo) {
-          r.no_prazo = (dtFim || todayInit) <= dtPrazo;
-        }
-      });
+      setInterval(syncFromGoogleSheets, 60000);
+      setTimeout(syncFromGoogleSheets, 1500);
 
-      setInterval(syncFromGoogleSheets, 30000);
-      setTimeout(syncFromGoogleSheets, 800);
 
       
       // Listeners dos 3 Menus que abrem o Calendário Duplo do Print
@@ -2501,7 +2039,6 @@
           closeDatePickerModal();
         }
       });
-      // Fecha com Escape
       window.addEventListener("keydown", e => {
         if (e.key === "Escape") closeDatePickerModal();
       });
