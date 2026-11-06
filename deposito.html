@@ -69,60 +69,22 @@
 
 
       <!-- Navigation Buttons -->
-      <nav class="flex lg:flex-col gap-1.5 overflow-x-auto pb-1 lg:pb-0">
-        <button id="nav-visao-geral" type="button" data-view="all"
-                class="nav-view-btn nav-btn-active flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-10.5z"/>
-          </svg>
-          <span>Visão Geral</span>
-        </button>
-
-
-        <button id="nav-etapas" type="button" data-view="etapas"
-                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-          <span>Tempos por Etapa</span>
-        </button>
-
-
-        <button id="nav-montadores" type="button" data-view="montadores"
-                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-          </svg>
-          <span>Eficiência & Montagem</span>
-        </button>
-
-
-        <button id="nav-gargalos" type="button" data-view="gargalos"
-                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <span>Prazos & Gargalos</span>
-        </button>
-
-
-        <button id="nav-lojas" type="button" data-view="lojas"
-                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <span>Lojas & Perfil</span>
-        </button>
-
-
-        <button id="nav-contratos" type="button" data-view="contratos"
-                class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs lg:text-sm font-medium transition-all whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-          <span>Tabela de Contratos</span>
-        </button>
-      </nav>
+      <nav class="flex lg:flex-col gap-2 overflow-x-auto pb-1 lg:pb-0">
+          <button id="nav-visao-geral" type="button" data-view="all"
+                  class="nav-view-btn nav-btn-active flex items-center gap-3 px-4 py-3 rounded-lg text-xs lg:text-sm font-bold transition-all whitespace-nowrap cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-10.5z"/>
+            </svg>
+            <span>Visão Geral</span>
+          </button>
+          <button id="nav-contratos" type="button" data-view="contratos"
+                  class="nav-view-btn text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-3 px-4 py-3 rounded-lg text-xs lg:text-sm font-bold transition-all whitespace-nowrap cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span>Tabela de Contratos</span>
+          </button>
+        </nav>
     </div>
 
 
@@ -259,7 +221,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full lg:w-auto">
           <!-- MENU 1: Data de Chegada no Depósito -->
           <button id="btn-trigger-chegada" type="button"
-                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm">
+                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm cursor-pointer">
             <div class="flex items-center gap-2 truncate">
               <span class="text-base shrink-0">📦</span>
               <div class="truncate">
@@ -275,7 +237,7 @@
 
           <!-- MENU 2: Data de Entrega no Cliente -->
           <button id="btn-trigger-entrega" type="button"
-                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm">
+                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm cursor-pointer">
             <div class="flex items-center gap-2 truncate">
               <span class="text-base shrink-0">🚚</span>
               <div class="truncate">
@@ -291,7 +253,7 @@
 
           <!-- MENU 3: Data do Final da Montagem (Montado) -->
           <button id="btn-trigger-montagem" type="button"
-                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm">
+                  class="date-filter-btn text-left bg-slate-800/90 hover:bg-slate-750 border border-slate-700 hover:border-blue-400 rounded-lg p-2.5 flex items-center justify-between gap-2 transition group shadow-sm cursor-pointer">
             <div class="flex items-center gap-2 truncate">
               <span class="text-base shrink-0">🛠️</span>
               <div class="truncate">
@@ -1618,30 +1580,20 @@
       const secTable = document.getElementById("sec-table");
       const secDateFilters = document.getElementById("sec-date-filters");
 
-      secRow2.classList.remove("hidden");
-      secRow3.classList.remove("hidden");
-      secRow4.classList.remove("hidden");
-      secTable.classList.remove("hidden");
-      // Na visualização Visão Geral (ou qualquer outra diferente de contratos), os filtros de data ficam visíveis
-      if (secDateFilters) secDateFilters.classList.remove("hidden");
-
-      if (state.view === "etapas") {
-        secRow4.classList.add("hidden");
-      } else if (state.view === "montadores") {
-        secRow3.classList.add("hidden");
-        secRow4.classList.add("hidden");
-      } else if (state.view === "gargalos") {
-        secRow2.classList.add("hidden");
-        secRow4.classList.add("hidden");
-      } else if (state.view === "lojas") {
-        secRow2.classList.add("hidden");
-        secRow3.classList.add("hidden");
-      } else if (state.view === "contratos") {
-        // Exclusivo da Tabela de Contratos: retira filtros por período de data para deixar a TV mais limpa
-        secRow2.classList.add("hidden");
-        secRow3.classList.add("hidden");
-        secRow4.classList.add("hidden");
+      if (state.view === "contratos") {
+        // Exclusivo da Tabela de Contratos: retira filtros por período de data e gráficos para deixar a tela da TV limpa
+        if (secRow2) secRow2.classList.add("hidden");
+        if (secRow3) secRow3.classList.add("hidden");
+        if (secRow4) secRow4.classList.add("hidden");
         if (secDateFilters) secDateFilters.classList.add("hidden");
+        if (secTable) secTable.classList.remove("hidden");
+      } else {
+        // Visão Geral: exibe tudo (gráficos, filtros de data e tabela)
+        if (secRow2) secRow2.classList.remove("hidden");
+        if (secRow3) secRow3.classList.remove("hidden");
+        if (secRow4) secRow4.classList.remove("hidden");
+        if (secDateFilters) secDateFilters.classList.remove("hidden");
+        if (secTable) secTable.classList.remove("hidden");
       }
     }
 
@@ -1818,75 +1770,95 @@
       const statusEl = document.getElementById("sync-status-text");
       if (statusEl) statusEl.textContent = "Sincronizando...";
 
-
       window.__handleGvizResponse = function( payload ) {
         try {
           if (!payload || !payload.table || !payload.table.rows) return;
           const rows = payload.table.rows;
           const parsed = [];
           const monthsPt = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+          const now = new Date();
+          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
           rows.forEach((r, idx) => {
             const c = r.c || [];
             const val = i => (c[i] && (c[i].f || c[i].v !== null && c[i].v !== undefined)) ? String(c[i].f || c[i].v).trim() : "";
             const contrato = val(1);
-            const cliente = val(4);
-            if (!contrato && !cliente) return;
-            if (contrato.toUpperCase() === "CONTRATO") return;
+            if (!contrato || contrato.toUpperCase() === "CONTRATO") return;
 
+            const pedido = val(0);
+            const nf = val(2);
+            const loja = val(3) || "N/I";
+            const transportador = val(7) || "—";
+            const cliente = val(8) || "—";
+            const decorado = val(9).toUpperCase() === "SIM" ? "SIM" : "NÃO";
 
             const d_med = val(10);
             const d_comp = val(11);
             const d_pag = val(12);
             const d_dep = val(13);
-            const d_ent = val(14);
-            const d_ini = val(15);
-            const d_fim = val(16);
+            const rawVol = val(14);
+            const volumes = (rawVol && !rawVol.includes("/")) ? parseNumVal(rawVol) : 0;
+            const lib_fin = val(15);
             const prazo = val(17);
-            const volumes = parseInt(val(18), 10) || 0;
-            const fin_status = val(23) || "Pendente";
-            const montador = val(24);
-            const etapa = val(25);
+            const d_ent = val(18);
+            const d_ini = val(19);
+            const d_fim = val(20);
+            const montador = val(21);
+            const etapa = val(22);
 
-
-            const is_at = contrato.toUpperCase().includes("AT");
+            const is_at = /^AT\b|^AT\d|^AT\s/i.test(contrato);
             const s1 = diffDays(d_med, d_comp);
             const s2 = diffDays(d_comp, d_pag);
             const s3 = diffDays(d_pag, d_dep);
-            const s4 = diffDays(d_dep, d_ent);
+            const s4_closed = diffDays(d_dep, d_ent);
+            let s4 = s4_closed;
+            let s4_open = false;
+            const dtDep = parseBrDate(d_dep);
+            if (s4_closed === null && dtDep && (etapa === "NO DEPÓSITO" || !d_ent)) {
+              s4 = Math.max(0, Math.round((today - dtDep) / (1000 * 60 * 60 * 24)));
+              s4_open = true;
+            }
             const s5 = diffDays(d_ent, d_ini);
             const s6 = diffDays(d_ini, d_fim);
             const total = diffDays(d_med, d_fim);
 
+            const dtFim = parseBrDate(d_fim);
+            const dtIni = parseBrDate(d_ini);
+            const dtEnt = parseBrDate(d_ent);
+            const dtPag = parseBrDate(d_pag);
+            const dtComp = parseBrDate(d_comp);
+            const dtMed = parseBrDate(d_med);
 
-            const lastDate = d_fim || d_ini || d_ent || d_dep || d_pag || d_comp || d_med;
-            const elapsed = diffDays(d_med, lastDate);
-
+            const lastDate = dtFim || dtIni || dtEnt || ((etapa === "NO DEPÓSITO" && dtDep) ? today : dtDep) || dtPag || dtComp;
+            const elapsed = (dtMed && lastDate) ? Math.round((lastDate - dtMed) / (1000 * 60 * 60 * 24)) : null;
 
             let no_prazo = true;
             const dtPrazo = parseBrDate(prazo);
-            const dtRef = parseBrDate(d_fim) || new Date(2026, 9, 21);
+            const dtRef = dtFim || today;
             if (dtPrazo && dtRef > dtPrazo) no_prazo = false;
 
+            const refCohort = dtMed || dtComp || dtDep;
+            const mes = refCohort ? `${monthsPt[refCohort.getMonth()]}/${refCohort.getFullYear()}` : "Novembro/2026";
 
-            const dtMed = parseBrDate(d_med) || parseBrDate(d_dep);
-            const mes = dtMed ? `${monthsPt[dtMed.getMonth()]}/${dtMed.getFullYear()}` : "Outubro/2026";
-
+            let fin_status = "Pendente";
+            if (lib_fin) {
+              fin_status = lib_fin.toUpperCase().includes("SOLIC") ? "Solicitado" : "Liberado";
+            }
 
             parsed.push({
               row: idx + 2,
-              pedido: val(0),
+              pedido,
               contrato,
-              nf: val(2),
-              loja: val(3) || "N/I",
+              nf,
+              loja,
               cliente,
-              transportador: val(6) || "—",
-              decorado: val(9).toUpperCase() === "SIM" ? "SIM" : "NÃO",
+              transportador,
+              decorado,
               d_med, d_comp, d_pag, d_dep, d_ent, d_ini, d_fim, prazo,
               volumes, fin_status, montador, etapa, mes, is_at, no_prazo,
-              s1, s2, s3, s4, s5, s6, total, elapsed
+              s1, s2, s3, s4, s4_open, s5, s6, total, elapsed
             });
           });
-
 
           if (parsed.length > 5) {
             RAW_DATA.length = 0;
@@ -1903,7 +1875,6 @@
         }
       };
 
-
       const oldScript = document.getElementById("gviz-jsonp-script");
       if (oldScript) oldScript.remove();
       const s = document.createElement("script");
@@ -1915,8 +1886,7 @@
       document.body.appendChild(s);
     }
 
-
-      document.getElementById("btn-tv-cycle").addEventListener("click", toggleTvRotation);
+          document.getElementById("btn-tv-cycle").addEventListener("click", toggleTvRotation);
       document.getElementById("btn-sync-sheets").addEventListener("click", syncFromGoogleSheets);
       document.getElementById("btn-fullscreen-tv").addEventListener("click", () => {
         if (!document.fullscreenElement) {
