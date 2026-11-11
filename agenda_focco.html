@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Agendas - Grupo Cast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Carrega os dados localmente sem bloqueio de CORS do navegador -->
+    <script src="dados_agenda.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+    <header class="bg-slate-800 border-b border-slate-700 px-6 py-4 flex flex-wrap justify-between items-center shadow-md">
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-600 p-2 rounded-lg text-white">
+                <i data-lucide="calendar-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-wide">Painel de Logística & Agendas</h1>
+                <p class="text-xs text-slate-400">Grupo Cast • FoccoLojas</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+            <button onclick="filtrarHoje()" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-sm font-medium transition shadow flex items-center space-x-2">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+                <span>Hoje</span>
+            </button>
+            <button onclick="limparFiltros()" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-lg text-sm font-medium transition shadow flex items-center space-x-2">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                <span>Ver Tudo</span>
+            </button>
+            <span id="data-atual" class="text-sm bg-slate-900 border border-slate-700 px-3 py-2 rounded-lg text-slate-300 font-medium"></span>
+        </div>
+    </header>
+
+    <main class="p-6 max-w-7xl mx-auto space-y-6">
+        <!-- Filtros Rápidos -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-sm">
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Filtrar por Data</label>
+                <input type="date" id="filtro-data" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Filtrar por Responsável</label>
+                <select id="filtro-responsavel" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+                    <option value="">Todos os Responsáveis</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Tipo de Agenda</label>
+                <select id="filtro-tipo" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+                    <option value="">Todos os Tipos</option>
+                    <option value="Entrega">Entrega</option>
+                    <option value="Montagem">Montagem</option>
+                    <option value="Medição">Medição</option>
+                    <option value="Assistência Técnica">Assistência Técnica</option>
+                    <option value="Compromisso">Compromisso</option>
+                    <option value="Apresentação">Apresentação</option>
+                    <option value="Tarefa">Tarefa</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Situação</label>
+                <select id="filtro-situacao" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+                    <option value="">Todas as Situações</option>
+                    <option value="Confirmada">Agenda Confirmada</option>
+                    <option value="Realizado">Realizado</option>
+                    <option value="Atrasado">Atrasado</option>
+                    <option value="Pré-Agenda">Pré-Agenda</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Cards de Métricas -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl shadow">
+                <p class="text-xs text-slate-400 font-medium uppercase">Total Filtrado</p>
+                <h3 id="stat-total" class="text-3xl font-bold mt-1 text-white">0</h3>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl shadow">
+                <p class="text-xs text-slate-400 font-medium uppercase">Confirmadas</p>
+                <h3 id="stat-confirmadas" class="text-3xl font-bold mt-1 text-blue-400">0</h3>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl shadow">
+                <p class="text-xs text-slate-400 font-medium uppercase">Realizadas</p>
+                <h3 id="stat-realizadas" class="text-3xl font-bold mt-1 text-emerald-400">0</h3>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl shadow">
+                <p class="text-xs text-slate-400 font-medium uppercase">Atrasadas / Pré-Agenda</p>
+                <h3 id="stat-atrasadas" class="text-3xl font-bold mt-1 text-amber-400">0</h3>
+            </div>
+        </div>
+
+        <!-- Tabela de Agendas -->
+        <div class="bg-slate-800 border border-slate-700 rounded-xl shadow overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+                <h2 class="font-semibold text-lg">Compromissos da Equipe</h2>
+                <span id="contador-resultados" class="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300 font-medium">0 registros</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-900/60 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700">
+                            <th class="px-5 py-3.5 font-semibold">Quando</th>
+                            <th class="px-5 py-3.5 font-semibold">Tipo / Loja</th>
+                            <th class="px-5 py-3.5 font-semibold">Responsável</th>
+                            <th class="px-5 py-3.5 font-semibold">Cliente & Endereço</th>
+                            <th class="px-5 py-3.5 font-semibold">Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-corpo" class="divide-y divide-slate-700/70 text-sm">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        let todosDados = [];
+
+        async function carregarDados() {
+            // 1. Se abriu direto na pasta local (via dados_agenda.js), carrega na hora!
+            if (window.DADOS_AGENDA && Array.isArray(window.DADOS_AGENDA)) {
+                todosDados = window.DADOS_AGENDA;
+                popularSelectResponsaveis();
+                aplicarFiltros();
+                return;
+            }
+            // 2. Fallback via fetch (para servidor web / GitHub Pages)
+            try {
+                const resposta = await fetch('dados_agenda.json?t=' + new Date().getTime());
+                todosDados = await resposta.json();
+                popularSelectResponsaveis();
+                aplicarFiltros();
+            } catch (erro) {
+                console.error("Erro ao carregar dados:", erro);
+            }
+        }
+
+        function popularSelectResponsaveis() {
+            const select = document.getElementById('filtro-responsavel');
+            select.innerHTML = '<option value="">Todos os Responsáveis</option>';
+            const responsaveis = [...new Set(todosDados.map(item => item.responsavel))].filter(Boolean).sort();
+            responsaveis.forEach(resp => {
+                let opt = document.createElement('option');
+                opt.value = resp;
+                opt.textContent = resp;
+                select.appendChild(opt);
+            });
+        }
+
+        function aplicarFiltros() {
+            const dataFiltro = document.getElementById('filtro-data').value;
+            const respFiltro = document.getElementById('filtro-responsavel').value;
+            const tipoFiltro = document.getElementById('filtro-tipo').value;
+            const sitFiltro = document.getElementById('filtro-situacao').value;
+
+            let filtrados = todosDados.filter(item => {
+                let matchData = !dataFiltro || (item.dataInicio && item.dataInicio.includes(dataFiltro));
+                let matchResp = !respFiltro || item.responsavel === respFiltro;
+                let matchTipo = !tipoFiltro || (item.tipo && item.tipo.toLowerCase().includes(tipoFiltro.toLowerCase()));
+                let matchSit = !sitFiltro || (item.situacao && item.situacao.toLowerCase().includes(sitFiltro.toLowerCase()));
+                return matchData && matchResp && matchTipo && matchSit;
+            });
+
+            atualizarEstatisticas(filtrados);
+            renderizarTabela(filtrados);
+        }
+
+        function atualizarEstatisticas(dados) {
+            document.getElementById('stat-total').textContent = dados.length;
+            document.getElementById('stat-confirmadas').textContent = dados.filter(i => i.situacao && i.situacao.includes('Confirmada')).length;
+            document.getElementById('stat-realizadas').textContent = dados.filter(i => i.situacao && i.situacao.includes('Realizado')).length;
+            document.getElementById('stat-atrasadas').textContent = dados.filter(i => i.situacao && (i.situacao.includes('Atrasado') || i.situacao.includes('Pré-Agenda'))).length;
+            document.getElementById('contador-resultados').textContent = `${dados.length} registros`;
+        }
+
+        function renderizarTabela(dados) {
+            const corpo = document.getElementById('tabela-corpo');
+            corpo.innerHTML = '';
+            if (dados.length === 0) {
+                corpo.innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-slate-400">Nenhum compromisso encontrado para os filtros selecionados.</td></tr>`;
+                return;
+            }
+            dados.forEach(item => {
+                let badgeSit = 'bg-slate-700 text-slate-300';
+                if (item.situacao.includes('Confirmada')) badgeSit = 'bg-blue-900/60 text-blue-300 border border-blue-700';
+                if (item.situacao.includes('Realizado')) badgeSit = 'bg-emerald-900/60 text-emerald-300 border border-emerald-700';
+                if (item.situacao.includes('Atrasado')) badgeSit = 'bg-amber-900/60 text-amber-300 border border-amber-700';
+
+                let subtipoHtml = item.subtipo ? `<span class="text-xs text-blue-400 font-normal"> • ${item.subtipo}</span>` : '';
+                let ambHtml = item.ambientes ? `<div class="text-xs text-slate-500 mt-1"><strong>Ambientes:</strong> ${item.ambientes}</div>` : '';
+
+                let tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/80 transition';
+                tr.innerHTML = `
+                    <td class="px-5 py-4 whitespace-nowrap text-xs text-slate-300 font-medium">${item.quando}</td>
+                    <td class="px-5 py-4 whitespace-nowrap">
+                        <span class="font-semibold text-white">${item.tipo}</span>${subtipoHtml}
+                        <div class="text-xs text-slate-400 mt-0.5">${item.loja}</div>
+                    </td>
+                    <td class="px-5 py-4 whitespace-nowrap text-sm font-medium text-blue-300">${item.responsavel}</td>
+                    <td class="px-5 py-4 text-sm max-w-md">
+                        <div class="font-semibold text-slate-100">${item.cliente}</div>
+                        <div class="text-xs text-slate-400 mt-0.5">${item.endereco}</div>
+                        ${ambHtml}
+                    </td>
+                    <td class="px-5 py-4 whitespace-nowrap">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeSit}">${item.situacao}</span>
+                    </td>
+                `;
+                corpo.appendChild(tr);
+            });
+        }
+
+        function filtrarHoje() {
+            const hoje = new Date();
+            const yyyy = hoje.getFullYear();
+            const mm = String(hoje.getMonth() + 1).padStart(2, '0');
+            const dd = String(hoje.getDate()).padStart(2, '0');
+            document.getElementById('filtro-data').value = `${yyyy}-${mm}-${dd}`;
+            aplicarFiltros();
+        }
+
+        function limparFiltros() {
+            document.getElementById('filtro-data').value = '';
+            document.getElementById('filtro-responsavel').value = '';
+            document.getElementById('filtro-tipo').value = '';
+            document.getElementById('filtro-situacao').value = '';
+            aplicarFiltros();
+        }
+
+        document.getElementById('data-atual').textContent = new Date().toLocaleDateString('pt-BR');
+        carregarDados();
+    </script>
+</body>
+</html>
