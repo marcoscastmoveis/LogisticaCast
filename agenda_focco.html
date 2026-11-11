@@ -34,40 +34,62 @@
     </header>
 
     <main class="p-6 max-w-7xl mx-auto space-y-6">
-        <!-- Filtros Rápidos -->
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-sm">
-            <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Filtrar por Data</label>
-                <input type="date" id="filtro-data" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+        <!-- Barra de Filtros Avançados -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-sm">
+            <!-- Busca por Cliente -->
+            <div class="lg:col-span-2">
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Pesquisar Cliente</label>
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                    <input type="text" id="filtro-cliente" oninput="aplicarFiltros()" placeholder="Digite o nome do cliente..." class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                </div>
             </div>
+
+            <!-- Período: Data Inicial -->
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Filtrar por Responsável</label>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Data Inicial (De)</label>
+                <input type="date" id="filtro-data-inicio" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- Período: Data Final -->
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Data Final (Até)</label>
+                <input type="date" id="filtro-data-fim" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- Responsável -->
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Responsável</label>
                 <select id="filtro-responsavel" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
-                    <option value="">Todos os Responsáveis</option>
+                    <option value="">Todos</option>
                 </select>
             </div>
-            <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Tipo de Agenda</label>
-                <select id="filtro-tipo" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
-                    <option value="">Todos os Tipos</option>
-                    <option value="Entrega">Entrega</option>
-                    <option value="Montagem">Montagem</option>
-                    <option value="Medição">Medição</option>
-                    <option value="Assistência Técnica">Assistência Técnica</option>
-                    <option value="Compromisso">Compromisso</option>
-                    <option value="Apresentação">Apresentação</option>
-                    <option value="Tarefa">Tarefa</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Situação</label>
-                <select id="filtro-situacao" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
-                    <option value="">Todas as Situações</option>
-                    <option value="Confirmada">Agenda Confirmada</option>
-                    <option value="Realizado">Realizado</option>
-                    <option value="Atrasado">Atrasado</option>
-                    <option value="Pré-Agenda">Pré-Agenda</option>
-                </select>
+
+            <!-- Tipo e Situação agrupados ou separados -->
+            <div class="grid grid-cols-2 gap-2 lg:col-span-1">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Tipo</label>
+                    <select id="filtro-tipo" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+                        <option value="">Todos</option>
+                        <option value="Entrega">Entrega</option>
+                        <option value="Montagem">Montagem</option>
+                        <option value="Medição">Medição</option>
+                        <option value="Assistência Técnica">Assistência</option>
+                        <option value="Compromisso">Compromisso</option>
+                        <option value="Apresentação">Apresentação</option>
+                        <option value="Tarefa">Tarefa</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Situação</label>
+                    <select id="filtro-situacao" onchange="aplicarFiltros()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+                        <option value="">Todas</option>
+                        <option value="Confirmada">Confirmada</option>
+                        <option value="Realizado">Realizado</option>
+                        <option value="Atrasado">Atrasado</option>
+                        <option value="Pré-Agenda">Pré-Agenda</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -119,15 +141,18 @@
         lucide.createIcons();
         let todosDados = [];
 
+        // Remove acentos para facilitar a pesquisa por nome do cliente
+        function normalizarTexto(texto) {
+            return (texto || '').toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
         async function carregarDados() {
-            // 1. Se abriu direto na pasta local (via dados_agenda.js), carrega na hora!
             if (window.DADOS_AGENDA && Array.isArray(window.DADOS_AGENDA)) {
                 todosDados = window.DADOS_AGENDA;
                 popularSelectResponsaveis();
                 aplicarFiltros();
                 return;
             }
-            // 2. Fallback via fetch (para servidor web / GitHub Pages)
             try {
                 const resposta = await fetch('dados_agenda.json?t=' + new Date().getTime());
                 todosDados = await resposta.json();
@@ -140,7 +165,7 @@
 
         function popularSelectResponsaveis() {
             const select = document.getElementById('filtro-responsavel');
-            select.innerHTML = '<option value="">Todos os Responsáveis</option>';
+            select.innerHTML = '<option value="">Todos</option>';
             const responsaveis = [...new Set(todosDados.map(item => item.responsavel))].filter(Boolean).sort();
             responsaveis.forEach(resp => {
                 let opt = document.createElement('option');
@@ -151,17 +176,29 @@
         }
 
         function aplicarFiltros() {
-            const dataFiltro = document.getElementById('filtro-data').value;
+            const buscaCliente = normalizarTexto(document.getElementById('filtro-cliente').value.trim());
+            const dataInicioFiltro = document.getElementById('filtro-data-inicio').value;
+            const dataFimFiltro = document.getElementById('filtro-data-fim').value;
             const respFiltro = document.getElementById('filtro-responsavel').value;
             const tipoFiltro = document.getElementById('filtro-tipo').value;
             const sitFiltro = document.getElementById('filtro-situacao').value;
 
             let filtrados = todosDados.filter(item => {
-                let matchData = !dataFiltro || (item.dataInicio && item.dataInicio.includes(dataFiltro));
+                // 1. Filtro por Nome do Cliente (também busca no projeto ou endereço caso digite)
+                let textoCliente = normalizarTexto(`${item.cliente} ${item.projeto || ''} ${item.endereco || ''}`);
+                let matchCliente = !buscaCliente || textoCliente.includes(buscaCliente);
+
+                // 2. Filtro por Período (Data Inicial até Data Final)
+                let dataItem = item.dataInicio || '';
+                let matchDataInicio = !dataInicioFiltro || (dataItem >= dataInicioFiltro);
+                let matchDataFim = !dataFimFiltro || (dataItem <= dataFimFiltro);
+
+                // 3. Demais filtros
                 let matchResp = !respFiltro || item.responsavel === respFiltro;
                 let matchTipo = !tipoFiltro || (item.tipo && item.tipo.toLowerCase().includes(tipoFiltro.toLowerCase()));
                 let matchSit = !sitFiltro || (item.situacao && item.situacao.toLowerCase().includes(sitFiltro.toLowerCase()));
-                return matchData && matchResp && matchTipo && matchSit;
+
+                return matchCliente && matchDataInicio && matchDataFim && matchResp && matchTipo && matchSit;
             });
 
             atualizarEstatisticas(filtrados);
@@ -219,12 +256,16 @@
             const yyyy = hoje.getFullYear();
             const mm = String(hoje.getMonth() + 1).padStart(2, '0');
             const dd = String(hoje.getDate()).padStart(2, '0');
-            document.getElementById('filtro-data').value = `${yyyy}-${mm}-${dd}`;
+            const dataIso = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('filtro-data-inicio').value = dataIso;
+            document.getElementById('filtro-data-fim').value = dataIso;
             aplicarFiltros();
         }
 
         function limparFiltros() {
-            document.getElementById('filtro-data').value = '';
+            document.getElementById('filtro-cliente').value = '';
+            document.getElementById('filtro-data-inicio').value = '';
+            document.getElementById('filtro-data-fim').value = '';
             document.getElementById('filtro-responsavel').value = '';
             document.getElementById('filtro-tipo').value = '';
             document.getElementById('filtro-situacao').value = '';
