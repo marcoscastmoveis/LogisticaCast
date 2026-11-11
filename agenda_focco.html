@@ -6,7 +6,6 @@
     <title>Dashboard de Agendas - Grupo Cast</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Carrega os dados localmente sem bloqueio de CORS do navegador -->
     <script src="dados_agenda.js"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
@@ -65,7 +64,7 @@
                 </select>
             </div>
 
-            <!-- Tipo e Situação agrupados ou separados -->
+            <!-- Tipo e Situação -->
             <div class="grid grid-cols-2 gap-2 lg:col-span-1">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Tipo</label>
@@ -123,7 +122,7 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-900/60 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700">
-                            <th class="px-5 py-3.5 font-semibold">Quando</th>
+                            <th class="px-5 py-3.5 font-semibold">Início / Término</th>
                             <th class="px-5 py-3.5 font-semibold">Tipo / Loja</th>
                             <th class="px-5 py-3.5 font-semibold">Responsável</th>
                             <th class="px-5 py-3.5 font-semibold">Cliente & Endereço</th>
@@ -141,21 +140,52 @@
         lucide.createIcons();
         let todosDados = [];
 
-        // Remove acentos para facilitar a pesquisa por nome do cliente
         function normalizarTexto(texto) {
             return (texto || '').toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
+        // Garante que todo registro tenha dataInicio, dataFim, dataInicioBr e dataFimBr (mesmo em JSON antigo)
+        function enriquecerDatas(dados) {
+            return dados.map(item => {
+                const q = item.quando || '';
+                const datas = [...q.matchAll(/(\d{2})\/(\d{2})\/(\d{4})/g)];
+                const horas = [...q.matchAll(/(\d{2}:\d{2}h)/g)].map(m => m[1]);
+
+                let dataInicio = item.dataInicio || '2026-01-01';
+                let dataFim = item.dataFim || dataInicio;
+                let dataInicioBr = item.dataInicioBr || '';
+                let dataFimBr = item.dataFimBr || '';
+
+                if (datas.length >= 2) {
+                    const [_, d1, m1, a1] = datas[0];
+                    const [__, d2, m2, a2] = datas[1];
+                    dataInicio = `${a1}-${m1}-${d1}`;
+                    dataFim = `${a2}-${m2}-${d2}`;
+                    dataInicioBr = `${d1}/${m1}/${a1} ${horas[0] || ''}`.trim();
+                    dataFimBr = `${d2}/${m2}/${a2} ${horas[1] || ''}`.trim();
+                } else if (datas.length === 1) {
+                    const [_, d1, m1, a1] = datas[0];
+                    dataInicio = `${a1}-${m1}-${d1}`;
+                    dataFim = dataInicio;
+                    dataInicioBr = `${d1}/${m1}/${a1} ${horas[0] || ''}`.trim();
+                    dataFimBr = `${d1}/${m1}/${a1} ${horas[1] || ''}`.trim();
+                }
+
+                return { ...item, dataInicio, dataFim, dataInicioBr, dataFimBr };
+            });
+        }
+
         async function carregarDados() {
             if (window.DADOS_AGENDA && Array.isArray(window.DADOS_AGENDA)) {
-                todosDados = window.DADOS_AGENDA;
+                todosDados = enriquecerDatas(window.DADOS_AGENDA);
                 popularSelectResponsaveis();
                 aplicarFiltros();
                 return;
             }
             try {
                 const resposta = await fetch('dados_agenda.json?t=' + new Date().getTime());
-                todosDados = await resposta.json();
+                const bruto = await resposta.json();
+                todosDados = enriquecerDatas(bruto);
                 popularSelectResponsaveis();
                 aplicarFiltros();
             } catch (erro) {
@@ -184,14 +214,16 @@
             const sitFiltro = document.getElementById('filtro-situacao').value;
 
             let filtrados = todosDados.filter(item => {
-                // 1. Filtro por Nome do Cliente (também busca no projeto ou endereço caso digite)
+                // 1. Filtro por Nome do Cliente
                 let textoCliente = normalizarTexto(`${item.cliente} ${item.projeto || ''} ${item.endereco || ''}`);
                 let matchCliente = !buscaCliente || textoCliente.includes(buscaCliente);
 
-                // 2. Filtro por Período (Data Inicial até Data Final)
-                let dataItem = item.dataInicio || '';
-                let matchDataInicio = !dataInicioFiltro || (dataItem >= dataInicioFiltro);
-                let matchDataFim = !dataFimFiltro || (dataItem <= dataFimFiltro);
+                // 2. Filtro por Período considerando Data Inicial e Data Final do agendamento
+                // Mostra se o agendamento estiver ativo dentro do período pesquisado
+                let iniItem = item.dataInicio || '';
+                let fimItem = item.dataFim || iniItem;
+                let matchDataInicio = !dataInicioFiltro || (fimItem >= dataInicioFiltro);
+                let matchDataFim = !dataFimFiltro || (iniItem <= dataFimFiltro);
 
                 // 3. Demais filtros
                 let matchResp = !respFiltro || item.responsavel === respFiltro;
@@ -229,10 +261,22 @@
                 let subtipoHtml = item.subtipo ? `<span class="text-xs text-blue-400 font-normal"> • ${item.subtipo}</span>` : '';
                 let ambHtml = item.ambientes ? `<div class="text-xs text-slate-500 mt-1"><strong>Ambientes:</strong> ${item.ambientes}</div>` : '';
 
+                // Monta o bloco visual de Início e Fim
+                let blocoDatas = `<div class="text-xs text-slate-300">${item.quando}</div>`;
+                if (item.dataInicioBr && item.dataFimBr) {
+                    const corFim = (item.dataInicio !== item.dataFim) ? 'text-amber-300 font-semibold' : 'text-slate-300';
+                    blocoDatas = `
+                        <div class="text-xs space-y-1">
+                            <div><span class="text-slate-400 font-semibold uppercase text-[10px]">Início:</span> <span class="text-slate-100 font-medium">${item.dataInicioBr}</span></div>
+                            <div><span class="text-slate-400 font-semibold uppercase text-[10px]">Fim:</span> <span class="${corFim}">${item.dataFimBr}</span></div>
+                        </div>
+                    `;
+                }
+
                 let tr = document.createElement('tr');
                 tr.className = 'hover:bg-slate-800/80 transition';
                 tr.innerHTML = `
-                    <td class="px-5 py-4 whitespace-nowrap text-xs text-slate-300 font-medium">${item.quando}</td>
+                    <td class="px-5 py-4 whitespace-nowrap">${blocoDatas}</td>
                     <td class="px-5 py-4 whitespace-nowrap">
                         <span class="font-semibold text-white">${item.tipo}</span>${subtipoHtml}
                         <div class="text-xs text-slate-400 mt-0.5">${item.loja}</div>
