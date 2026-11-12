@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Dashboard de Agendas - Grupo Cast</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="dados_agenda.js"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
     <header class="bg-slate-800 border-b border-slate-700 px-6 py-4 flex flex-wrap justify-between items-center shadow-md">
@@ -16,7 +18,7 @@
             </div>
             <div>
                 <h1 class="text-xl font-bold tracking-wide">Painel de Logística & Agendas</h1>
-                <p class="text-xs text-slate-400">Grupo Cast • FoccoLojas</p>
+                <p id="subtitulo-atualizacao" class="text-xs text-slate-400">Grupo Cast • FoccoLojas</p>
             </div>
         </div>
         <div class="flex items-center space-x-3 mt-2 sm:mt-0">
@@ -40,7 +42,7 @@
                 <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Pesquisar Cliente</label>
                 <div class="relative">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                    <input type="text" id="filtro-cliente" oninput="aplicarFiltros()" placeholder="Digite o nome do cliente..." class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                    <input type="text" id="filtro-cliente" oninput="aplicarFiltros()" placeholder="Digite o nome do cliente (ex: Jorge)..." class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
                 </div>
             </div>
 
@@ -144,7 +146,6 @@
             return (texto || '').toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
-        // Garante que todo registro tenha dataInicio, dataFim, dataInicioBr e dataFimBr (mesmo em JSON antigo)
         function enriquecerDatas(dados) {
             return dados.map(item => {
                 const q = item.quando || '';
@@ -175,22 +176,32 @@
             });
         }
 
-        async function carregarDados() {
-            if (window.DADOS_AGENDA && Array.isArray(window.DADOS_AGENDA)) {
-                todosDados = enriquecerDatas(window.DADOS_AGENDA);
-                popularSelectResponsaveis();
-                aplicarFiltros();
-                return;
-            }
-            try {
-                const resposta = await fetch('dados_agenda.json?t=' + new Date().getTime());
-                const bruto = await resposta.json();
-                todosDados = enriquecerDatas(bruto);
-                popularSelectResponsaveis();
-                aplicarFiltros();
-            } catch (erro) {
-                console.error("Erro ao carregar dados:", erro);
-            }
+        // Carrega o dados_agenda.js e dados_agenda.json SEMPRE furando o cache do navegador (?v=timestamp)
+        function carregarDadosSemCache() {
+            const ts = new Date().getTime();
+            const script = document.createElement('script');
+            script.src = 'dados_agenda.js?v=' + ts;
+            script.onload = () => {
+                if (window.DADOS_AGENDA && Array.isArray(window.DADOS_AGENDA)) {
+                    todosDados = enriquecerDatas(window.DADOS_AGENDA);
+                    document.getElementById('subtitulo-atualizacao').textContent = `Grupo Cast • Base carregada: ${todosDados.length} compromissos`;
+                    popularSelectResponsaveis();
+                    aplicarFiltros();
+                }
+            };
+            script.onerror = async () => {
+                try {
+                    const resposta = await fetch('dados_agenda.json?v=' + ts, { cache: "no-store" });
+                    const bruto = await resposta.json();
+                    todosDados = enriquecerDatas(bruto);
+                    document.getElementById('subtitulo-atualizacao').textContent = `Grupo Cast • Base carregada: ${todosDados.length} compromissos`;
+                    popularSelectResponsaveis();
+                    aplicarFiltros();
+                } catch (e) {
+                    console.error("Erro ao carregar dados:", e);
+                }
+            };
+            document.head.appendChild(script);
         }
 
         function popularSelectResponsaveis() {
@@ -214,18 +225,14 @@
             const sitFiltro = document.getElementById('filtro-situacao').value;
 
             let filtrados = todosDados.filter(item => {
-                // 1. Filtro por Nome do Cliente
                 let textoCliente = normalizarTexto(`${item.cliente} ${item.projeto || ''} ${item.endereco || ''}`);
                 let matchCliente = !buscaCliente || textoCliente.includes(buscaCliente);
 
-                // 2. Filtro por Período considerando Data Inicial e Data Final do agendamento
-                // Mostra se o agendamento estiver ativo dentro do período pesquisado
                 let iniItem = item.dataInicio || '';
                 let fimItem = item.dataFim || iniItem;
                 let matchDataInicio = !dataInicioFiltro || (fimItem >= dataInicioFiltro);
                 let matchDataFim = !dataFimFiltro || (iniItem <= dataFimFiltro);
 
-                // 3. Demais filtros
                 let matchResp = !respFiltro || item.responsavel === respFiltro;
                 let matchTipo = !tipoFiltro || (item.tipo && item.tipo.toLowerCase().includes(tipoFiltro.toLowerCase()));
                 let matchSit = !sitFiltro || (item.situacao && item.situacao.toLowerCase().includes(sitFiltro.toLowerCase()));
@@ -261,7 +268,6 @@
                 let subtipoHtml = item.subtipo ? `<span class="text-xs text-blue-400 font-normal"> • ${item.subtipo}</span>` : '';
                 let ambHtml = item.ambientes ? `<div class="text-xs text-slate-500 mt-1"><strong>Ambientes:</strong> ${item.ambientes}</div>` : '';
 
-                // Monta o bloco visual de Início e Fim
                 let blocoDatas = `<div class="text-xs text-slate-300">${item.quando}</div>`;
                 if (item.dataInicioBr && item.dataFimBr) {
                     const corFim = (item.dataInicio !== item.dataFim) ? 'text-amber-300 font-semibold' : 'text-slate-300';
@@ -317,7 +323,7 @@
         }
 
         document.getElementById('data-atual').textContent = new Date().toLocaleDateString('pt-BR');
-        carregarDados();
+        carregarDadosSemCache();
     </script>
 </body>
 </html>
