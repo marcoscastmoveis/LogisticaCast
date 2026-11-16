@@ -1,4 +1,4 @@
-// Atualizado em: 16/11/2026 09:15:27
+// Atualizado em: 16/11/2026 15:43:29
 window.DADOS_AGENDA = [
     {
         "loja": "CAST SELECT MOVEIS PLANEJADOS",
@@ -506,7 +506,7 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-03",
         "dataInicioBr": "03/11/2026 14:55h",
         "dataFimBr": "03/11/2026 15:55h",
-        "situacao": "Atrasado",
+        "situacao": "Realizado",
         "projeto": "2290 - GENESIO PEREIRA JUNIOR - 17/01/26",
         "cliente": "GENESIO PEREIRA JUNIOR",
         "endereco": "RUA ANALIA PEREIRA, nº 1200, VILA PEDROSO, Votorantim - SP, 18117-670",
@@ -2154,7 +2154,7 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-16",
         "dataInicioBr": "16/11/2026 08:00h",
         "dataFimBr": "16/11/2026 09:30h",
-        "situacao": "Agenda Confirmada",
+        "situacao": "Atrasado",
         "projeto": "532 - CRISTIANE DE LIMA REIS DIAS - 05/03/26",
         "cliente": "CRISTIANE DE LIMA REIS DIAS",
         "endereco": "AVENIDA TRES DE MARCO, nº 1435, APARECIDA, Sorocaba - SP, 18087-180",
@@ -2170,7 +2170,7 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-16",
         "dataInicioBr": "16/11/2026 08:00h",
         "dataFimBr": "16/11/2026 10:00h",
-        "situacao": "Agenda Confirmada",
+        "situacao": "Atrasado",
         "projeto": "689 - BRUNNO HASEGAWA - 13/07/24",
         "cliente": "BRUNNO HASEGAWA",
         "endereco": "AVENIDA Avenida Aldino Pinotti, nº 500, apto231 bl 7, Centro, São Bernardo Do Campo - SP, 09750-220",
@@ -2186,7 +2186,7 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-16",
         "dataInicioBr": "16/11/2026 08:34h",
         "dataFimBr": "16/11/2026 12:34h",
-        "situacao": "Agenda Confirmada",
+        "situacao": "Atrasado",
         "projeto": "853 - WANDRE OLIVEIRA - 15/08/26",
         "cliente": "WANDRE NAHUM DE OLIVEIRA",
         "endereco": "Rua Francisco Carlos Corrêa, nº 75, Residencial Horto Florestal Villagio, Sorocaba - SP, 18074-724",
@@ -2194,7 +2194,7 @@ window.DADOS_AGENDA = [
     },
     {
         "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "GUILHERME MONTE VAZ",
+        "responsavel": "RODRIGO DE OLIVEIRA VAZ",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
         "quando": "De 16/11/2026 10:00h até 19/11/2026 17:00h",
@@ -2207,6 +2207,38 @@ window.DADOS_AGENDA = [
         "cliente": "CRISTIANE APARECIDA METZGER BORGES",
         "endereco": "RUA DOUTOR VIRGILIO DE MELO FRANCO APT 24, nº 535, VILA TRUJILLO, Sorocaba - SP, 18060-260",
         "ambientes": "1 - ÁREA DE LAZER / BAR (GOURMET), 2 - COZINHA (COZINHA), 3 - SALA DE ESTAR (SALA DE ESTAR)"
+    },
+    {
+        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
+        "tipo": "Entrega",
+        "subtipo": "ENTREGA",
+        "quando": "Dia 16/11/2026 das 10:52h às 12:52h",
+        "dataInicio": "2026-11-16",
+        "dataFim": "2026-11-16",
+        "dataInicioBr": "16/11/2026 10:52h",
+        "dataFimBr": "16/11/2026 12:52h",
+        "situacao": "Atrasado",
+        "projeto": "2059 - AMANDA MENEGHEL CODOGNOTO DE ALMEIDA - 10",
+        "cliente": "AMANDA MENEGHEL CODOGNOTO DE ALMEIDA",
+        "endereco": "RUA Rua Ritinha Tavares, nº 140, APTO 94 BLOCO B, Vila Angélica, Sorocaba - SP, 18065-425",
+        "ambientes": "1 - COZINHA, 2 - BANHEIRO, 4 - DORMITÓRIO - SOLTEIRO, 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
+    },
+    {
+        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "responsavel": "MURILO SALLUM",
+        "tipo": "Compromisso",
+        "subtipo": "ASSINATURA DA PAST",
+        "quando": "Dia 16/11/2026 das 15:13h às 16:13h",
+        "dataInicio": "2026-11-16",
+        "dataFim": "2026-11-16",
+        "dataInicioBr": "16/11/2026 15:13h",
+        "dataFimBr": "16/11/2026 16:13h",
+        "situacao": "Agenda Confirmada",
+        "projeto": "2890 - CONSTRUTORA PONTELLI E CASTILHO - DECORADO",
+        "cliente": "CONSTRUTORA PONTELLI E CASTILHO",
+        "endereco": "R. MARANHÃ, nº 46, GRAND VISION, VILA SANTA TEREZINHA, Sorocaba - SP, 18035-570",
+        "ambientes": "1 - COZINHA, 2 - CHURRASQUEIRA, 3 - SALA DE ESTAR, 4 - DORMITÓRIO - SOLTEIRO (DORMITÓRIO FILHOS), 5 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL), 6 - BANHEIRO (BANHEIRO CASAL), 7 -"
     },
     {
         "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
@@ -2223,38 +2255,6 @@ window.DADOS_AGENDA = [
         "cliente": "RAQUEL BARROS CARVALHAIS",
         "endereco": "AVENIDA SAO PAULO, nº 1791, VILA SAO DOMINGOS, Sorocaba - SP, 18013-004",
         "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "Dia 17/11/2026 das 10:00h às 11:00h",
-        "dataInicio": "2026-11-17",
-        "dataFim": "2026-11-17",
-        "dataInicioBr": "17/11/2026 10:00h",
-        "dataFimBr": "17/11/2026 11:00h",
-        "situacao": "Agenda Confirmada",
-        "projeto": "1084 - DIRCE ROSA - 28/10/24",
-        "cliente": "DIRCE ROSA",
-        "endereco": "RUA JOSE BONIFACIO E A SILVA, nº 843, NOVA GUAREI, Guareí - SP, 18250-000",
-        "ambientes": "1 - COZINHA (cozinha)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "RODRIGO DE OLIVEIRA VAZ",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 17/11/2026 10:00h até 18/11/2026 17:00h",
-        "dataInicio": "2026-11-17",
-        "dataFim": "2026-11-18",
-        "dataInicioBr": "17/11/2026 10:00h",
-        "dataFimBr": "18/11/2026 17:00h",
-        "situacao": "Agenda Confirmada",
-        "projeto": "2668 - ROSANA JOVALENTE MELO DE MOURA - 18/07/26",
-        "cliente": "ROSANA JOVALENTE MELO DE MOURA",
-        "endereco": "Rua Antonio Cintra Gordinho, nº 250, Cintra Gordinho, Araçariguama - SP, 18149-502",
-        "ambientes": "1 - DORMITÓRIO - CASAL (DORMITORIO ROSANA)"
     },
     {
         "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
