@@ -1,4 +1,4 @@
-// Atualizado em: 16/11/2026 15:43:29
+// Atualizado em: 16/11/2026 17:52:14
 window.DADOS_AGENDA = [
     {
         "loja": "CAST SELECT MOVEIS PLANEJADOS",
@@ -2218,7 +2218,7 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-16",
         "dataInicioBr": "16/11/2026 10:52h",
         "dataFimBr": "16/11/2026 12:52h",
-        "situacao": "Atrasado",
+        "situacao": "Realizado",
         "projeto": "2059 - AMANDA MENEGHEL CODOGNOTO DE ALMEIDA - 10",
         "cliente": "AMANDA MENEGHEL CODOGNOTO DE ALMEIDA",
         "endereco": "RUA Rua Ritinha Tavares, nº 140, APTO 94 BLOCO B, Vila Angélica, Sorocaba - SP, 18065-425",
@@ -2234,11 +2234,27 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-16",
         "dataInicioBr": "16/11/2026 15:13h",
         "dataFimBr": "16/11/2026 16:13h",
-        "situacao": "Agenda Confirmada",
+        "situacao": "Atrasado",
         "projeto": "2890 - CONSTRUTORA PONTELLI E CASTILHO - DECORADO",
         "cliente": "CONSTRUTORA PONTELLI E CASTILHO",
         "endereco": "R. MARANHÃ, nº 46, GRAND VISION, VILA SANTA TEREZINHA, Sorocaba - SP, 18035-570",
         "ambientes": "1 - COZINHA, 2 - CHURRASQUEIRA, 3 - SALA DE ESTAR, 4 - DORMITÓRIO - SOLTEIRO (DORMITÓRIO FILHOS), 5 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL), 6 - BANHEIRO (BANHEIRO CASAL), 7 -"
+    },
+    {
+        "loja": "CAST SELECT MOVEIS PLANEJADOS",
+        "responsavel": "ALBERTO AFFONSO NETO",
+        "tipo": "Montagem",
+        "subtipo": "MONTAGEM",
+        "quando": "Dia 16/11/2026 das 17:51h às 18:51h",
+        "dataInicio": "2026-11-16",
+        "dataFim": "2026-11-16",
+        "dataInicioBr": "16/11/2026 17:51h",
+        "dataFimBr": "16/11/2026 18:51h",
+        "situacao": "Agenda Confirmada",
+        "projeto": "853 - WANDRE OLIVEIRA - 15/08/26",
+        "cliente": "WANDRE NAHUM DE OLIVEIRA",
+        "endereco": "Rua Francisco Carlos Corrêa, nº 75, Residencial Horto Florestal Villagio, Sorocaba - SP, 18074-724",
+        "ambientes": "1 - COZINHA, 2 - Itens Venda Avulsa (COOKTOP ITATIAIA ESSENCIAL 4 BOCAS COR P)"
     },
     {
         "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
@@ -2255,6 +2271,22 @@ window.DADOS_AGENDA = [
         "cliente": "RAQUEL BARROS CARVALHAIS",
         "endereco": "AVENIDA SAO PAULO, nº 1791, VILA SAO DOMINGOS, Sorocaba - SP, 18013-004",
         "ambientes": ""
+    },
+    {
+        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
+        "tipo": "Montagem",
+        "subtipo": "MONTAGEM",
+        "quando": "Dia 17/11/2026 das 10:00h às 11:00h",
+        "dataInicio": "2026-11-17",
+        "dataFim": "2026-11-17",
+        "dataInicioBr": "17/11/2026 10:00h",
+        "dataFimBr": "17/11/2026 11:00h",
+        "situacao": "Agenda Confirmada",
+        "projeto": "2059 - AMANDA MENEGHEL CODOGNOTO DE ALMEIDA - 10",
+        "cliente": "AMANDA MENEGHEL CODOGNOTO DE ALMEIDA",
+        "endereco": "RUA Rua Ritinha Tavares, nº 140, APTO 94 BLOCO B, Vila Angélica, Sorocaba - SP, 18065-425",
+        "ambientes": "1 - COZINHA, 2 - BANHEIRO, 4 - DORMITÓRIO - SOLTEIRO, 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
     },
     {
         "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
@@ -2287,5 +2319,21 @@ window.DADOS_AGENDA = [
         "cliente": "BRUNA FERREIRA DA SILVA",
         "endereco": "Rua Milão, nº 205, Villa Bella de Votorantim, Votorantim - SP, 18117-764",
         "ambientes": "4 - COZINHA (COZINHA)"
+    },
+    {
+        "loja": "CAST SELECT MOVEIS PLANEJADOS",
+        "responsavel": "LUCAS SALLUM NICOLETTI",
+        "tipo": "Medição",
+        "subtipo": "MEDIÇÃO",
+        "quando": "Dia 25/11/2026 das 14:00h às 16:00h",
+        "dataInicio": "2026-11-25",
+        "dataFim": "2026-11-25",
+        "dataInicioBr": "25/11/2026 14:00h",
+        "dataFimBr": "25/11/2026 16:00h",
+        "situacao": "Agenda Confirmada",
+        "projeto": "540 - Kerolin da Silva - Solar da Ilha",
+        "cliente": "Kerolin da Silva",
+        "endereco": "RUA ANALIA PEREIRA, nº 1200, SOLAR DA ILHA - BL7, AP502, VILA PEDROSO, Votorantim - SP, 18117-670",
+        "ambientes": "1 - BANHEIRO, 2 - COZINHA, 3 - HOME THEATER, 4 - DECORAÇÃO (CRISTALEIRA), 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (COOKTOP 4 BOCAS), 7 - Itens Venda Avulsa (FORNO DE"
     }
 ];
