@@ -1,23 +1,7 @@
-// Atualizado em: 17/11/2026 17:51:45
+// Atualizado em: 18/11/2026 17:49:58
 window.DADOS_AGENDA = [
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "GUSTAVO COSTA",
-        "tipo": "Tarefa",
-        "subtipo": "PÓS-VENDAS - INDICAÇÃO",
-        "quando": "De 16/09/2026 17:31h até 16/09/2029 18:31h",
-        "dataInicio": "2026-09-16",
-        "dataFim": "2029-09-16",
-        "dataInicioBr": "16/09/2026 17:31h",
-        "dataFimBr": "16/09/2029 18:31h",
-        "situacao": "Agenda Confirmada",
-        "projeto": "747 - GUSTAVO HENRIQUE DOS SANTOS VARANDA COSTA",
-        "cliente": "GUSTAVO HENRIQUE DOS SANTOS VARANDA COSTA",
-        "endereco": "RUA ANA AUGUSTO, nº 470, BLOCO 2 AP 403, VILA AUGUSTA, Sorocaba - SP, 18040-040",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -33,7 +17,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO, 2 - COZINHA, 3 - DORMITÓRIO - CASAL, 4 - DORMITÓRIO - SOLTEIRO, 5 - SALA DE ESTAR"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "VITOR VARGAS GARCIA",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -49,7 +33,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (CORREIO), 2 - Ambiente Complementar (PISO INFERIOR PORTICOS DE ENTRADA)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ADIL APARECIDO DE OLIVEIRA FILHO",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -65,167 +49,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (CORREIO), 2 - Ambiente Complementar (PISO INFERIOR PORTICOS DE ENTRADA)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 03/11/2026 06:59h até 13/11/2026 17:00h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-13",
-        "dataInicioBr": "03/11/2026 06:59h",
-        "dataFimBr": "13/11/2026 17:00h",
-        "situacao": "Realizado",
-        "projeto": "883 - CONSTRUTORA PONTELLI E CASTILHO - 09/09/26",
-        "cliente": "CONSTRUTORA PONTELLI E CASTILHO",
-        "endereco": "AVENIDA JOSE MARQUES DA SILVA, nº 205, Jardim Abatia, Sorocaba - SP, 18055-065",
-        "ambientes": "1 - CHURRASQUEIRA (ÁREA GOURMET), 2 - BANHEIRO (BANHEIRO SOCIAL), 3 - BANHEIRO (BANHEIRO SUITE), 4 - DORMITÓRIO - CLOSET (CLOSET), 5 - COZINHA"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "DIEGO ALMEIDA MARINHO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 03/11/2026 07:10h até 13/11/2026 17:00h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-13",
-        "dataInicioBr": "03/11/2026 07:10h",
-        "dataFimBr": "13/11/2026 17:00h",
-        "situacao": "Atrasado",
-        "projeto": "660 - ELAINE CRISTINA DE CASTRO OLIVEIRA - 05/04/26",
-        "cliente": "ELAINE CRISTINA DE CASTRO OLIVEIRA",
-        "endereco": "Rua Iolanda Sanson, nº 240, Residencial Portal di Napoli, Cerquilho - SP, 18526-302",
-        "ambientes": "1 - COZINHA, 2 - ÁREA DE LAZER / BAR (ADEGA), 3 - SALA DE ESTAR (sala de star), 4 - HOME THEATER (sala de tv), 5 - DORMITÓRIO - CASAL, 6 - DORMITÓRIO - CLOSET (CLOSET CASAL), 7"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "UAEKSON MAIA NUNES",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "Dia 03/11/2026 das 07:55h às 08:55h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 07:55h",
-        "dataFimBr": "03/11/2026 08:55h",
-        "situacao": "Realizado",
-        "projeto": "696 - JORGE JACOB IMOVEIS - 29/04/26",
-        "cliente": "JORGE JACOB IMOVEIS",
-        "endereco": "RUA GERALDO SOARES LEITAO, nº 54, PARQUE CAMPOLIM, Sorocaba - SP, 18047-700",
-        "ambientes": "3 - Ambiente Complementar (BATEDOR DE CADEIRAS SALA INFERIOR), 4 - Ambiente Complementar (BATEDOR DE CADEIRAS SALA SUPERIOR), 5 - Ambiente Complementar (SALA DE REUNIÃO JACOB)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "WILLIAN SAMUEL DE ALMEIDA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 03/11/2026 das 07:55h às 08:55h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 07:55h",
-        "dataFimBr": "03/11/2026 08:55h",
-        "situacao": "Realizado",
-        "projeto": "696 - JORGE JACOB IMOVEIS - 29/04/26",
-        "cliente": "JORGE JACOB IMOVEIS",
-        "endereco": "RUA GERALDO SOARES LEITAO, nº 54, PARQUE CAMPOLIM, Sorocaba - SP, 18047-700",
-        "ambientes": "3 - Ambiente Complementar (BATEDOR DE CADEIRAS SALA INFERIOR), 4 - Ambiente Complementar (BATEDOR DE CADEIRAS SALA SUPERIOR), 5 - Ambiente Complementar"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "VITOR VARGAS GARCIA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 03/11/2026 das 07:59h às 08:59h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 07:59h",
-        "dataFimBr": "03/11/2026 08:59h",
-        "situacao": "Realizado",
-        "projeto": "805 - MARCIO CARLOS DA SILVA - 15/07/26",
-        "cliente": "MARCIO CARLOS DA SILVA",
-        "endereco": "RUA ANTONIO ADADE, nº 55, APTO 501, PARQUE CAMPOLIM, Sorocaba - SP, 18048-060",
-        "ambientes": "1 - COZINHA, 2 - HOME OFFICE, 3 - CHURRASQUEIRA, 4 - BANHEIRO, 5 - DORMITÓRIO - SOLTEIRO, 6 - DORMITÓRIO - SUÍTE, 7 - BANHEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "ARIANE PEDROSO PRADOS",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO TÉCNICA",
-        "quando": "Dia 03/11/2026 das 08:30h às 00:00h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 08:30h",
-        "dataFimBr": "03/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "743 - Venda Avulsa - BRUNO FERNANDEZ RODRIGUES DA S",
-        "cliente": "BRUNO FERNANDEZ RODRIGUES DA SILVA",
-        "endereco": "Rua Manoel José de Oliveira, nº 999 QI L16, Jardim Residencial Villagio Ipanema I, Sorocaba -",
-        "ambientes": "1 - Itens Venda Avulsa (ESPELHO SOFT)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO",
-        "quando": "Dia 03/11/2026 das 08:30h às 10:30h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 08:30h",
-        "dataFimBr": "03/11/2026 10:30h",
-        "situacao": "Realizado",
-        "projeto": "939 - FELIPE DA CUNHA ALVES - 28/10/26",
-        "cliente": "FELIPE DA CUNHA ALVES",
-        "endereco": "Rua Heloísa Oliveira Evangelista, nº 160, apto 72 B, Parque Campolim, Sorocaba - SP, 18048-123",
-        "ambientes": "1 - COZINHA (COZINHA JARDIM 1), 2 - COZINHA (COZINHA JARDIM 2), 3 - CHURRASQUEIRA (CHURRASQUEIRA JARDIM 1), 4 - CHURRASQUEIRA (CHURRASQUEIRA JARDIM 2), 5 - BANHEIRO (BANHEIRO"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Assistência Técnica",
-        "subtipo": "COMPRA-AS",
-        "quando": "Dia 03/11/2026 das 09:43h às 10:43h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 09:43h",
-        "dataFimBr": "03/11/2026 10:43h",
-        "situacao": "Atrasado",
-        "projeto": "176599",
-        "cliente": "GE ADMINISTRAÇÃO DE BENS LTDA",
-        "endereco": "R. Antônio Perez Hernandez, 300, nº 300, 162 TORRE 1, Parque Campolim, Sorocaba - SP, 18048-115",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "WILLIAN SAMUEL DE ALMEIDA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 03/11/2026 das 09:49h às 10:49h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 09:49h",
-        "dataFimBr": "03/11/2026 10:49h",
-        "situacao": "Realizado",
-        "projeto": "743 - Venda Avulsa - BRUNO FERNANDEZ RODRIGUES DA S",
-        "cliente": "BRUNO FERNANDEZ RODRIGUES DA SILVA",
-        "endereco": "Rua Manoel José de Oliveira, nº 999 QI L16, Jardim Residencial Villagio Ipanema I, Sorocaba -",
-        "ambientes": "1 - Itens Venda Avulsa (ESPELHO SOFT)"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "WILLIAN SAMUEL DE ALMEIDA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 03/11/2026 das 09:52h às 10:52h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 09:52h",
-        "dataFimBr": "03/11/2026 10:52h",
-        "situacao": "Realizado",
-        "projeto": "746 - Venda Avulsa - BRUNO FERNANDEZ RODRIGUES DA S",
-        "cliente": "BRUNO FERNANDEZ RODRIGUES DA SILVA",
-        "endereco": "Rua Manoel José de Oliveira, nº 999 QI L16, Jardim Residencial Villagio Ipanema I, Sorocaba -",
-        "ambientes": "1 - Itens Venda Avulsa (MESA DE JANTAR MH-5453), 2 - Itens Venda Avulsa (CADEIRA MH-3314)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "RENATO ANTONIO DE CAMARGO JUNIOR",
         "tipo": "Assistência Técnica",
         "subtipo": "MONTAGEM-AS",
@@ -241,7 +65,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOEntrega /",
         "tipo": "ENTREGA",
         "subtipo": "",
@@ -257,23 +81,7 @@ window.DADOS_AGENDA = [
         "ambientes": "2 - Itens Venda Avulsa (TAMPO GIRATÓRIO)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
-        "quando": "Dia 03/11/2026 das 10:45h às 11:45h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 10:45h",
-        "dataFimBr": "03/11/2026 11:45h",
-        "situacao": "Realizado",
-        "projeto": "939 - FELIPE DA CUNHA ALVES - 28/10/26",
-        "cliente": "FELIPE DA CUNHA ALVES",
-        "endereco": "Rua Heloísa Oliveira Evangelista, nº 160, apto 72 B, Parque Campolim, Sorocaba - SP, 18048-123",
-        "ambientes": "1 - COZINHA (COZINHA JARDIM 1), 2 - COZINHA (COZINHA JARDIM 2), 3 - CHURRASQUEIRA (CHURRASQUEIRA JARDIM 1), 4 - CHURRASQUEIRA (CHURRASQUEIRA JARDIM 2), 5 - BANHEIRO (BANHEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -289,7 +97,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - BANHEIRO"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOEntrega /",
         "tipo": "ENTREGA",
         "subtipo": "",
@@ -305,23 +113,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (MODULO PAINEL/ HOME RIPADO SLIM 1.387), 2 - Itens Venda Avulsa (MODULO PAINEL/ HOME RIPADO PRIME"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
-        "quando": "Dia 03/11/2026 das 10:53h às 11:53h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 10:53h",
-        "dataFimBr": "03/11/2026 11:53h",
-        "situacao": "Realizado",
-        "projeto": "808 - MATHEUS GUSTAVO SILVA OLIVEIRA - 31/10/26",
-        "cliente": "MATHEUS GUSTAVO SILVA OLIVEIRA",
-        "endereco": "RUA Rua Joaquim de Carvalho Gil, nº 1417, Jardim Wanel Ville V, Sorocaba - SP, 18057-000",
-        "ambientes": "1 - DORMITÓRIO - CASAL, 2 - DORMITÓRIO - SOLTEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOMontagem /",
         "tipo": "MONTAGEM",
         "subtipo": "",
@@ -337,7 +129,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (HOME RIPADO PRIME 1.4 - NATURE / OFF WHI)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOCompromisso /",
         "tipo": "ENTREGA TÉCNICA",
         "subtipo": "",
@@ -353,7 +145,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (HOME RIPADO PRIME 1.4 - NATURE / OFF WHI)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOMontagem /",
         "tipo": "MONTAGEM",
         "subtipo": "",
@@ -369,7 +161,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (MESA FENDI 115 VIDRO), 2 - Itens Venda Avulsa (CADEIRA BETY)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOCompromisso /",
         "tipo": "ENTREGA TÉCNICA",
         "subtipo": "",
@@ -385,7 +177,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (MESA FENDI 115 VIDRO), 2 - Itens Venda Avulsa (CADEIRA BETY)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -401,7 +193,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - BANHEIRO (BANHEIRO SOCIAL), 3 - BANHEIRO (BANHEIRO SUITE), 4 - SALA DE ESTAR (SALA DE ESTAR), 5 - ÁREA DE LAZER / BAR (GOURMET)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOEntrega /",
         "tipo": "ENTREGA",
         "subtipo": "",
@@ -417,7 +209,7 @@ window.DADOS_AGENDA = [
         "ambientes": "2 - Itens Venda Avulsa (CADEIRA MH3281)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOMontagem /",
         "tipo": "MONTAGEM",
         "subtipo": "",
@@ -433,7 +225,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (MESA FENDI 115 VIDRO), 2 - Itens Venda Avulsa (CADEIRA MH3281)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MARCOS VINICIUS FRANZONATO SALVADOCompromisso /",
         "tipo": "ENTREGA TÉCNICA",
         "subtipo": "",
@@ -449,103 +241,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (MESA FENDI 115 VIDRO), 2 - Itens Venda Avulsa (CADEIRA MH3281)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "BRUNA PEREIRA",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 03/11/2026 das 13:14h às 14:14h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 13:14h",
-        "dataFimBr": "03/11/2026 14:14h",
-        "situacao": "Realizado",
-        "projeto": "697 - EDINA APARECIDA MARTINS CIRINO EVARISTO",
-        "cliente": "EDINA APARECIDA MARTINS CIRINO EVARISTO",
-        "endereco": "RUA Rua João Ribeiro de Barros, nº 900, BLC2 132, Vila Odim Antão, Sorocaba - SP, 18090-602",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - DORMITÓRIO - CASAL (DORM CASAL), 3 - DORMITÓRIO - SOLTEIRO (DORM SOLTEIRO), 4 - BANHEIRO (WC SOCIAL)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 03/11/2026 das 14:32h às 15:32h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 14:32h",
-        "dataFimBr": "03/11/2026 15:32h",
-        "situacao": "Atrasado",
-        "projeto": "769 - GABRIEL ALCANTARA NASCIMENTO - 12/06/26",
-        "cliente": "GABRIEL ALCANTARA NASCIMENTO",
-        "endereco": "RUA VINTE E OITO DE OUTUBRO, nº 415, JARDIM DO PASSO, Sorocaba - SP, 18087-080",
-        "ambientes": "1 - COZINHA (cozinha), 2 - DORMITÓRIO - CASAL (casal), 3 - HOME OFFICE (escritorio), 4 - BANHEIRO (suite), 5 - BANHEIRO (social), 6 - BANHEIRO (lavabo), 7 - ÁREA DE LAZER / BAR"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "JÉSSICA SANTOS RODRIGUES",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 03/11/2026 das 14:49h às 15:49h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 14:49h",
-        "dataFimBr": "03/11/2026 15:49h",
-        "situacao": "Realizado",
-        "projeto": "931 - ROSANA ALVES DE MORAES - 17/10/26",
-        "cliente": "ROSANA ALVES DE MORAES",
-        "endereco": "ALAMEDA ITANHAEM, nº 227, JARDIM SAIRA, Sorocaba - SP, 18085-180",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - HOME OFFICE (SALA), 3 - CHURRASQUEIRA (AREA GOURMET), 4 - DORMITÓRIO - SOLTEIRO (DORMITORIO SOLTEIRO), 5 - DORMITÓRIO - CASAL (DORMITORIO CASAL), 6 -"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "CAMILLY CAROLINE D SILVA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 03/11/2026 das 16:22h às 17:22h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 16:22h",
-        "dataFimBr": "03/11/2026 17:22h",
-        "situacao": "Realizado",
-        "projeto": "697 - EDINA APARECIDA MARTINS CIRINO EVARISTO",
-        "cliente": "EDINA APARECIDA MARTINS CIRINO EVARISTO",
-        "endereco": "RUA Rua João Ribeiro de Barros, nº 900, BLC2 132, Vila Odim Antão, Sorocaba - SP, 18090-602",
-        "ambientes": "5 - Itens Venda Avulsa (COOKTOP 4 BOCAS)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 03/11/2026 das 16:44h às 17:44h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 16:44h",
-        "dataFimBr": "03/11/2026 17:44h",
-        "situacao": "Realizado",
-        "projeto": "918 - ANDREA DE CASSIA AGUSTINELLI - 02/10/26",
-        "cliente": "ANDREA DE CASSIA AGUSTINELLI",
-        "endereco": "Avenida José Santos Almeida, nº 999, Quadra P - Lote 30, Jardim Residencial Villagio Ipanema I,",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - SALA DE ESTAR (PAINEL TV COM A CRISTALEIRA), 3 - BANHEIRO (BANHEIRO SOCIAL), 4 - DORMITÓRIO - SOLTEIRO (DORMITORIO GABRIEL), 5 - DORMITÓRIO -"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Assistência Técnica",
-        "subtipo": "COMPRA-AS",
-        "quando": "Dia 03/11/2026 das 16:46h às 17:46h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 16:46h",
-        "dataFimBr": "03/11/2026 17:46h",
-        "situacao": "Atrasado",
-        "projeto": "176653",
-        "cliente": "GERALDO ANTONIO CASTILHO DE ASSIS",
-        "endereco": "RUA Rua Joaquim Nabuco, nº 316, Jardim Sorocabano, Sorocaba - SP, 18080-375",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "LUCAS SALLUM NICOLETTI",
         "tipo": "Assistência Técnica",
         "subtipo": "COMPRA-AS",
@@ -561,23 +257,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Assistência Técnica",
-        "subtipo": "COMPRA-AS",
-        "quando": "Dia 03/11/2026 das 17:10h às 18:10h",
-        "dataInicio": "2026-11-03",
-        "dataFim": "2026-11-03",
-        "dataInicioBr": "03/11/2026 17:10h",
-        "dataFimBr": "03/11/2026 18:10h",
-        "situacao": "Atrasado",
-        "projeto": "159575",
-        "cliente": "DIOCLECIO SILVEIRA ASSIS",
-        "endereco": "RUA ANA AUGUSTO, nº 415 AP 63, VILA AUGUSTA, Sorocaba - SP, 18040-040",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "RENATO ANTONIO DE CAMARGO JUNIOR",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -593,23 +273,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MARIA EDUARDA BIACCHI MARTAURO",
-        "tipo": "Compromisso",
-        "subtipo": "PÓS-VENDAS - MKT",
-        "quando": "Dia 04/11/2026 das 08:00h às 19:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 08:00h",
-        "dataFimBr": "04/11/2026 19:00h",
-        "situacao": "Atrasado",
-        "projeto": "493 - JOÃO LUIS MORAES - 27/01/26",
-        "cliente": "JOÃO LUIS MORAES",
-        "endereco": "RUA DOUTOR HUMBERTO REALE, nº 240, APTO 33, VILA PORCEL, Sorocaba - SP, 18090-290",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "CAMILLY CAROLINE D SILVA",
         "tipo": "Assistência Técnica",
         "subtipo": "COMPRA-AS",
@@ -625,87 +289,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO TÉCNICA",
-        "quando": "Dia 04/11/2026 das 11:11h às 00:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 11:11h",
-        "dataFimBr": "04/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "750 - Juliana Fuschi Fidencio - 23/09/26",
-        "cliente": "Juliana Fuschi Fidencio",
-        "endereco": "Rua Manoel José de Oliveira, nº 999 L28, Jardim Residencial Villagio Ipanema I, Sorocaba - SP, 18073-351",
-        "ambientes": "1 - COZINHA (COMPLEMENTO COZINHA), 2 - ÁREA DE LAZER / BAR (COMPLEMENTO AREA GOURMET)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO TÉCNICA",
-        "quando": "Dia 04/11/2026 das 11:19h às 00:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 11:19h",
-        "dataFimBr": "04/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "925 - RENATO MOREIRA DA SILVA - 08/10/26",
-        "cliente": "RENATO MOREIRA DA SILVA",
-        "endereco": "DR SUZANO BRANDÃO, nº 846 AP 136, ARICANDUVA, SÃO PAULO - SP, 03502-000",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - CHURRASQUEIRA (CHURRASQUEIRA), 3 - BANHEIRO (BANHEIRO SOCIAL), 4 - BANHEIRO (BANHEIRO SUITE)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO TÉCNICA",
-        "quando": "Dia 04/11/2026 das 11:20h às 00:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 11:20h",
-        "dataFimBr": "04/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "925 - RENATO MOREIRA DA SILVA - 08/10/26",
-        "cliente": "RENATO MOREIRA DA SILVA",
-        "endereco": "DR SUZANO BRANDÃO, nº 846 AP 136, ARICANDUVA, SÃO PAULO - SP, 03502-000",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - CHURRASQUEIRA (CHURRASQUEIRA), 3 - BANHEIRO (BANHEIRO SOCIAL), 4 - BANHEIRO (BANHEIRO SUITE)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO TÉCNICA",
-        "quando": "Dia 04/11/2026 das 11:20h às 00:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 11:20h",
-        "dataFimBr": "04/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "934 - RODRIGO ALFEU DE SOUZA - 24/10/26",
-        "cliente": "RODRIGO ALFEU DE SOUZA",
-        "endereco": "RUA GUILHERME RUDGE, nº 278, VILA SAO GERALDO, SÃO PAULO - SP, 03608-010",
-        "ambientes": "1 - COZINHA (TORRE QUENTE), 2 - SALA DE ESTAR (PAINEL SALA), 3 - DORMITÓRIO - CASAL (CRIADOS), 5 - HOME OFFICE"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO TÉCNICA",
-        "quando": "Dia 04/11/2026 das 12:00h às 00:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 12:00h",
-        "dataFimBr": "04/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "103 - JHONATAN DOS SANTYOS TEOBALDO - 08/03/25",
-        "cliente": "JHONATAN DOS SANTOS TEOBALDO",
-        "endereco": "RUA Rua Catarina Maria de Jesus, nº 336, Vila Domingues, Votorantim - SP, 18116-485",
-        "ambientes": "4 - DORMITÓRIO - CASAL, 5 - DORMITÓRIO - SOLTEIRO, 6 - COZINHA (2 PAREDES)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO TÉCNICA",
@@ -721,7 +305,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - HOME OFFICE"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JESSICA SANTOS RODRIGUES",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -737,7 +321,7 @@ window.DADOS_AGENDA = [
         "ambientes": "5 - DORMITÓRIO - CASAL"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "GUSTAVO COSTA",
         "tipo": "Compromisso",
         "subtipo": "ENTREGA TÉCNICA",
@@ -753,39 +337,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - BANHEIRO (lavabo), 3 - CHURRASQUEIRA, 4 - DESPENSA, 5 - HOME THEATER, 6 - DORMITÓRIO - CASAL, 7"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "VITOR VARGAS GARCIA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 04/11/2026 das 13:30h às 14:30h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 13:30h",
-        "dataFimBr": "04/11/2026 14:30h",
-        "situacao": "Realizado",
-        "projeto": "943 - Venda Avulsa - GERALDO PIZZOL BRUGNEROTTO",
-        "cliente": "GERALDO PIZZOL BRUGNEROTTO",
-        "endereco": "AVENIDA Avenida Fernando Stecca- Condominio Matucci, nº 661, QUADRA F LOTE 02, Iporanga,",
-        "ambientes": "1 - Itens Venda Avulsa (CADEIRA CLASSIC)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "ELIAS CASTILHO GOMES",
-        "tipo": "Assistência Técnica",
-        "subtipo": "MONTAGEM-AS",
-        "quando": "Dia 04/11/2026 das 14:00h às 17:00h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-04",
-        "dataInicioBr": "04/11/2026 14:00h",
-        "dataFimBr": "04/11/2026 17:00h",
-        "situacao": "Realizado",
-        "projeto": "169478",
-        "cliente": "CLAUDINEIA APARECIDA DUARTE MUGNAINI",
-        "endereco": "Rua Professora Maria Elisa Soares Rosa, nº 508 K8, Jardim Residencial Chácara Ondina, Sorocaba",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO FINAL",
@@ -801,23 +353,7 @@ window.DADOS_AGENDA = [
         "ambientes": "4 - COZINHA (COZINHA)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "ARIANE PEDROSO PRADOS",
-        "tipo": "Compromisso",
-        "subtipo": "LIBERAÇÃO DE OBRA",
-        "quando": "De 04/11/2026 17:22h até 11/11/2026 18:22h",
-        "dataInicio": "2026-11-04",
-        "dataFim": "2026-11-11",
-        "dataInicioBr": "04/11/2026 17:22h",
-        "dataFimBr": "11/11/2026 18:22h",
-        "situacao": "Realizado",
-        "projeto": "853 - WANDRE OLIVEIRA - 15/08/26",
-        "cliente": "WANDRE NAHUM DE OLIVEIRA",
-        "endereco": "Rua Francisco Carlos Corrêa, nº 75, Residencial Horto Florestal Villagio, Sorocaba - SP, 18074-724",
-        "ambientes": "1 - COZINHA, 2 - Itens Venda Avulsa (COOKTOP ITATIAIA ESSENCIAL 4 BOCAS COR P)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -833,7 +369,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE SERVIÇO / LAVANDERIA (AREA DE SERVIÇO), 2 - COZINHA (COZINHA), 3 - DORMITÓRIO - CLOSET (CLOSET)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ELIAS CASTILHO GOMES",
         "tipo": "Assistência Técnica",
         "subtipo": "MONTAGEM-AS",
@@ -849,7 +385,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -865,23 +401,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (cozinha), 2 - DORMITÓRIO - SOLTEIRO (dormitorio filha), 3 - Itens Venda Avulsa (COOKTOP 4 BOCAS), 4 - Itens Venda Avulsa (FORNO DE EMBUTIR)"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
-        "quando": "Dia 05/11/2026 das 08:38h às 09:38h",
-        "dataInicio": "2026-11-05",
-        "dataFim": "2026-11-05",
-        "dataInicioBr": "05/11/2026 08:38h",
-        "dataFimBr": "05/11/2026 09:38h",
-        "situacao": "Atrasado",
-        "projeto": "637 - NANI BASILIO DA SILVA - 26/06/26",
-        "cliente": "NANI BASILIO DA SILVA",
-        "endereco": "ESTRADA DO DINORAH, nº 888, BL A APTO 23, LOTEAMENTO DINORA ROSA, Sorocaba - SP, 18071-036",
-        "ambientes": "1 - BANHEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -897,23 +417,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA)"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "BRUNA PEREIRA",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO",
-        "quando": "Dia 05/11/2026 das 11:20h às 12:20h",
-        "dataInicio": "2026-11-05",
-        "dataFim": "2026-11-05",
-        "dataInicioBr": "05/11/2026 11:20h",
-        "dataFimBr": "05/11/2026 12:20h",
-        "situacao": "Realizado",
-        "projeto": "808 - MATHEUS GUSTAVO SILVA OLIVEIRA - 31/10/26",
-        "cliente": "MATHEUS GUSTAVO SILVA OLIVEIRA",
-        "endereco": "RUA Rua Joaquim de Carvalho Gil, nº 1417, Jardim Wanel Ville V, Sorocaba - SP, 18057-000",
-        "ambientes": "1 - DORMITÓRIO - CASAL, 2 - DORMITÓRIO - SOLTEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -929,7 +433,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -945,7 +449,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - SALA DE ESTAR (SALA DE ESTAR), 3 - BANHEIRO (BANHEIRO SOCIAL), 4 - DORMITÓRIO - SOLTEIRO (QUARTO HOSPEDES), 5 - DORMITÓRIO - CASAL (QUARTO PRINCIPAL)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "GUILHERME MONTE VAZ",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -961,7 +465,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL), 3 - Itens Venda Avulsa (Cook top 4 bocas)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -977,23 +481,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "VITOR VARGAS GARCIA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 05/11/2026 das 12:54h às 13:54h",
-        "dataInicio": "2026-11-05",
-        "dataFim": "2026-11-05",
-        "dataInicioBr": "05/11/2026 12:54h",
-        "dataFimBr": "05/11/2026 13:54h",
-        "situacao": "Realizado",
-        "projeto": "811 - Venda Avulsa - EDUARDO ALVES JUNIOR",
-        "cliente": "EDUARDO ALVES JUNIOR",
-        "endereco": "RUA MARIO DE CAMPOS LIMA, nº 1072, CONJUNTO HABITACIONAL JULIO DE MESQUITA FILHO, Sorocaba -",
-        "ambientes": "1 - Itens Venda Avulsa (ESTOFADO SEVILHA (TODOS OS TAMANHOS)), 2 - Itens Venda Avulsa (HOME RIPADO PRIME 2.2 - GIANDUIA /- OFF)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1009,7 +497,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (BANHEIRO), 2 - Ambiente Complementar (COZINHA)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1025,7 +513,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - HOME THEATER (SALA DE ESTAR)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ELIAS CASTILHO GOMES",
         "tipo": "Assistência Técnica",
         "subtipo": "MONTAGEM-AS",
@@ -1041,7 +529,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "CAMILLY CAROLINE D SILVA",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA PASTA E",
@@ -1057,7 +545,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - DORMITÓRIO - CASAL (DORMITORIO CASAL)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1073,7 +561,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE SERVIÇO / LAVANDERIA (LAVANDERIA), 2 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL MARFIM)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1089,7 +577,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - DORMITÓRIO - CASAL (DORMITORIO ROSANA)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1105,7 +593,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO (banheiro), 2 - COZINHA (cozinha), 3 - DORMITÓRIO - CASAL (casal)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1121,7 +609,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - BANHEIRO, 4 - DORMITÓRIO - SOLTEIRO, 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1137,7 +625,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE LAZER / BAR (GOURMET), 2 - COZINHA (COZINHA), 3 - SALA DE ESTAR (SALA DE ESTAR)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1153,7 +641,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - HOME THEATER, 3 - DORMITÓRIO - CASAL, 4 - BANHEIRO"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1169,7 +657,7 @@ window.DADOS_AGENDA = [
         "ambientes": "5 - DORMITÓRIO - CASAL, 6 - BANHEIRO (BANHEIRO)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1185,7 +673,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - BANHEIRO, 3 - DORMITÓRIO - CASAL, 4 - DORMITÓRIO - SOLTEIRO, 5 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "CAMILLY CAROLINE D SILVA",
         "tipo": "Assistência Técnica",
         "subtipo": "COMPRA-AS",
@@ -1201,23 +689,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO",
-        "quando": "Dia 06/11/2026 das 08:00h às 10:00h",
-        "dataInicio": "2026-11-06",
-        "dataFim": "2026-11-06",
-        "dataInicioBr": "06/11/2026 08:00h",
-        "dataFimBr": "06/11/2026 10:00h",
-        "situacao": "Realizado",
-        "projeto": "749 - Hellen Alves - 22/09/26",
-        "cliente": "Hellen Alves",
-        "endereco": "RUA DORACY AMARAL, nº 45, PARQUE SAO BENTO, Sorocaba - SP, 18072-130",
-        "ambientes": "2 - COZINHA (cozinha hellen att)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ELIAS CASTILHO GOMES",
         "tipo": "Assistência Técnica",
         "subtipo": "MONTAGEM-AS",
@@ -1233,7 +705,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "CAMILLY CAROLINE D SILVA",
         "tipo": "Assistência Técnica",
         "subtipo": "COMPRA-AS",
@@ -1249,7 +721,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "CAMILLY CAROLINE D SILVA",
         "tipo": "Assistência Técnica",
         "subtipo": "COMPRA-AS",
@@ -1265,7 +737,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "LIBERAÇÃO DE OBRA",
@@ -1281,23 +753,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "UAEKSON MAIA NUNES",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "Dia 06/11/2026 das 11:23h às 12:23h",
-        "dataInicio": "2026-11-06",
-        "dataFim": "2026-11-06",
-        "dataInicioBr": "06/11/2026 11:23h",
-        "dataFimBr": "06/11/2026 12:23h",
-        "situacao": "Atrasado",
-        "projeto": "805 - MARCIO CARLOS DA SILVA - 15/07/26",
-        "cliente": "MARCIO CARLOS DA SILVA",
-        "endereco": "RUA ANTONIO ADADE, nº 55, APTO 501, PARQUE CAMPOLIM, Sorocaba - SP, 18048-060",
-        "ambientes": "1 - COZINHA, 2 - HOME OFFICE, 3 - CHURRASQUEIRA, 4 - BANHEIRO, 5 - DORMITÓRIO - SOLTEIRO, 6 - DORMITÓRIO - SUÍTE, 7 - BANHEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -1313,7 +769,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (COZINHA- QUARTO 1- QUARTO 2- WC - PAINEL)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ARIANE PEDROSO PRADOS",
         "tipo": "Compromisso",
         "subtipo": "ENTREGA TÉCNICA",
@@ -1329,7 +785,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (COZINHA- QUARTO 1- QUARTO 2- WC - PAINEL)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO FINAL",
@@ -1345,7 +801,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - BANHEIRO (BANHEIRO SOCIAL), 3 - BANHEIRO (BANHEIRO SUITE), 4 - SALA DE ESTAR (SALA DE ESTAR), 5 - ÁREA DE LAZER / BAR (GOURMET)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Assistência Técnica",
         "subtipo": "LEVANTAMENTO",
@@ -1361,39 +817,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 06/11/2026 das 16:17h às 00:00h",
-        "dataInicio": "2026-11-06",
-        "dataFim": "2026-11-06",
-        "dataInicioBr": "06/11/2026 16:17h",
-        "dataFimBr": "06/11/2026 00:00h",
-        "situacao": "Realizado",
-        "projeto": "852 - LUIS ANTONIO COLARINO - 15/08/26",
-        "cliente": "LUIS ANTONIO COLARINO",
-        "endereco": "AVENIDA PARANA, nº 615, CASA A2 - 03, CAJURU DO SUL, Sorocaba - SP, 18105-000",
-        "ambientes": "1 - DESPENSA (QUARTINHO)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "HEMERSON CONCEIÇÃO CLEMENTE",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 09/11/2026 07:00h até 25/11/2026 17:00h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-25",
-        "dataInicioBr": "09/11/2026 07:00h",
-        "dataFimBr": "25/11/2026 17:00h",
-        "situacao": "Agenda Confirmada",
-        "projeto": "806 - CELESTE DE MOURA BLANCO - 15/07/26",
-        "cliente": "CELESTE DE MOURA BLANCO",
-        "endereco": "RUA Rua João Torquato Ayres, nº 40, Jardim Gonçalves, Sorocaba - SP, 18016-615",
-        "ambientes": "4 - HOME THEATER (PAINEL SALA), 5 - Ambiente Complementar (CRISTALEIRA), 6 - BANHEIRO (BANHEIRO SOGRA), 7 - DORMITÓRIO - CASAL (SUITE MASTER), 8 - DORMITÓRIO - CASAL"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -1409,7 +833,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE SERVIÇO / LAVANDERIA (AREA DE SERVIÇO), 2 - COZINHA (COZINHA), 3 - DORMITÓRIO - CLOSET (CLOSET)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -1425,23 +849,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (BALCAO COZINHA), 2 - BANHEIRO (BANHEIRO), 3 - COZINHA (COZINHA), 4 - SALA DE ESTAR (PAINEL SALA), 5 - DORMITÓRIO - SOLTEIRO (ESCRITORIO), 6 -"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "JOSÉ ROBERTO PIOVENAZZI JUNIOR",
-        "tipo": "Assistência Técnica",
-        "subtipo": "MONTAGEM-AS",
-        "quando": "Dia 09/11/2026 das 09:51h às 10:51h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 09:51h",
-        "dataFimBr": "09/11/2026 10:51h",
-        "situacao": "Realizado",
-        "projeto": "173799",
-        "cliente": "AMANDA SAKAGUTHI FIGUEIREDO",
-        "endereco": "Rua Renato Chiozzotto, nº 156, Jardim Maria José, Votorantim - SP, 18110-698",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Assistência Técnica",
         "subtipo": "LEVANTAMENTO",
@@ -1457,23 +865,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "BRUNA PEREIRA",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 09/11/2026 das 10:37h às 11:37h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 10:37h",
-        "dataFimBr": "09/11/2026 11:37h",
-        "situacao": "Realizado",
-        "projeto": "934 - RODRIGO ALFEU DE SOUZA - 24/10/26",
-        "cliente": "RODRIGO ALFEU DE SOUZA",
-        "endereco": "RUA GUILHERME RUDGE, nº 278, VILA SAO GERALDO, SÃO PAULO - SP, 03608-010",
-        "ambientes": "1 - COZINHA (TORRE QUENTE), 2 - SALA DE ESTAR (PAINEL SALA), 3 - DORMITÓRIO - CASAL (CRIADOS), 5 - HOME OFFICE (ESCRITORIO SEM RIPADO)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -1489,7 +881,7 @@ window.DADOS_AGENDA = [
         "ambientes": "3 - COZINHA (COZINHA)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "LUCAS SALLUM NICOLETTI",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO TÉCNICA",
@@ -1505,7 +897,7 @@ window.DADOS_AGENDA = [
         "ambientes": "2 - DORMITÓRIO - CLOSET (CLOSET), 6 - COZINHA (COZINHA), 7 - BANHEIRO (BANHEIRO SUITE), 8 - BANHEIRO (BANHEIRO SOCIAL), 9"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -1521,71 +913,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA)"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 09/11/2026 das 11:41h às 12:41h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 11:41h",
-        "dataFimBr": "09/11/2026 12:41h",
-        "situacao": "Realizado",
-        "projeto": "458 - LUCAS VINICIUS COUTO DE OLIVEIRA - 29/12/25",
-        "cliente": "LUCAS VINICIUS COUTO DE OLIVEIRA",
-        "endereco": "RUA Rua José Gomes dos Santos, nº 182, Jardim Wanel Ville V, Sorocaba - SP, 18057-051",
-        "ambientes": "1 - COZINHA, 2 - LAVABO, 3 - SALA DE ESTAR, 4 - Itens Venda Avulsa (FORNO DE EMBUTIR)"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 09/11/2026 das 11:42h às 12:42h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 11:42h",
-        "dataFimBr": "09/11/2026 12:42h",
-        "situacao": "Atrasado",
-        "projeto": "752 - ANDRÉ ROBERTO ANTUNES - 26/09/26",
-        "cliente": "ANDRÉ ROBERTO ANTUNES",
-        "endereco": "Rua José Antonio Rodrigues, nº 32 R15, Jardim Terras de São Francisco, Sorocaba - SP, 18105-590",
-        "ambientes": "1 - SALA DE ESTAR"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 09/11/2026 das 11:44h às 12:44h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 11:44h",
-        "dataFimBr": "09/11/2026 12:44h",
-        "situacao": "Atrasado",
-        "projeto": "756 - JACIARI PEREIRA DA SILVA - 28/09/26",
-        "cliente": "JACIARI PEREIRA DA SILVA",
-        "endereco": "RUA JUAREZ FERREIRA, nº 686, PARQUE DAS LARANJEIRAS, Sorocaba - SP, 18077-362",
-        "ambientes": "1 - SALA DE ESTAR (PAINEL SALA)"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 09/11/2026 das 11:46h às 12:46h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 11:46h",
-        "dataFimBr": "09/11/2026 12:46h",
-        "situacao": "Atrasado",
-        "projeto": "750 - Juliana Fuschi Fidencio - 23/09/26",
-        "cliente": "Juliana Fuschi Fidencio",
-        "endereco": "Rua Manoel José de Oliveira, nº 999 L28, Jardim Residencial Villagio Ipanema I, Sorocaba - SP, 18073-351",
-        "ambientes": "1 - COZINHA (COMPLEMENTO COZINHA), 2 - ÁREA DE LAZER / BAR (COMPLEMENTO AREA GOURMET)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -1601,7 +929,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - BANHEIRO"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "GUSTAVO COSTA",
         "tipo": "Apresentação",
         "subtipo": "APRESENTAÇÃO",
@@ -1617,23 +945,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - ÁREA DE SERVIÇO / LAVANDERIA (LAVANDERIA), 3 - DORMITÓRIO - CASAL (DORMITÓRIO)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Assistência Técnica",
-        "subtipo": "COMPRA-AS",
-        "quando": "Dia 09/11/2026 das 15:26h às 16:26h",
-        "dataInicio": "2026-11-09",
-        "dataFim": "2026-11-09",
-        "dataInicioBr": "09/11/2026 15:26h",
-        "dataFimBr": "09/11/2026 16:26h",
-        "situacao": "Atrasado",
-        "projeto": "172290",
-        "cliente": "SOLARIS CONSTRUTORA E INCORPORADORA LTDA",
-        "endereco": "RUA ELIAS LOPES, nº 898, VILA GOMES, Sorocaba - SP, 18075-030",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ALBERTO AFFONSO NETO",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -1649,7 +961,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE SERVIÇO / LAVANDERIA (AREA DE SERVIÇO), 2 - COZINHA (COZINHA), 3 - DORMITÓRIO - CLOSET (CLOSET)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JOSÉ ROBERTO PIOVENAZZI JUNIOR",
         "tipo": "Assistência Técnica",
         "subtipo": "MONTAGEM-AS",
@@ -1665,7 +977,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -1681,23 +993,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO, 2 - COZINHA, 3 - DORMITÓRIO - CASAL, 4 - DORMITÓRIO - SOLTEIRO, 5 - SALA DE ESTAR"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "ELIAS CASTILHO GOMES",
-        "tipo": "Assistência Técnica",
-        "subtipo": "MONTAGEM-AS",
-        "quando": "Dia 10/11/2026 das 08:30h às 10:00h",
-        "dataInicio": "2026-11-10",
-        "dataFim": "2026-11-10",
-        "dataInicioBr": "10/11/2026 08:30h",
-        "dataFimBr": "10/11/2026 10:00h",
-        "situacao": "Realizado",
-        "projeto": "177074",
-        "cliente": "ANDERSON FERNANDO CAMPOS VICENCIO",
-        "endereco": "Rua Amador Guilherme, nº 190, Jardim Nova Capela, Capela Do Alto - SP, 18197-058",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -1713,7 +1009,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -1729,7 +1025,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (cozinha - escrivaninha - quarto office)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "GUILHERME MONTE VAZ",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -1745,23 +1041,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO, 2 - COZINHA, 3 - DORMITÓRIO - CASAL, 4 - DORMITÓRIO - SOLTEIRO, 5 - SALA DE ESTAR"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "MURILO SALLUM",
-        "tipo": "Medição",
-        "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
-        "quando": "Dia 10/11/2026 das 12:00h às 13:00h",
-        "dataInicio": "2026-11-10",
-        "dataFim": "2026-11-10",
-        "dataInicioBr": "10/11/2026 12:00h",
-        "dataFimBr": "10/11/2026 13:00h",
-        "situacao": "Atrasado",
-        "projeto": "532 - CRISTIANE DE LIMA REIS DIAS - 05/03/26",
-        "cliente": "CRISTIANE DE LIMA REIS DIAS",
-        "endereco": "AVENIDA TRES DE MARCO, nº 1435, APARECIDA, Sorocaba - SP, 18087-180",
-        "ambientes": "1 - COZINHA, 2 - DORMITÓRIO - CASAL, 3 - DORMITÓRIO - SOLTEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ELIAS CASTILHO GOMES",
         "tipo": "Assistência Técnica",
         "subtipo": "VISTORIA",
@@ -1777,7 +1057,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -1793,23 +1073,7 @@ window.DADOS_AGENDA = [
         "ambientes": "2 - SALA DE ESTAR (SALA DE ESTAR), 7 - COZINHA (COZINHA SEM PRATELEIRA), 8 - HOME OFFICE (ESCRITÓRIO SEM BASE E SEM MUXARABI)"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "WILLIAN SAMUEL DE ALMEIDA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 10/11/2026 das 15:25h às 16:25h",
-        "dataInicio": "2026-11-10",
-        "dataFim": "2026-11-10",
-        "dataInicioBr": "10/11/2026 15:25h",
-        "dataFimBr": "10/11/2026 16:25h",
-        "situacao": "Realizado",
-        "projeto": "746 - Venda Avulsa - BRUNO FERNANDEZ RODRIGUES DA S",
-        "cliente": "BRUNO FERNANDEZ RODRIGUES DA SILVA",
-        "endereco": "Rua Manoel José de Oliveira, nº 999 QI L16, Jardim Residencial Villagio Ipanema I, Sorocaba -",
-        "ambientes": "1 - Itens Venda Avulsa (MESA DE JANTAR MH-5453), 2 - Itens Venda Avulsa (CADEIRA MH-3314)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "SAMUEL MASTROCINQUE DE ALMEIDA ROCMontagem /",
         "tipo": "MONTAGEM",
         "subtipo": "",
@@ -1825,71 +1089,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (BANQUETA ZAKI- 3936)"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "JÉSSICA SANTOS RODRIGUES",
-        "tipo": "Compromisso",
-        "subtipo": "ASSINATURA PASTA E",
-        "quando": "Dia 10/11/2026 das 17:29h às 18:29h",
-        "dataInicio": "2026-11-10",
-        "dataFim": "2026-11-10",
-        "dataInicioBr": "10/11/2026 17:29h",
-        "dataFimBr": "10/11/2026 18:29h",
-        "situacao": "Atrasado",
-        "projeto": "925 - RENATO MOREIRA DA SILVA - 08/10/26",
-        "cliente": "RENATO MOREIRA DA SILVA",
-        "endereco": "DR SUZANO BRANDÃO, nº 846 AP 136, ARICANDUVA, SÃO PAULO - SP, 03502-000",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - CHURRASQUEIRA (CHURRASQUEIRA), 3 - BANHEIRO (BANHEIRO SOCIAL), 4 - BANHEIRO (BANHEIRO SUITE)"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Medição",
-        "subtipo": "REVISÃO DE MEDIDAS",
-        "quando": "Dia 11/11/2026 das 09:00h às 10:30h",
-        "dataInicio": "2026-11-11",
-        "dataFim": "2026-11-11",
-        "dataInicioBr": "11/11/2026 09:00h",
-        "dataFimBr": "11/11/2026 10:30h",
-        "situacao": "Atrasado",
-        "projeto": "939 - FELIPE DA CUNHA ALVES - 28/10/26",
-        "cliente": "FELIPE DA CUNHA ALVES",
-        "endereco": "Rua Heloísa Oliveira Evangelista, nº 160, apto 72 B, Parque Campolim, Sorocaba - SP, 18048-123",
-        "ambientes": "1 - COZINHA (COZINHA JARDIM 1), 2 - COZINHA (COZINHA JARDIM 2), 3 - CHURRASQUEIRA (CHURRASQUEIRA JARDIM 1), 4 -"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "EDIVALDO DE OLIVEIRA CASTILHO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 11/11/2026 10:00h até 13/11/2026 17:00h",
-        "dataInicio": "2026-11-11",
-        "dataFim": "2026-11-13",
-        "dataInicioBr": "11/11/2026 10:00h",
-        "dataFimBr": "13/11/2026 17:00h",
-        "situacao": "Atrasado",
-        "projeto": "2671 - ELVIRA TERESA LIZIER SANCHES - 20/07/26",
-        "cliente": "ELVIRA TERESA LIZIER SANCHES",
-        "endereco": "AVENIDA Avenida Elias Maluf, nº 2695, Wanel Ville, Sorocaba - SP, 18055-215",
-        "ambientes": "1 - COZINHA"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 11/11/2026 10:00h até 17/11/2026 10:00h",
-        "dataInicio": "2026-11-11",
-        "dataFim": "2026-11-17",
-        "dataInicioBr": "11/11/2026 10:00h",
-        "dataFimBr": "17/11/2026 10:00h",
-        "situacao": "Realizado",
-        "projeto": "2643 - IVETE ALVES DOS SANTOS MENDONÇA - 06/07/26",
-        "cliente": "IVETE ALVES DOS SANTOS MENDONÇA",
-        "endereco": "RUA VINTE E SETE, nº 48, WANEL VILLE II, Sorocaba - SP, 18055-097",
-        "ambientes": "1 - COZINHA (COZINHA)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ELIAS CASTILHO GOMES",
         "tipo": "Assistência Técnica",
         "subtipo": "VISITA TÉCNICA",
@@ -1905,8 +1105,8 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "RENATO ANTONIO DE CAMARGO JUNIOR",
+        "loja": "GRUPO CAST",
+        "responsavel": "EDIVALDO DE OLIVEIRA CASTILHO",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
         "quando": "De 11/11/2026 10:00h até 13/11/2026 17:00h",
@@ -1914,14 +1114,30 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-13",
         "dataInicioBr": "11/11/2026 10:00h",
         "dataFimBr": "13/11/2026 17:00h",
-        "situacao": "Atrasado",
-        "projeto": "806 - CELESTE DE MOURA BLANCO - 15/07/26",
-        "cliente": "CELESTE DE MOURA BLANCO",
-        "endereco": "RUA Rua João Torquato Ayres, nº 40, Jardim Gonçalves, Sorocaba - SP, 18016-615",
-        "ambientes": "1 - COZINHA (COZINHA), 2 - CHURRASQUEIRA (AREA GOURMET)"
+        "situacao": "Realizado",
+        "projeto": "2671 - ELVIRA TERESA LIZIER SANCHES - 20/07/26",
+        "cliente": "ELVIRA TERESA LIZIER SANCHES",
+        "endereco": "AVENIDA Avenida Elias Maluf, nº 2695, Wanel Ville, Sorocaba - SP, 18055-215",
+        "ambientes": "1 - COZINHA"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
+        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
+        "tipo": "Montagem",
+        "subtipo": "MONTAGEM",
+        "quando": "De 11/11/2026 10:00h até 17/11/2026 10:00h",
+        "dataInicio": "2026-11-11",
+        "dataFim": "2026-11-17",
+        "dataInicioBr": "11/11/2026 10:00h",
+        "dataFimBr": "17/11/2026 10:00h",
+        "situacao": "Realizado",
+        "projeto": "2643 - IVETE ALVES DOS SANTOS MENDONÇA - 06/07/26",
+        "cliente": "IVETE ALVES DOS SANTOS MENDONÇA",
+        "endereco": "RUA VINTE E SETE, nº 48, WANEL VILLE II, Sorocaba - SP, 18055-097",
+        "ambientes": "1 - COZINHA (COZINHA)"
+    },
+    {
+        "loja": "GRUPO CAST",
         "responsavel": "LUCAS MARTINS DE OLIVEIRA S SABINO FILCompromisso /",
         "tipo": "ENTREGA TÉCNICA",
         "subtipo": "",
@@ -1937,71 +1153,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - DORMITÓRIO - CLOSET (CLOSET), 3 - BANHEIRO (BANHEIRO SOCIAL), 4 - BANHEIRO (BANHEIRO"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "CAMILLY CAROLINE D SILVA",
-        "tipo": "Assistência Técnica",
-        "subtipo": "COMPRA-AS",
-        "quando": "Dia 11/11/2026 das 15:26h às 16:26h",
-        "dataInicio": "2026-11-11",
-        "dataFim": "2026-11-11",
-        "dataInicioBr": "11/11/2026 15:26h",
-        "dataFimBr": "11/11/2026 16:26h",
-        "situacao": "Atrasado",
-        "projeto": "177337",
-        "cliente": "DAVID SMITH TOMAZ",
-        "endereco": "Rua Affonso Celso Dias, nº 300, Jardim São Carlos, Sorocaba - SP, 18046-376",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "BRUNA PEREIRA",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO",
-        "quando": "Dia 11/11/2026 das 16:30h às 17:30h",
-        "dataInicio": "2026-11-11",
-        "dataFim": "2026-11-11",
-        "dataInicioBr": "11/11/2026 16:30h",
-        "dataFimBr": "11/11/2026 17:30h",
-        "situacao": "Atrasado",
-        "projeto": "637 - NANI BASILIO DA SILVA - 26/06/26",
-        "cliente": "NANI BASILIO DA SILVA",
-        "endereco": "ESTRADA DO DINORAH, nº 888, BL A APTO 23, LOTEAMENTO DINORA ROSA, Sorocaba - SP, 18071-036",
-        "ambientes": "1 - BANHEIRO"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "ARIANE PEDROSO PRADOS",
-        "tipo": "Compromisso",
-        "subtipo": "LIBERAÇÃO DE OBRA",
-        "quando": "Dia 11/11/2026 das 18:22h às 19:22h",
-        "dataInicio": "2026-11-11",
-        "dataFim": "2026-11-11",
-        "dataInicioBr": "11/11/2026 18:22h",
-        "dataFimBr": "11/11/2026 19:22h",
-        "situacao": "Atrasado",
-        "projeto": "250 - ARTHUR AMORIM ARTIAGA - 27/06/25",
-        "cliente": "ARTHUR AMORIM ARTIAGA",
-        "endereco": "RUA ELIAS RODRIGUES CLARO, nº 430, AP61, JARDIM SÃO CARLOS, Sorocaba - SP, 18046-390",
-        "ambientes": "1 - COZINHA, 2 - DORMITÓRIO - CASAL, 3 - HOME OFFICE (H OFFICE ARTHUR), 4 - BANHEIRO (BANHO CASAL), 5 - BANHEIRO (SOCIAL), 6 - HOME OFFICE (H OFFICE MAYARA)"
-    },
-    {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "JOSÉ ROBERTO PIOVENAZZI JUNIOR",
-        "tipo": "Assistência Técnica",
-        "subtipo": "MONTAGEM-AS",
-        "quando": "Dia 12/11/2026 das 08:09h às 09:09h",
-        "dataInicio": "2026-11-12",
-        "dataFim": "2026-11-12",
-        "dataInicioBr": "12/11/2026 08:09h",
-        "dataFimBr": "12/11/2026 09:09h",
-        "situacao": "Realizado",
-        "projeto": "177385",
-        "cliente": "NELSON CARLOS LIZO DE GUSMÃO",
-        "endereco": "RUA Rua Atanázio Soares - de 2751/2752 a 3899/3900, nº 37555, Jardim Maria Eugênia, Sorocaba -",
-        "ambientes": ""
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -2017,7 +1169,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO (banheiro), 2 - COZINHA (cozinha), 3 - DORMITÓRIO - CASAL (casal)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -2033,7 +1185,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Ambiente Complementar (MESA DE TRABALHO)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -2049,7 +1201,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (CADEIRA STELA C/TELINHA), 2 - Itens Venda Avulsa (MESA SUMMER TAMPO PADRAO CINAMOMO)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -2065,7 +1217,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - Itens Venda Avulsa (CADEIRA MH-3314), 2 - Itens Venda Avulsa (ESTOFADO OTTO)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO FINAL",
@@ -2081,7 +1233,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (cozinha), 2 - DORMITÓRIO - SOLTEIRO (dormitorio filha)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -2097,7 +1249,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE SERVIÇO / LAVANDERIA (LAVANDERIA), 2 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL MARFIM)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -2113,7 +1265,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE LAZER / BAR (GOURMET), 2 - COZINHA (COZINHA), 3 - SALA DE ESTAR (SALA DE ESTAR)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "GUILHERME MONTE VAZ",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -2129,23 +1281,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE SERVIÇO / LAVANDERIA (LAVANDERIA), 2 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL MARFIM)"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "JÉSSICA SANTOS RODRIGUES",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO",
-        "quando": "Dia 16/11/2026 das 08:00h às 09:30h",
-        "dataInicio": "2026-11-16",
-        "dataFim": "2026-11-16",
-        "dataInicioBr": "16/11/2026 08:00h",
-        "dataFimBr": "16/11/2026 09:30h",
-        "situacao": "Atrasado",
-        "projeto": "532 - CRISTIANE DE LIMA REIS DIAS - 05/03/26",
-        "cliente": "CRISTIANE DE LIMA REIS DIAS",
-        "endereco": "AVENIDA TRES DE MARCO, nº 1435, APARECIDA, Sorocaba - SP, 18087-180",
-        "ambientes": "1 - COZINHA, 2 - DORMITÓRIO - CASAL, 3 - DORMITÓRIO - SOLTEIRO"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO TÉCNICA",
@@ -2161,23 +1297,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - BANHEIRO (BANHEIRO SOCIAL), 3 - BANHEIRO"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "WILLIAN SAMUEL DE ALMEIDA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 16/11/2026 das 08:34h às 12:34h",
-        "dataInicio": "2026-11-16",
-        "dataFim": "2026-11-16",
-        "dataInicioBr": "16/11/2026 08:34h",
-        "dataFimBr": "16/11/2026 12:34h",
-        "situacao": "Atrasado",
-        "projeto": "853 - WANDRE OLIVEIRA - 15/08/26",
-        "cliente": "WANDRE NAHUM DE OLIVEIRA",
-        "endereco": "Rua Francisco Carlos Corrêa, nº 75, Residencial Horto Florestal Villagio, Sorocaba - SP, 18074-724",
-        "ambientes": "1 - COZINHA, 2 - Itens Venda Avulsa (COOKTOP ITATIAIA ESSENCIAL 4 BOCAS COR P)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "RODRIGO DE OLIVEIRA VAZ",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -2193,7 +1313,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - ÁREA DE LAZER / BAR (GOURMET), 2 - COZINHA (COZINHA), 3 - SALA DE ESTAR (SALA DE ESTAR)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
         "tipo": "Entrega",
         "subtipo": "ENTREGA",
@@ -2209,7 +1329,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - BANHEIRO, 4 - DORMITÓRIO - SOLTEIRO, 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -2225,23 +1345,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA, 2 - CHURRASQUEIRA, 3 - SALA DE ESTAR, 4 - DORMITÓRIO - SOLTEIRO (DORMITÓRIO FILHOS), 5 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL), 6 - BANHEIRO (BANHEIRO CASAL), 7 -"
     },
     {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "ALBERTO AFFONSO NETO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "Dia 16/11/2026 das 17:51h às 18:51h",
-        "dataInicio": "2026-11-16",
-        "dataFim": "2026-11-16",
-        "dataInicioBr": "16/11/2026 17:51h",
-        "dataFimBr": "16/11/2026 18:51h",
-        "situacao": "Atrasado",
-        "projeto": "853 - WANDRE OLIVEIRA - 15/08/26",
-        "cliente": "WANDRE NAHUM DE OLIVEIRA",
-        "endereco": "Rua Francisco Carlos Corrêa, nº 75, Residencial Horto Florestal Villagio, Sorocaba - SP, 18074-724",
-        "ambientes": "1 - COZINHA, 2 - Itens Venda Avulsa (COOKTOP ITATIAIA ESSENCIAL 4 BOCAS COR P)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "ELIAS CASTILHO GOMES",
         "tipo": "Assistência Técnica",
         "subtipo": "MONTAGEM-AS",
@@ -2257,23 +1361,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "Dia 17/11/2026 das 10:00h às 11:00h",
-        "dataInicio": "2026-11-17",
-        "dataFim": "2026-11-17",
-        "dataInicioBr": "17/11/2026 10:00h",
-        "dataFimBr": "17/11/2026 11:00h",
-        "situacao": "Atrasado",
-        "projeto": "2059 - AMANDA MENEGHEL CODOGNOTO DE ALMEIDA - 10",
-        "cliente": "AMANDA MENEGHEL CODOGNOTO DE ALMEIDA",
-        "endereco": "RUA Rua Ritinha Tavares, nº 140, APTO 94 BLOCO B, Vila Angélica, Sorocaba - SP, 18065-425",
-        "ambientes": "1 - COZINHA, 2 - BANHEIRO, 4 - DORMITÓRIO - SOLTEIRO, 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JESSICA SANTOS RODRIGUES",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -2289,7 +1377,7 @@ window.DADOS_AGENDA = [
         "ambientes": "2 - COZINHA"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Compromisso",
         "subtipo": "ASSINATURA DA PAST",
@@ -2305,23 +1393,23 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA), 2 - BANHEIRO (BANHEIRO SOCIAL), 3 - BANHEIRO (BANHEIRO SUITE), 4 - SALA DE ESTAR (SALA DE ESTAR), 5 - ÁREA DE"
     },
     {
-        "loja": "CAST MOVEIS II",
-        "responsavel": "WILLIAN SAMUEL DE ALMEIDA",
-        "tipo": "Entrega",
-        "subtipo": "ENTREGA",
-        "quando": "Dia 17/11/2026 das 10:41h às 11:41h",
+        "loja": "GRUPO CAST",
+        "responsavel": "JOSUÉ LUIZ DOS SANTOS FILHO",
+        "tipo": "Montagem",
+        "subtipo": "MONTAGEM",
+        "quando": "Dia 17/11/2026 das 10:00h às 11:00h",
         "dataInicio": "2026-11-17",
         "dataFim": "2026-11-17",
-        "dataInicioBr": "17/11/2026 10:41h",
-        "dataFimBr": "17/11/2026 11:41h",
+        "dataInicioBr": "17/11/2026 10:00h",
+        "dataFimBr": "17/11/2026 11:00h",
         "situacao": "Atrasado",
-        "projeto": "822 - Venda Avulsa - CONSTRUTORA PONTELLI E CASTILHO",
-        "cliente": "CONSTRUTORA PONTELLI E CASTILHO",
-        "endereco": "AVENIDA DOUTOR AFONSO VERGUEIRO, nº 2705, VILA CASANOVA, Sorocaba - SP, 18040-000",
-        "ambientes": "1 - Itens Venda Avulsa (MESA DUETTO COM VIDRO), 2 - Itens Venda Avulsa (CADEIRA NOAH- ENCOSTO ESTOFADO), 3 - Itens Venda Avulsa (SOFÁ SOFT), 4 - Itens"
+        "projeto": "2059 - AMANDA MENEGHEL CODOGNOTO DE ALMEIDA - 10",
+        "cliente": "AMANDA MENEGHEL CODOGNOTO DE ALMEIDA",
+        "endereco": "RUA Rua Ritinha Tavares, nº 140, APTO 94 BLOCO B, Vila Angélica, Sorocaba - SP, 18065-425",
+        "ambientes": "1 - COZINHA, 2 - BANHEIRO, 4 - DORMITÓRIO - SOLTEIRO, 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -2337,7 +1425,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - DORMITÓRIO - CASAL (DORMITÓRIO CASAL), 2 - DORMITÓRIO - SOLTEIRO (DORMITÓRIO SOLTEIRO)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Compromisso",
         "subtipo": "PÓS-VENDA",
@@ -2353,7 +1441,7 @@ window.DADOS_AGENDA = [
         "ambientes": ""
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "MURILO SALLUM",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -2369,7 +1457,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (cozinha), 4 - SALA DE ESTAR (home), 5 - Itens Venda Avulsa (COOKTOP 4 BOCAS), 6 - Itens Venda Avulsa (FORNO DE EMBUTIR)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Medição",
         "subtipo": "LIBERAÇÃO DE MEDIÇÃO",
@@ -2385,7 +1473,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (cozinha), 4 - SALA DE ESTAR (home)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "JESSICA SANTOS RODRIGUES",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO FINAL",
@@ -2394,14 +1482,30 @@ window.DADOS_AGENDA = [
         "dataFim": "2026-11-17",
         "dataInicioBr": "17/11/2026 18:00h",
         "dataFimBr": "17/11/2026 19:00h",
-        "situacao": "Agenda Confirmada",
+        "situacao": "Atrasado",
         "projeto": "2320 - LUCAS MENDES - 28/01/26",
         "cliente": "LUCAS MENDES",
         "endereco": "RUA ISALTINO GUANABARA RODRIGUES COSTA, nº 303, VILA BARAO, Sorocaba - SP, 18065-480",
         "ambientes": "1 - COZINHA"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
+        "responsavel": "ALBERTO AFFONSO NETO",
+        "tipo": "Montagem",
+        "subtipo": "MONTAGEM",
+        "quando": "Dia 17/11/2026 das 18:10h às 19:10h",
+        "dataInicio": "2026-11-17",
+        "dataFim": "2026-11-17",
+        "dataInicioBr": "17/11/2026 18:10h",
+        "dataFimBr": "17/11/2026 19:10h",
+        "situacao": "Atrasado",
+        "projeto": "2093 - GABRIELA DA SILVA MACHADO - 24/10/25",
+        "cliente": "GABRIELA DA SILVA MACHADO",
+        "endereco": "RUA Rua Seraphim Banietti, nº 216, Caguassu, Sorocaba - SP, 18072-856",
+        "ambientes": "1 - COZINHA, 2 - BANHEIRO, 3 - DORMITÓRIO - CASAL, 4 - DORMITÓRIO - SOLTEIRO, 5 - Itens Venda Avulsa (DEPURADOR DE AR 60 CM)"
+    },
+    {
+        "loja": "GRUPO CAST",
         "responsavel": "GUSTAVO COSTA",
         "tipo": "Apresentação",
         "subtipo": "APRESENTAÇÃO",
@@ -2417,7 +1521,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (COZINHA)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "BRUNA PEREIRA",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO FINAL",
@@ -2433,7 +1537,7 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - COZINHA (cozinha)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
         "responsavel": "EDIVALDO DE OLIVEIRA CASTILHO",
         "tipo": "Montagem",
         "subtipo": "MONTAGEM",
@@ -2449,7 +1553,23 @@ window.DADOS_AGENDA = [
         "ambientes": "1 - BANHEIRO (banheiro), 2 - COZINHA (cozinha), 3 - DORMITÓRIO - CASAL (casal)"
     },
     {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
+        "loja": "GRUPO CAST",
+        "responsavel": "WILLIAN SAMUEL DE ALMEIDA(1)",
+        "tipo": "Entrega",
+        "subtipo": "ENTREGA",
+        "quando": "Dia 18/11/2026 das 11:42h às 14:42h",
+        "dataInicio": "2026-11-18",
+        "dataFim": "2026-11-18",
+        "dataInicioBr": "18/11/2026 11:42h",
+        "dataFimBr": "18/11/2026 14:42h",
+        "situacao": "Realizado",
+        "projeto": "2668 - ROSANA JOVALENTE MELO DE MOURA - 18/07/26",
+        "cliente": "ROSANA JOVALENTE MELO DE MOURA",
+        "endereco": "Rua Antonio Cintra Gordinho, nº 250, Cintra Gordinho, Araçariguama - SP, 18149-502",
+        "ambientes": "1 - DORMITÓRIO - CASAL (DORMITORIO ROSANA)"
+    },
+    {
+        "loja": "GRUPO CAST",
         "responsavel": "JENNIFER SCARLET OLIVEIRA LOMBARDI",
         "tipo": "Medição",
         "subtipo": "MEDIÇÃO FINAL",
@@ -2463,37 +1583,5 @@ window.DADOS_AGENDA = [
         "cliente": "BRUNA FERREIRA DA SILVA",
         "endereco": "Rua Milão, nº 205, Villa Bella de Votorantim, Votorantim - SP, 18117-764",
         "ambientes": "4 - COZINHA (COZINHA)"
-    },
-    {
-        "loja": "CAST MOVEIS PLANEJADOS E DECORACOES LTDA",
-        "responsavel": "ALBERTO AFFONSO NETO",
-        "tipo": "Montagem",
-        "subtipo": "MONTAGEM",
-        "quando": "De 23/11/2026 10:00h até 30/11/2026 17:00h",
-        "dataInicio": "2026-11-23",
-        "dataFim": "2026-11-30",
-        "dataInicioBr": "23/11/2026 10:00h",
-        "dataFimBr": "30/11/2026 17:00h",
-        "situacao": "Agenda Confirmada",
-        "projeto": "2655 - ANDERSON VITORINO DE OLIVEIRA - 11/07/26",
-        "cliente": "ANDERSON VITORINO DE OLIVEIRA",
-        "endereco": "Rua das Paineiras, nº 207, Vossoroca, Votorantim - SP, 18119-376",
-        "ambientes": "1 - BANHEIRO (BANHO ANDERSOL E PRISCILA), 2 - BANHEIRO (BANHEIRO MATHEUS), 3 - DORMITÓRIO - CLOSET (CLOSET ANDERSON E PRISCILA), 4 - DORMITÓRIO - CLOSET (CLOSET MATHEUS), 5 -"
-    },
-    {
-        "loja": "CAST SELECT MOVEIS PLANEJADOS",
-        "responsavel": "LUCAS SALLUM NICOLETTI",
-        "tipo": "Medição",
-        "subtipo": "MEDIÇÃO",
-        "quando": "Dia 25/11/2026 das 14:00h às 16:00h",
-        "dataInicio": "2026-11-25",
-        "dataFim": "2026-11-25",
-        "dataInicioBr": "25/11/2026 14:00h",
-        "dataFimBr": "25/11/2026 16:00h",
-        "situacao": "Agenda Confirmada",
-        "projeto": "540 - Kerolin da Silva - Solar da Ilha",
-        "cliente": "Kerolin da Silva",
-        "endereco": "RUA ANALIA PEREIRA, nº 1200, SOLAR DA ILHA - BL7, AP502, VILA PEDROSO, Votorantim - SP, 18117-670",
-        "ambientes": "1 - BANHEIRO, 2 - COZINHA, 3 - HOME THEATER, 4 - DECORAÇÃO (CRISTALEIRA), 5 - DORMITÓRIO - CASAL, 6 - Itens Venda Avulsa (COOKTOP 4 BOCAS), 7 - Itens Venda Avulsa (FORNO DE"
     }
 ];
